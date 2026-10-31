@@ -1,0 +1,5 @@
+# real names this build removes: never commit
+tools/*.local.json
+node_modules/
+.DS_Store
+crm/_build/

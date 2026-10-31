@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hanbit Kang · Tools</title>
+<meta name="description" content="Sales and operations tools I built for a contract manufacturer (demos on synthetic data), and live New Zealand pharmaceutical market tools on public data.">
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#16181d;--muted:#5d636e;--line:#e4e2dc;--accent:#4f46e5;--accent-soft:#eef0ff;--ok:#15803d;--mono:ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121317;--card:#1b1d23;--ink:#eceef2;--muted:#9aa1ad;--line:#2b2e36;--accent:#8b85ff;--accent-soft:#25264a;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#121317;--card:#1b1d23;--ink:#eceef2;--muted:#9aa1ad;--line:#2b2e36;--accent:#8b85ff;--accent-soft:#25264a;--ok:#4ade80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+main{max-width:960px;margin:0 auto;padding:56px 16px 80px}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:12px 0 12px;letter-spacing:-.02em}
+.lede{color:var(--muted);max-width:640px;margin:0}
+h2{font-size:20px;margin:48px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:500 11.5px/1 var(--mono);padding:5px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.status{font:600 12px/1 var(--mono);color:var(--ok)}
+.status.soon{color:var(--muted)}
+.btn{align-self:flex-start;margin-top:6px;text-decoration:none;background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:9px;font-weight:600;font-size:14px}
+.btn[aria-disabled="true"]{background:var(--line);color:var(--muted);pointer-events:none}
+ul.feat{margin:4px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.how{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;overflow-x:auto}
+.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.flow div{flex:1 1 150px;border:1px dashed var(--line);border-radius:10px;padding:12px;font-size:14px}
+.flow b{display:block;font:600 12px/1.4 var(--mono);color:var(--accent);margin-bottom:4px}
+.note{font-size:14px;color:var(--muted);margin-top:14px}
+footer{margin-top:56px;font-size:13px;color:var(--muted)}
+code{font-family:var(--mono);font-size:.9em}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Portfolio · tools</div>
+  <h1>Tools I built and run</h1>
+  <p class="lede">Two sets of tools. The first is what my sales team at a dietary-supplement contract manufacturer uses every day for quoting, margin tracking and customer management, rebuilt here as working demos on synthetic data. The second is a set of New Zealand pharmaceutical market tools that run live on public PHARMAC, PBS, Medsafe and FDA data.</p>
+
+  <h2>Sales &amp; operations tools · demos</h2>
+  <div class="grid">
+    <article class="card" id="pricing">
+      <span class="status">● Live demo</span>
+      <h3>Pricing Tool</h3>
+      <p>Six-step quote calculator for contract manufacturing: BOM auto-fill, landed raw-material cost with FX, Incoterms, freight and customs, packaging, processing price tiers, and a margin table.</p>
+      <ul class="feat">
+        <li>Saved quote library with review status</li>
+        <li>GM analysis: factory cost vs selling price by product and client</li>
+        <li>Price finder: procurement history, similar items in the DB, AI estimate</li>
+        <li>Ingredient sourcing check, data upload, classification</li>
+      </ul>
+      <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Vanilla JS</span><span class="tag">Gemini API</span></div>
+      <a class="btn" href="pricing/">Open the Pricing Tool</a>
+    </article>
+    <article class="card" id="crm">
+      <span class="status">● Live demo</span>
+      <h3>CRM</h3>
+      <p>The sales team's CRM: clients and reorders, a deal pipeline with AI Q&amp;A, the weekly sales meeting, production line loading, delivery-delay reviews and an outreach toolkit.</p>
+      <ul class="feat">
+        <li>Clients: tiers, account managers, reorder follow-up, credit</li>
+        <li>Pipeline: kanban, funnel, stall reasons, AI questions on the pipeline</li>
+        <li>Production: line gap warnings and new orders vs capacity from one weekly upload</li>
+        <li>Delays: why late orders were late, stage by stage, on a SQL database</li>
+      </ul>
+      <div class="tags"><span class="tag">Cloudflare Workers</span><span class="tag">KV</span><span class="tag">D1 (SQLite)</span><span class="tag">Cloudflare Access</span><span class="tag">Gemini API</span></div>
+      <a class="btn" href="crm/">Open the CRM</a>
+    </article>
+    <article class="card" id="rd-toolkit">
+      <span class="status">● Live demo</span>
+      <h3>R&amp;D Toolkit</h3>
+      <p>Product search over existing formulations with their BOM, an AI upgrade review of a formula, and AI ingredient and packaging recommendations from a customer brief, chosen only from the company's own ingredient database.</p>
+      <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Gemini API</span></div>
+      <a class="btn" href="rd/">Open the R&amp;D Toolkit</a>
+    </article>
+  </div>
+
+  <h2>How the demos work</h2>
+  <div class="how">
+    <div class="flow">
+      <div><b>1 · Real front end</b>The same HTML and JavaScript the team uses, with company names removed.</div>
+      <div><b>2 · Real back end</b>The Apps Script server code runs unchanged in your browser.</div>
+      <div><b>3 · Emulators</b>Apps Script tools: a stand-in for Sheets, Properties, UrlFetch and <code>google.script.run</code>. CRM: the real Worker runs in your browser with KV, a SQLite database for D1 and a signed sign-in token for Cloudflare Access.</div>
+      <div><b>4 · Synthetic data</b>Invented ingredients, prices, clients and sales. Your changes stay in your browser.</div>
+    </div>
+    <p class="note">No server and no sign-in. AI features return fixed demo answers instead of calling Gemini. Use the Reset button on any page to restore the original demo data.</p>
+  </div>
+
+  <h2>NZ pharmaceutical market tools · live</h2>
+  <div class="grid">
+    <article class="card" id="pharmac-tracker">
+      <span class="status">● Live · public data</span>
+      <h3>PHARMAC Tracker</h3>
+      <p>Look up what PHARMAC funds, what is being delisted, supply issues, the funding-application queue, Medsafe registration, and medicines funded in Australia but not in New Zealand.</p>
+      <ul class="feat">
+        <li>Weekly refresh from the PHARMAC Schedule; saved copies keep tabs filled when a source is down</li>
+        <li>Supplier view: tender awards and sole-supply periods by company</li>
+        <li>Read-only API that also serves NZ BD Compass</li>
+      </ul>
+      <div class="tags"><span class="tag">Node / Express</span><span class="tag">React</span><span class="tag">Playwright</span><span class="tag">GitHub Actions</span></div>
+      <a class="btn" href="https://pharmac-tracker.onrender.com" target="_blank" rel="noopener">Open PHARMAC Tracker</a>
+    </article>
+    <article class="card" id="nz-bd-compass">
+      <span class="status">● Live · public data</span>
+      <h3>NZ BD Compass</h3>
+      <p>Business-development analysis on top of PHARMAC Tracker: medicines funded in Australia but not New Zealand, and sole-supply contracts coming up for re-tender.</p>
+      <ul class="feat">
+        <li>In-licensing gaps sorted into tracks by how much is known about each medicine</li>
+        <li>Tender clock: sole-supply expiries by year and who holds them</li>
+        <li>Every summary count adds up to its total</li>
+      </ul>
+      <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Static site</span></div>
+      <a class="btn" href="https://nz-bd-compass.onrender.com" target="_blank" rel="noopener">Open NZ BD Compass</a>
+    </article>
+    <article class="card" id="pharma-intel">
+      <span class="status">● Live · public data</span>
+      <h3>Pharma Intel</h3>
+      <p>Global pharmaceutical market dashboard: drug profiles across therapeutic sectors, company revenue, and FDA label data, with a news and trial feed.</p>
+      <ul class="feat">
+        <li>Drug profiles collected from OpenFDA, checked against a company whitelist</li>
+        <li>Saved copies served when an outside source fails</li>
+      </ul>
+      <div class="tags"><span class="tag">Node / Express</span><span class="tag">React</span><span class="tag">OpenFDA</span><span class="tag">Gemini API</span></div>
+      <a class="btn" href="https://pharma-intel.onrender.com" target="_blank" rel="noopener">Open Pharma Intel</a>
+    </article>
+  </div>
+
+  <footer>Hanbit Kang · Auckland, New Zealand · Demo data is synthetic. The live tools use public data only.</footer>
+</main>
+</body>
+</html>

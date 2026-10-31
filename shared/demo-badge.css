@@ -1,0 +1,8 @@
+/* Floating "demo" notice shown on every page of the portfolio */
+.demo-badge{position:fixed;right:16px;bottom:72px;z-index:2147483000;display:flex;align-items:center;gap:8px;
+  padding:6px 8px 6px 12px;border-radius:999px;background:#1f2937;color:#f9fafb;font:500 12px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-shadow:0 6px 20px rgba(0,0,0,.18);max-width:calc(100vw - 32px)}
+.demo-badge b{font-weight:700;letter-spacing:.04em}
+.demo-badge a,.demo-badge button{all:unset;cursor:pointer;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.12);color:inherit}
+.demo-badge a:hover,.demo-badge button:hover{background:rgba(255,255,255,.24)}
+@media (max-width:520px){.demo-badge .demo-badge__text{display:none}}

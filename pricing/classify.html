@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>Classification · Demo</title>
+<!-- demo runtime: GAS emulator + synthetic data (see README) -->
+<script>window.DEMO_TODAY = '2026-10-29';</script>
+<script src="../shared/demo-clock.js"></script>
+<script>window.GAS_DEMO_KEY = 'pricing-demo'; try { sessionStorage.setItem('pricingAuth', '1'); } catch (e) {} /* demo: skip the old password gate */</script>
+<script src="../shared/gas-emulator.js"></script>
+<script src="seed.js"></script>
+<script src="mocks.js"></script>
+<script src="code.js"></script>
+<link rel="stylesheet" href="../shared/demo-badge.css">
+
+  <base target="_top">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg:#f4f4f2; --surface:#fff; --surface-2:#fafaf8; --surface-3:#f1f1ee;
+  --border:#e7e6e1; --border-2:#dad9d3;
+  --ink:#1b1b19; --ink-soft:#3a3a37; --muted:#76756d; --faint:#a4a39b;
+  --accent:#4f46e5; --accent-press:#4338ca; --accent-soft:#eef0fe;
+  --ok:#15803d; --ok-bg:#e7f6ec; --warn:#92600a; --warn-bg:#fbf2db;
+  --info:#0369a1; --info-bg:#e6f3fb; --drop:#b42318; --drop-bg:#fdeceb;
+  --new:#6d28d9; --new-bg:#f1ebfe;
+  --radius:14px; --radius-sm:9px; --radius-xs:6px;
+  --shadow:0 4px 16px rgba(24,24,22,0.07),0 1px 3px rgba(24,24,22,0.04);
+  --shadow-lg:0 18px 48px rgba(24,24,22,0.14),0 4px 12px rgba(24,24,22,0.06);
+  --sans:'DM Sans',system-ui,sans-serif;
+  --display:'Space Grotesk','DM Sans',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+*::-webkit-scrollbar{width:11px;height:11px;}
+*::-webkit-scrollbar-thumb{background:#d4d3cc;border-radius:20px;border:3px solid transparent;background-clip:content-box;}
+
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+.sidebar{position:sticky;top:0;align-self:start;height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 16px;overflow-y:auto;}
+.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 22px;}
+/* 사이드바 접기 (아이콘만) — 넓은 화면에서만, 상태는 localStorage 'appSidebar' */
+.sb-toggle{margin-left:auto;width:28px;height:28px;flex-shrink:0;display:grid;place-items:center;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--muted);cursor:pointer;transition:background 0.14s,color 0.14s;}
+.sb-toggle:hover{background:var(--surface-3);color:var(--ink);}
+.sb-toggle svg{width:15px;height:15px;transition:transform 0.2s;}
+@media(min-width:901px){
+  .app{transition:grid-template-columns 0.2s ease;}
+  .app.sb-collapsed{grid-template-columns:72px 1fr;}
+  .app.sb-collapsed .sidebar{padding:18px 10px;overflow-x:hidden;}
+  .app.sb-collapsed .brand{flex-direction:column;gap:10px;padding:4px 0 14px;}
+  .app.sb-collapsed .brand-text,
+  .app.sb-collapsed .nav-section,
+  .app.sb-collapsed .nav-item span,
+  .app.sb-collapsed .nav-item .nav-badge,
+  .app.sb-collapsed .user-meta,
+  .app.sb-collapsed .sidebar-foot > :not(.user-chip){display:none;}
+  .app.sb-collapsed .sb-toggle{margin-left:0;}
+  .app.sb-collapsed .sb-toggle svg{transform:rotate(180deg);}
+  .app.sb-collapsed .nav-section + .nav{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+  .app.sb-collapsed .nav-item{justify-content:center;padding:10px 0;}
+  .app.sb-collapsed .user-chip{justify-content:center;padding:8px 0;}
+}
+@media(max-width:900px){ .sb-toggle{display:none;} }
+.brand-mark{width:38px;height:38px;border-radius:11px;flex-shrink:0;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;letter-spacing:-0.5px;}
+.brand-text .name{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-0.2px;}
+.brand-text .sub{font-size:0.7rem;color:var(--faint);margin-top:1px;}
+.nav-section{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);padding:14px 10px 8px;}
+.nav{display:flex;flex-direction:column;gap:3px;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:0.9rem;font-weight:500;color:var(--ink-soft);cursor:pointer;border:none;background:none;width:100%;text-align:left;text-decoration:none;transition:background 0.14s,color 0.14s;}
+.nav-item:hover{background:var(--surface-3);color:var(--ink);}
+.nav-item.active{background:var(--accent-soft);color:var(--accent);font-weight:600;}
+.nav-item svg{width:18px;height:18px;flex-shrink:0;opacity:0.7;}
+.nav-item.active svg{opacity:1;}
+.sidebar-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+.user-chip{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;}
+.user-avatar{width:32px;height:32px;border-radius:9px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:0.72rem;font-weight:700;flex-shrink:0;}
+.user-meta .u-name{font-size:0.8rem;font-weight:500;}
+.user-meta .u-role{font-size:0.68rem;color:var(--faint);margin-top:1px;}
+
+.main{min-height:100vh;overflow-y:auto;background:var(--bg);}
+.content{max-width:1080px;margin:0 auto;padding:32px 28px;}
+.page-header{margin-bottom:20px;}
+.page-title{font-family:var(--display);font-size:1.5rem;font-weight:700;letter-spacing:-0.3px;}
+.page-sub{font-size:0.85rem;color:var(--muted);margin-top:4px;}
+
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;}
+.search-box{flex:1;min-width:220px;height:40px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.88rem;background:var(--surface);color:var(--ink);font-family:var(--sans);}
+.count-info{font-size:0.78rem;color:var(--faint);font-family:var(--mono);white-space:nowrap;}
+.btn{height:40px;padding:0 16px;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-press);}
+
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--surface-2);font-family:var(--mono);font-size:0.66rem;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--muted);padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr.newrow{background:var(--accent-soft);}
+tr.saved td{animation:flash 0.9s ease;}
+@keyframes flash{0%{background:var(--ok-bg);}100%{background:transparent;}}
+.cell-in{width:100%;height:32px;padding:0 8px;border:1px solid var(--border);border-radius:var(--radius-xs);font-size:0.82rem;background:var(--surface);color:var(--ink);font-family:var(--sans);}
+.cell-in.mono{font-family:var(--mono);}
+.cell-in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-ring,rgba(79,70,229,0.16));}
+.col-of{width:110px;} .col-mkt{width:80px;} .col-inh{width:56px;text-align:center;} .col-act{width:46px;text-align:center;}
+.btn-del{width:30px;height:30px;border:none;background:none;color:var(--faint);cursor:pointer;border-radius:6px;}
+.btn-del:hover{background:var(--drop-bg);color:var(--drop);}
+.chk{width:17px;height:17px;cursor:pointer;}
+
+.state-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:12px;color:var(--muted);}
+.spinner{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{font-size:0.8rem;color:var(--faint);padding:14px 4px;}
+
+@media(max-width:860px){ .app{grid-template-columns:1fr;} .sidebar{display:none;} }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">DL</div>
+      <div class="brand-text">
+        <div class="name">Demo Labs Sales Pricing Tool</div>
+        <div class="sub">분류 관리 · v1.33 demo</div>
+      </div>
+    <button class="sb-toggle" type="button" onclick="toggleSidebar()" title="사이드바 접기 / 펼치기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+
+    <div class="nav-section">R&amp;D</div>
+    <nav class="nav">
+      <a class="nav-item" href="../#rd-toolkit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 105.2 11.7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Product Search</span>
+      </a>
+      <a class="nav-item" href="../#rd-toolkit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4z"/></svg>
+        <span>AI Recommend</span>
+      </a>
+    </nav>
+
+    <div class="nav-section">Pricing</div>
+    <nav class="nav">
+      <a class="nav-item" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 7v10"/><path d="M9.5 9.2a2.5 2 0 014 0"/><path d="M9.5 14a2.5 2 0 004 0"/></svg>
+        <span>Pricing</span>
+      </a>
+      <a class="nav-item" href="library.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        <span>Library</span>
+      </a>
+      <a class="nav-item active" href="classify.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
+        <span>분류 관리</span>
+      </a>
+      <a class="nav-item" href="upload.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span>데이터 업로드</span>
+      </a>
+      <a class="nav-item" href="sourcing.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>원료 점검</span>
+      </a>
+      <a class="nav-item" href="procurement.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/><circle cx="9.5" cy="20.5" r="1"/><circle cx="17.5" cy="20.5" r="1"/></svg>
+        <span>Procurement</span>
+      </a>
+    </nav>
+
+    <div class="nav-section">Analytics</div>
+    <nav class="nav">
+      <a class="nav-item" href="gm.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-8"/></svg>
+        <span>GM Analysis</span>
+      </a>
+    </nav>
+
+    <div class="nav-section">도움말</div>
+    <nav class="nav">
+      <a class="nav-item" href="guide.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>사용 가이드</span>
+      </a>
+      <a class="nav-item" href="changelog.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><path d="M3.05 11a9 9 0 116.9 9.5"/><path d="M3 4v5h5"/></svg>
+        <span>업데이트 로그</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="user-chip">
+        <div class="user-avatar">DU</div>
+        <div class="user-meta">
+          <div class="u-name">demo.user@example.com</div>
+          <div class="u-role">Sales Team · Demo Labs</div>
+        </div>
+      </div>
+      <div style="font-size:0.68rem;color:var(--faint);text-align:center;padding:10px 8px 2px;">© 2026 Demo Labs</div>
+    </div>
+  </aside>
+  <script>
+  // 사이드바 접기 상태 복원 + 아이콘만 보일 때 메뉴 이름 툴팁
+  (function() {
+    try { if (localStorage.getItem('appSidebar') === 'collapsed') document.querySelector('.app').classList.add('sb-collapsed'); } catch (e) {}
+    document.querySelectorAll('.sidebar .nav-item').forEach(function(a) {
+      var s = a.querySelector('span');
+      if (!a.title && s) a.title = s.textContent.trim();
+    });
+  })();
+  function toggleSidebar() {
+    var collapsed = document.querySelector('.app').classList.toggle('sb-collapsed');
+    try { localStorage.setItem('appSidebar', collapsed ? 'collapsed' : 'expanded'); } catch (e) {}
+  }
+  </script>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="content">
+      <div class="page-header">
+        <div class="page-title">분류 마스터 관리</div>
+        <div class="page-sub">OF/OB코드 → 회사·브랜드·시장·자사 여부. 수정 시 자동 저장됩니다.</div>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" class="search-box" id="searchBox" placeholder="OF코드·회사·브랜드 검색…" oninput="renderRows()">
+        <button class="btn btn-primary" onclick="addNewRow()">+ 새 분류 추가</button>
+        <span class="count-info" id="countInfo"></span>
+      </div>
+
+      <datalist id="companyList"></datalist>
+      <datalist id="brandList"></datalist>
+
+      <div id="stateLoading" class="state-box"><div class="spinner"></div><div>불러오는 중…</div></div>
+      <div class="tbl-wrap" id="tblWrap" style="display:none;">
+        <table>
+          <thead><tr>
+            <th class="col-of">OF / OB코드</th><th>회사 (Company)</th><th>브랜드 (Brand)</th>
+            <th class="col-mkt">시장</th><th class="col-inh">자사</th><th class="col-act"></th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="hint" id="moreHint" style="display:none;"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Password Gate -->
+<div id="pwGate" style="position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px 36px;width:min(360px,92vw);box-shadow:var(--shadow-lg);text-align:center;">
+    <div style="width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;margin:0 auto 20px;">DL</div>
+    <div style="font-family:var(--display);font-size:1.15rem;font-weight:600;margin-bottom:6px;">분류 관리</div>
+    <div style="color:var(--muted);font-size:0.82rem;margin-bottom:24px;">비밀번호를 입력하세요.</div>
+    <input type="password" id="pwInput" placeholder="비밀번호"
+      style="width:100%;height:42px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;letter-spacing:3px;margin-bottom:10px;font-family:var(--sans);"
+      onkeydown="if(event.key==='Enter')submitPassword()">
+    <div id="pwError" style="color:var(--drop);font-size:0.78rem;min-height:20px;margin-bottom:10px;"></div>
+    <button id="pwBtn" onclick="submitPassword()" style="width:100%;height:44px;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;">확인</button>
+  </div>
+</div>
+
+<script>
+var ROWS = [];   // [{ofCode, company, brand, market, inHouse}]
+var NEW_SEQ = 0;
+
+// v1.32~ 접근은 서버(doGet)에서 회사 계정 + 접근 명단으로 확인 — 바로 시작
+(function(){ hideGate(); load(); })();
+function hideGate(){ document.getElementById('pwGate').style.display='none'; }
+function submitPassword(){
+  var pw=document.getElementById('pwInput').value||''; var btn=document.getElementById('pwBtn');
+  btn.disabled=true; btn.textContent='확인 중…';
+  google.script.run.withSuccessHandler(function(res){
+    btn.disabled=false; btn.textContent='확인';
+    if (res && res.ok){ try{sessionStorage.setItem('pricingAuth','1');}catch(e){} hideGate(); load(); }
+    else { document.getElementById('pwError').textContent='비밀번호가 올바르지 않습니다.'; document.getElementById('pwInput').value=''; }
+  }).withFailureHandler(function(){ btn.disabled=false; btn.textContent='확인'; }).checkPricingPassword(pw);
+}
+
+function load(){
+  google.script.run.withSuccessHandler(function(rows){
+    document.getElementById('stateLoading').style.display='none';
+    document.getElementById('tblWrap').style.display='';
+    ROWS = (rows && rows.length && !rows.error) ? rows : [];
+    buildDatalists();
+    renderRows();
+  }).withFailureHandler(function(err){
+    document.getElementById('stateLoading').style.display='none';
+    document.getElementById('tblWrap').style.display='';
+    document.getElementById('tbody').innerHTML='<tr><td colspan="6" style="color:var(--drop);padding:14px;">로딩 오류: '+((err&&err.message)||'')+'</td></tr>';
+  }).getClassifications();
+}
+
+function buildDatalists(){
+  var cs={}, bs={};
+  ROWS.forEach(function(r){ if(r.company)cs[r.company]=1; if(r.brand)bs[r.brand]=1; });
+  document.getElementById('companyList').innerHTML = Object.keys(cs).sort().map(function(c){return '<option value="'+esc(c)+'">';}).join('');
+  document.getElementById('brandList').innerHTML   = Object.keys(bs).sort().map(function(b){return '<option value="'+esc(b)+'">';}).join('');
+}
+
+function filtered(){
+  var q=(document.getElementById('searchBox').value||'').toLowerCase().trim();
+  if(!q) return ROWS;
+  return ROWS.filter(function(r){ return [(r.ofCode||''),(r.company||''),(r.brand||''),(r.market||'')].join(' ').toLowerCase().indexOf(q)!==-1; });
+}
+
+var CAP = 200;
+function renderRows(){
+  var q=(document.getElementById('searchBox').value||'').trim();
+  var list=filtered();
+  document.getElementById('countInfo').textContent = ROWS.length+'건'+(q?(' · '+list.length+' 일치'):'');
+  var shown = list.slice(0, CAP);
+  document.getElementById('tbody').innerHTML = shown.map(rowHtml).join('');
+  var hint=document.getElementById('moreHint');
+  if(list.length>CAP){ hint.style.display=''; hint.textContent='상위 '+CAP+'건만 표시 중 — 검색으로 좁혀주세요 (총 '+list.length+'건 일치).'; }
+  else hint.style.display='none';
+}
+
+function rowHtml(r){
+  var id = r._id || ('of-'+esc(r.ofCode));
+  return '<tr id="'+id+'">' +
+    '<td class="col-of"><input class="cell-in mono" value="'+esc(r.ofCode)+'" readonly title="코드는 수정 불가 (삭제 후 재추가)"></td>' +
+    '<td><input class="cell-in" list="companyList" value="'+esc(r.company)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
+    '<td><input class="cell-in" list="brandList" value="'+esc(r.brand)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
+    '<td class="col-mkt"><input class="cell-in mono" value="'+esc(r.market)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
+    '<td class="col-inh"><input type="checkbox" class="chk"'+(r.inHouse?' checked':'')+' onchange="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
+    '<td class="col-act"><button class="btn-del" title="삭제" onclick="delRow(\''+esc(r.ofCode)+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/><path d="M19 6l-1 14a1 1 0 01-1 1H7a1 1 0 01-1-1L5 6"/></svg></button></td>' +
+  '</tr>';
+}
+
+var saveTimers = {};
+function onEdit(el, ofCode){
+  var tr = el.closest('tr');
+  var inputs = tr.querySelectorAll('input');
+  var meta = { company: inputs[1].value.trim(), brand: inputs[2].value.trim(), market: inputs[3].value.trim(), inHouse: inputs[4].checked };
+  clearTimeout(saveTimers[ofCode]);
+  saveTimers[ofCode] = setTimeout(function(){ saveRow(ofCode, meta, tr); }, 500);
+}
+function saveRow(ofCode, meta, tr){
+  google.script.run.withSuccessHandler(function(res){
+    if(res && res.ok){
+      // 로컬 반영
+      var r = ROWS.filter(function(x){return x.ofCode===ofCode;})[0];
+      if(r){ r.company=meta.company; r.brand=meta.brand; r.market=meta.market; r.inHouse=res.inHouse; }
+      if(tr){ tr.classList.remove('saved'); void tr.offsetWidth; tr.classList.add('saved'); }
+      buildDatalists();
+    }
+  }).withFailureHandler(function(){}).upsertClassification(ofCode, meta);
+}
+
+function addNewRow(){
+  var of = (prompt('추가할 OF코드 (예: OF0001)') || '').trim().toUpperCase();
+  if(!of) return;
+  if(!/^O[FB]\d+/.test(of)){ alert('OF 또는 OB 코드 형식이어야 합니다.'); return; }
+  if(ROWS.some(function(r){return r.ofCode===of;})){ alert('이미 있는 코드입니다: '+of); document.getElementById('searchBox').value=of; renderRows(); return; }
+  var rec = { ofCode:of, company:'', brand:'', market:'', inHouse:false };
+  ROWS.unshift(rec);
+  document.getElementById('searchBox').value = of;
+  renderRows();
+  // 서버에도 즉시 생성(빈 값)
+  google.script.run.withSuccessHandler(function(){}).upsertClassification(of, {company:'',brand:'',market:'',inHouse:false});
+}
+
+function delRow(ofCode){
+  if(!confirm(ofCode+' 분류를 삭제할까요?')) return;
+  google.script.run.withSuccessHandler(function(res){
+    if(res && res.ok){ ROWS = ROWS.filter(function(x){return x.ofCode!==ofCode;}); renderRows(); }
+    else alert('삭제 오류: '+((res&&res.error)||''));
+  }).withFailureHandler(function(err){ alert('삭제 오류: '+((err&&err.message)||'')); }).deleteClassification(ofCode);
+}
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+</script>
+<script src="../shared/demo-badge.js"></script>
+</body>
+</html>

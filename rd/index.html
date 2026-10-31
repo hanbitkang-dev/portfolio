@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- demo runtime: GAS emulator + synthetic data (see README) -->
+<script>window.DEMO_TODAY = '2026-10-29';</script>
+<script src="../shared/demo-clock.js"></script>
+<script>window.GAS_DEMO_KEY = 'rd-demo'; try { sessionStorage.setItem('pricingAuth', '1'); } catch (e) {} /* demo: skip the old password gate */</script>
+<script src="../shared/gas-emulator.js"></script>
+<script src="../pricing/seed.js"></script>
+<script src="mocks.js"></script>
+<script src="code.js"></script>
+<link rel="stylesheet" href="../shared/demo-badge.css">
+
+<title>Product Search · Demo</title>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+/* ── Design tokens ─────────────────────────────────────────────── */
+:root {
+  --bg:#f4f4f2; --surface:#fff; --surface-2:#fafaf8; --surface-3:#f1f1ee;
+  --border:#e7e6e1; --border-2:#dad9d3;
+  --ink:#1b1b19; --ink-soft:#3a3a37; --muted:#76756d; --faint:#a4a39b;
+  --accent:#4f46e5; --accent-press:#4338ca; --accent-soft:#eef0fe; --accent-ring:rgba(79,70,229,0.16);
+  --ai:#7c3aed; --ai-2:#a855f7; --ai-soft:#f5f0ff;
+  --ok:#15803d; --ok-bg:#e7f6ec; --warn:#92600a; --warn-bg:#fbf2db;
+  --new:#6d28d9; --new-bg:#f1ebfe; --drop:#b42318; --drop-bg:#fdeceb;
+  --info:#0369a1; --info-bg:#e6f3fb;
+  --radius:14px; --radius-sm:9px; --radius-xs:6px;
+  --shadow-sm:0 1px 2px rgba(24,24,22,0.05),0 1px 3px rgba(24,24,22,0.04);
+  --shadow:0 4px 16px rgba(24,24,22,0.07),0 1px 3px rgba(24,24,22,0.04);
+  --sans:'DM Sans',system-ui,sans-serif;
+  --display:'Space Grotesk','DM Sans',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --pad-card:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+/* scrollbar */
+*::-webkit-scrollbar{width:11px;height:11px;}
+*::-webkit-scrollbar-thumb{background:#d4d3cc;border-radius:20px;border:3px solid transparent;background-clip:content-box;}
+
+/* ── App shell ──────────────────────────────────────────────────── */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+
+.sidebar{
+  position:sticky;top:0;align-self:start;height:100vh;
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;padding:22px 16px;overflow-y:auto;
+}
+.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 22px;}
+.brand-mark{width:38px;height:38px;border-radius:11px;flex-shrink:0;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;letter-spacing:-0.5px;}
+.brand-text .name{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-0.2px;}
+.brand-text .sub{font-size:0.7rem;color:var(--faint);margin-top:1px;}
+.nav-section{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);padding:14px 10px 8px;}
+.nav{display:flex;flex-direction:column;gap:3px;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:0.9rem;font-weight:500;color:var(--ink-soft);cursor:pointer;border:none;background:none;width:100%;text-align:left;text-decoration:none;transition:background 0.14s,color 0.14s;}
+.nav-item svg{width:18px;height:18px;flex-shrink:0;color:var(--muted);transition:color 0.14s;}
+.nav-item>span:not(.nav-badge){flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-item:hover{background:var(--surface-3);}
+.nav-item.active{background:var(--ink);color:#fff;}
+.nav-item.active svg{color:#fff;}
+.sidebar-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+.user-chip{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;}
+.user-avatar{width:32px;height:32px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:0.82rem;flex-shrink:0;}
+.user-meta .u-name{font-size:0.82rem;font-weight:600;}
+.user-meta .u-role{font-size:0.68rem;color:var(--faint);}
+
+.main{min-width:0;display:flex;flex-direction:column;}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;padding:16px 34px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+.topbar h1{font-family:var(--display);font-size:1.16rem;font-weight:600;letter-spacing:-0.3px;white-space:nowrap;}
+.topbar .crumb{font-family:var(--mono);font-size:0.66rem;letter-spacing:1px;text-transform:uppercase;color:var(--faint);}
+.topbar-spacer{flex:1;}
+.topbar-tag{display:inline-flex;align-items:center;gap:7px;font-size:0.76rem;color:var(--muted);padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--surface);}
+.topbar-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);}
+.content{padding:28px 34px 90px;max-width:1120px;width:100%;margin:0 auto;}
+
+/* ── Card ───────────────────────────────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:var(--pad-card);margin-bottom:18px;}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.card-label{font-family:var(--mono);font-size:0.66rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);}
+.card-label .idx{color:var(--accent);margin-right:2px;}
+.card-head .spacer{flex:1;}
+
+/* ── Form ───────────────────────────────────────────────────────── */
+.field label{display:block;font-size:0.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:7px;}
+.input,select.input{width:100%;padding:11px 14px;border:1.5px solid var(--border-2);border-radius:var(--radius-sm);font-family:var(--sans);font-size:0.9rem;background:var(--surface-2);color:var(--ink);transition:border-color 0.15s,box-shadow 0.15s,background 0.15s;appearance:none;-webkit-appearance:none;}
+select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2376756d' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer;}
+.input:focus,select.input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3.5px var(--accent-ring);background:var(--surface);}
+.input::placeholder{color:var(--faint);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+@media(max-width:720px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:var(--radius-sm);border:1.5px solid transparent;font-family:var(--sans);font-size:0.88rem;font-weight:600;cursor:pointer;transition:background 0.16s,border-color 0.16s,color 0.16s,transform 0.06s;}
+.btn:active{transform:translateY(1px);}
+.btn svg{width:17px;height:17px;}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-primary:hover{background:#000;}
+.btn-primary:disabled{background:var(--border-2);color:var(--faint);cursor:not-allowed;}
+.btn-ghost{background:var(--surface);border-color:var(--border-2);color:var(--ink-soft);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-ai{background:linear-gradient(120deg,var(--ai),var(--ai-2));color:#fff;box-shadow:0 2px 12px rgba(124,58,237,0.28);}
+.btn-ai:hover{filter:brightness(1.05);}
+.btn-ai:disabled{background:var(--border-2);color:var(--faint);box-shadow:none;cursor:not-allowed;}
+.btn-block{width:100%;}
+.btn-more{width:100%;margin-top:14px;padding:12px;background:var(--surface);border:1.5px dashed var(--border-2);border-radius:var(--radius-sm);font-family:var(--mono);font-size:0.74rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.14s;}
+.btn-more:hover{border-color:var(--accent);color:var(--accent);border-style:solid;}
+
+/* ── Toolbar / Seg ──────────────────────────────────────────────── */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px;}
+.seg{display:inline-flex;background:var(--surface-3);border-radius:var(--radius-sm);padding:3px;gap:2px;}
+.seg button{border:none;background:none;cursor:pointer;padding:7px 14px;border-radius:7px;font-family:var(--mono);font-size:0.72rem;font-weight:600;color:var(--muted);transition:all 0.13s;}
+.seg button.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm);}
+.results-meta{display:flex;align-items:center;justify-content:space-between;margin:4px 0 12px;}
+.count-pill{font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:0.8px;color:var(--muted);}
+.count-pill b{color:var(--ink);}
+
+/* ── Product list ───────────────────────────────────────────────── */
+.plist{display:flex;flex-direction:column;gap:9px;}
+.prow{border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);overflow:hidden;transition:border-color 0.16s,box-shadow 0.16s;}
+.prow:hover{border-color:var(--border-2);box-shadow:var(--shadow-sm);}
+.prow.open{border-color:var(--accent);box-shadow:0 4px 20px var(--accent-ring);}
+.prow-head{display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;}
+.code-chip{font-family:var(--mono);font-size:0.72rem;font-weight:700;background:var(--surface-3);color:var(--ink);padding:6px 9px;border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0;border:1px solid var(--border);}
+.prow.open .code-chip{background:var(--ink);color:#fff;border-color:var(--ink);}
+.pinfo{flex:1;min-width:0;}
+.pname{font-size:0.94rem;font-weight:600;letter-spacing:-0.2px;line-height:1.35;}
+.pmeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.chev{width:20px;height:20px;color:var(--faint);flex-shrink:0;transition:transform 0.22s,color 0.22s;}
+.prow.open .chev{transform:rotate(180deg);color:var(--accent);}
+
+/* tags & status */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.tag-type{background:var(--info-bg);color:var(--info);}
+.tag-date{background:var(--surface-3);color:var(--muted);}
+.tag-color{background:var(--warn-bg);color:var(--warn);}
+.tag-weight{background:var(--ok-bg);color:var(--ok);}
+.tag-benefit{background:var(--ai-soft);color:var(--ai);max-width:280px;overflow:hidden;text-overflow:ellipsis;}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;padding:3px 10px 3px 8px;border-radius:20px;white-space:nowrap;}
+.status .sdot{width:6px;height:6px;border-radius:50%;}
+.status-approve{background:var(--ok-bg);color:var(--ok);}.status-approve .sdot{background:var(--ok);}
+.status-pending{background:var(--warn-bg);color:var(--warn);}.status-pending .sdot{background:var(--warn);}
+.status-new{background:var(--new-bg);color:var(--new);}.status-new .sdot{background:var(--new);}
+.status-drop{background:var(--drop-bg);color:var(--drop);}.status-drop .sdot{background:var(--drop);}
+.status-other{background:var(--surface-3);color:var(--muted);}.status-other .sdot{background:var(--muted);}
+
+/* BOM expand (CSS grid animation) */
+.bom-grid-anim{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.26s ease;}
+.prow.open .bom-grid-anim{grid-template-rows:1fr;}
+.bom-grid-anim>div{overflow:hidden;}
+.bom{border-top:1.5px solid var(--border);background:var(--surface-2);padding:18px;}
+.bom-label{font-family:var(--mono);font-size:0.64rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:11px;}
+.bom-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.84rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
+.bom-table th{padding:9px 13px;text-align:left;font-weight:700;font-size:0.66rem;font-family:var(--mono);letter-spacing:0.6px;text-transform:uppercase;color:var(--faint);background:var(--surface-2);border-bottom:1px solid var(--border);}
+.bom-table td{padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.bom-table tr:last-child td{border-bottom:none;}
+.bom-table tbody tr:hover td{background:var(--surface-2);}
+.ing-code{font-family:var(--mono);font-size:0.72rem;color:var(--drop);background:var(--drop-bg);padding:3px 8px;border-radius:var(--radius-xs);}
+.qty{font-family:var(--mono);font-size:0.8rem;font-weight:700;}
+.unit{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--surface-3);border:1px solid var(--border);padding:2px 7px;border-radius:var(--radius-xs);}
+.no-bom{text-align:center;color:var(--faint);font-size:0.85rem;padding:18px 0;}
+
+/* AI panels */
+.ai-cta{margin-top:14px;}
+.ai-box{display:none;margin-top:12px;border:1.5px solid #e6dcff;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface);}
+.ai-box.visible{display:block;animation:fadeUp 0.3s ease both;}
+.ai-box-head{background:linear-gradient(120deg,var(--ai),var(--ai-2));color:#fff;padding:11px 16px;font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.ai-box-body{padding:16px;}
+.ai-summary{font-size:0.9rem;line-height:1.7;color:var(--ink-soft);background:var(--ai-soft);border:1px solid #ece2ff;padding:14px 16px;border-radius:var(--radius-sm);}
+.up-title{font-family:var(--mono);font-size:0.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:18px 0 11px;display:flex;align-items:center;gap:8px;}
+.up-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.up-item{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:9px;background:var(--surface-2);}
+.up-item-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.up-badge{font-family:var(--mono);font-size:0.64rem;font-weight:700;padding:3px 9px;border-radius:var(--radius-xs);white-space:nowrap;letter-spacing:0.5px;}
+.badge-replace{background:var(--drop-bg);color:var(--drop);}
+.badge-add{background:var(--ok-bg);color:var(--ok);}
+.up-name{font-size:0.9rem;font-weight:600;}
+.up-name strong{color:var(--ink);}
+.up-name .arrow{color:var(--faint);margin:0 5px;}
+.up-reason{font-size:0.85rem;color:var(--ink-soft);line-height:1.62;border-left:2.5px solid var(--accent);padding-left:12px;}
+.up-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+
+/* loading */
+.loading{text-align:center;padding:46px 0;}
+.spinner{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 14px;}
+.spinner.ai{border-color:#e6dcff;border-top-color:var(--ai);}
+.spinner.sm{width:22px;height:22px;border-width:2.5px;margin-bottom:9px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading p{font-size:0.88rem;color:var(--muted);}
+.error-box{display:flex;gap:11px;align-items:center;background:var(--drop-bg);border:1.5px solid #f3c9c4;color:var(--drop);border-radius:var(--radius-sm);padding:14px 18px;font-size:0.88rem;margin-bottom:16px;}
+
+/* misc */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+@media(max-width:880px){
+  .app{grid-template-columns:1fr;}
+  .sidebar{position:static;height:auto;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 16px;}
+  .brand{padding:0 12px 0 4px;}
+  .nav-section,.sidebar-foot{display:none;}
+  .nav{flex-direction:row;}
+  .content{padding:22px 18px 80px;}
+  .topbar{padding:14px 18px;}
+}
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Sidebar ───────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">DL</div>
+      <div class="brand-text">
+        <div class="name">Demo Labs Sales R&D Tool</div>
+        <div class="sub">Product Search · v1.3 demo</div>
+      </div>
+    </div>
+
+    <div class="nav-section">R&amp;D</div>
+    <nav class="nav">
+      <a class="nav-item active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 105.2 11.7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>Product Search</span>
+      </a>
+      <a class="nav-item" href="recommend.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/><path d="M5 14l.7 1.8L7.5 16.5 5.7 17.2 5 19l-.7-1.8L2.5 16.5l1.8-.7z"/></svg>
+        <span>AI Recommend</span>
+      </a>
+    </nav>
+
+    
+    <div class="nav-section">Pricing</div>
+    <nav class="nav">
+      <a class="nav-item" href="../pricing/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 7v10"/><path d="M9.5 9.2a2.5 2 0 014 0"/><path d="M9.5 14a2.5 2 0 004 0"/></svg>
+        <span>Pricing</span>
+      </a>
+      <a class="nav-item" href="../pricing/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+        <span>저장된 견적</span>
+      </a>
+      <a class="nav-item" href="../pricing/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9a3 3 0 100 6 3 3 0 000-6z"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-2.9 1.2V21a2 2 0 11-4 0v-.1A1.7 1.7 0 006.7 19l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00-1.2-2.9H3a2 2 0 110-4h.1A1.7 1.7 0 005 6.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H10a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V10a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+        <span>설정</span>
+      </a>
+      <a class="nav-item" href="../pricing/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5M14 4v4M6 10v4M11 16v4"/></svg>
+        <span>Processing 설정</span>
+      </a>
+    </nav>
+
+    <div class="nav-section">Analytics</div>
+    <nav class="nav">
+      <a class="nav-item" href="../pricing/gm.html" data-sales-page="gm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-8"/></svg>
+        <span>GM Analysis</span>
+      </a>
+    </nav>
+
+    <div class="nav-section">도움말</div>
+    <nav class="nav">
+      <a class="nav-item" href="../pricing/guide.html" data-sales-page="guide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>사용 가이드</span>
+      </a>
+    </nav>
+    
+
+    <div class="sidebar-foot">
+      <div class="user-chip">
+        <div class="user-avatar">DU</div>
+        <div class="user-meta">
+          <div class="u-name">demo.user@example.com</div>
+          <div class="u-role">Sales Team · Demo Labs</div>
+        </div>
+      </div>
+      <div style="font-size:0.68rem;color:var(--faint);text-align:center;padding:10px 8px 2px;">© 2026 Demo Labs</div>
+    </div>
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────────────────────── -->
+  <main class="main">
+    <header class="topbar">
+      <span class="crumb">R&amp;D /</span>
+      <h1>Product Search</h1>
+      <span class="topbar-spacer"></span>
+      <span class="topbar-tag"><span class="dot"></span>DB Connected</span>
+    </header>
+
+    <div class="content">
+
+      <!-- Search form -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-label"><span class="idx">01</span> Product Search</div>
+        </div>
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="field">
+            <label>제형 종류 (Type)</label>
+            <select id="inputType" class="input"></select>
+          </div>
+          <div class="field">
+            <label>제품명 / 효능 키워드</label>
+            <input type="text" id="inputKeyword" class="input" placeholder="예: propolis, immunity, collagen">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="runSearch()" id="searchBtn">Search Products</button>
+      </div>
+
+      <!-- Loading -->
+      <div id="loadingBox" class="loading" style="display:none;">
+        <div class="spinner"></div>
+        <p>데이터베이스 검색 중...</p>
+      </div>
+
+      <!-- Error -->
+      <div id="errorBox" class="error-box" style="display:none;"></div>
+
+      <!-- Results -->
+      <div id="resultBox" style="display:none;">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-label"><span class="idx">02</span> Results &amp; Filter</div>
+          </div>
+
+          <div class="grid-3" style="margin-bottom:14px;">
+            <div class="field">
+              <label>Status</label>
+              <select id="filterStatus" class="input" onchange="applyFilters()">
+                <option value="">전체</option>
+                <option value="approve">Approve</option>
+                <option value="pending">Pending</option>
+                <option value="new">New</option>
+                <option value="drop">Drop</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>추가 키워드</label>
+              <input type="text" id="filterKeyword" class="input" placeholder="예: zinc, propolis" oninput="applyFilters()">
+            </div>
+            <div class="field">
+              <label>키워드 기준</label>
+              <select id="filterTarget" class="input" onchange="applyFilters()">
+                <option value="name">OB 제품명</option>
+                <option value="ingredient">OR 원료명 (BOM)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <span style="font-size:0.78rem;color:var(--muted);">정렬</span>
+            <div class="seg">
+              <button id="sortName" class="active" onclick="setSort('name')">이름순</button>
+              <button id="sortDate" onclick="setSort('date')">최신등록순</button>
+            </div>
+          </div>
+
+          <div class="results-meta">
+            <span class="count-pill" id="resultsCount"></span>
+          </div>
+
+          <div class="plist" id="productList"></div>
+          <button class="btn-more" id="btnMore" onclick="loadMore()" style="display:none;">+ 더 보기</button>
+        </div>
+      </div>
+
+    </div><!-- /.content -->
+  </main>
+</div><!-- /.app -->
+
+<script>
+/* ── Icon helpers ──────────────────────────────────────────────── */
+var ICONS = {
+  search:       'M11 4a7 7 0 105.2 11.7M21 21l-4.3-4.3',
+  sparkles:     'M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4zM19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8zM5 14l.7 1.8L7.5 16.5 5.7 17.2 5 19l-.7-1.8L2.5 16.5l1.8-.7z',
+  chevronDown:  'M6 9l6 6 6-6',
+  arrowRight:   'M5 12h14M13 6l6 6-6 6',
+};
+function iconSvg(name, cls, sz) {
+  sz = sz || 18;
+  var d = ICONS[name] || '';
+  return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="' + sz + '" height="' + sz + '">' +
+    d.split('M').filter(function(s) { return s; }).map(function(s) { return '<path d="M' + s + '"/>'; }).join('') +
+    '</svg>';
+}
+
+/* ── State ─────────────────────────────────────────────────────── */
+var allResults      = [];
+var filteredResults = [];
+var currentSort     = 'name';
+var PAGE_SIZE       = 10;
+var shownCount      = 0;
+var currentActive   = null;
+
+/* ── Init ──────────────────────────────────────────────────────── */
+window.onload = function() {
+  google.script.run
+    .withSuccessHandler(function(types) {
+      var sel = document.getElementById('inputType');
+      sel.innerHTML = '';
+      types.forEach(function(t) {
+        var opt = document.createElement('option');
+        opt.value = (t === '전체') ? '' : t;
+        opt.textContent = t;
+        sel.appendChild(opt);
+      });
+    })
+    .withFailureHandler(function() {
+      document.getElementById('inputType').innerHTML = '<option value="">전체</option>';
+    })
+    .getTypeList();
+
+  document.getElementById('inputKeyword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') runSearch();
+  });
+};
+
+/* ── Search ────────────────────────────────────────────────────── */
+function runSearch() {
+  var type    = document.getElementById('inputType').value;
+  var keyword = document.getElementById('inputKeyword').value.trim();
+  document.getElementById('resultBox').style.display  = 'none';
+  document.getElementById('errorBox').style.display   = 'none';
+  document.getElementById('loadingBox').style.display = 'block';
+  document.getElementById('searchBtn').disabled       = true;
+  document.getElementById('filterKeyword').value = '';
+  document.getElementById('filterStatus').value  = '';
+  currentActive = null;
+
+  google.script.run
+    .withSuccessHandler(function(response) {
+      document.getElementById('loadingBox').style.display = 'none';
+      document.getElementById('searchBtn').disabled       = false;
+      if (response.error) { showError(response.error); return; }
+      allResults = response.results;
+      applyFilters();
+      document.getElementById('resultBox').style.display = 'block';
+    })
+    .withFailureHandler(function(err) {
+      document.getElementById('loadingBox').style.display = 'none';
+      document.getElementById('searchBtn').disabled       = false;
+      showError('오류: ' + err.message);
+    })
+    .searchProductWeb(type, keyword);
+}
+
+/* ── Filter / Sort ─────────────────────────────────────────────── */
+function applyFilters() {
+  var status = document.getElementById('filterStatus').value.toLowerCase().trim();
+  var kw     = document.getElementById('filterKeyword').value.toLowerCase().trim();
+  var target = document.getElementById('filterTarget').value;
+
+  filteredResults = allResults.filter(function(p) {
+    if (status !== '' && (p.obStatus || '').toLowerCase() !== status) return false;
+    if (kw !== '') {
+      if (target === 'name') {
+        if (!(p.obName || '').toLowerCase().includes(kw)) return false;
+      } else {
+        var hit = (p.bom || []).some(function(b) {
+          return (b.name || '').toLowerCase().includes(kw) || (b.code || '').toLowerCase().includes(kw);
+        });
+        if (!hit) return false;
+      }
+    }
+    return true;
+  });
+  applySortToFiltered();
+}
+
+function setSort(type) {
+  currentSort = type;
+  document.getElementById('sortName').classList.toggle('active', type === 'name');
+  document.getElementById('sortDate').classList.toggle('active', type === 'date');
+  applySortToFiltered();
+}
+
+function applySortToFiltered() {
+  filteredResults.sort(function(a, b) {
+    if (currentSort === 'date') {
+      var da = a.registerDate || '', db = b.registerDate || '';
+      if (!da && !db) return 0;
+      if (!da) return 1;
+      if (!db) return -1;
+      return db.localeCompare(da);
+    }
+    return (a.obName || '').localeCompare(b.obName || '');
+  });
+  shownCount    = 0;
+  currentActive = null;
+  renderList();
+}
+
+/* ── Render ────────────────────────────────────────────────────── */
+function renderList() {
+  var list = document.getElementById('productList');
+  if (shownCount === 0) list.innerHTML = '';
+  if (filteredResults.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--faint);">필터 조건에 맞는 제품이 없습니다.</div>';
+    document.getElementById('resultsCount').innerHTML = '<b>0</b> ITEMS';
+    document.getElementById('btnMore').style.display = 'none';
+    return;
+  }
+  var batch = filteredResults.slice(shownCount, shownCount + PAGE_SIZE);
+  batch.forEach(function(product) { list.appendChild(makeCard(product)); });
+  shownCount += batch.length;
+  document.getElementById('resultsCount').innerHTML = '<b>' + filteredResults.length + '</b> ITEMS';
+  document.getElementById('btnMore').style.display = (shownCount < filteredResults.length) ? 'block' : 'none';
+}
+
+function loadMore() { renderList(); }
+
+/* ── Card builder ──────────────────────────────────────────────── */
+function makeCard(product) {
+  var item = document.createElement('div');
+  item.className = 'prow';
+
+  /* status badge */
+  var s  = (product.obStatus || '').toLowerCase();
+  var sc = s === 'approve' ? 'status-approve' : s === 'drop' ? 'status-drop' : s === 'pending' ? 'status-pending' : s === 'new' ? 'status-new' : 'status-other';
+
+  /* tags */
+  var tags = '';
+  if (product.obStatus)     tags += '<span class="status ' + sc + '"><span class="sdot"></span>' + product.obStatus + '</span>';
+  if (product.obType)       tags += '<span class="tag tag-type">' + product.obType + '</span>';
+  if (product.registerDate) tags += '<span class="tag tag-date">' + product.registerDate + '</span>';
+  if (product.color)        tags += '<span class="tag tag-color">' + product.color + '</span>';
+  if (product.grossWeight && product.grossWeight !== '0' && product.grossWeight !== '0.0')
+                            tags += '<span class="tag tag-weight">' + product.grossWeight + ' mg</span>';
+  if (product.targetBenefit) tags += '<span class="tag tag-benefit" title="' + product.targetBenefit + '">' + product.targetBenefit + '</span>';
+
+  /* BOM table */
+  var bomHtml = '<div class="no-bom">BOM 데이터 없음</div>';
+  if (product.bom && product.bom.length > 0) {
+    var rows = product.bom.map(function(b) {
+      return '<tr>' +
+        '<td><span class="ing-code">' + (b.code || '-') + '</span></td>' +
+        '<td>' + (b.name || '-') + '</td>' +
+        '<td><span class="qty">' + (b.quantity || '-') + '</span></td>' +
+        '<td><span class="unit">' + (b.unit || '-') + '</span></td>' +
+      '</tr>';
+    }).join('');
+    bomHtml = '<table class="bom-table"><thead><tr><th>원료 코드</th><th>원료명</th><th>수량</th><th>단위</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  item.innerHTML =
+    '<div class="prow-head">' +
+      '<span class="code-chip">' + product.obCode + '</span>' +
+      '<div class="pinfo">' +
+        '<div class="pname">' + product.obName + '</div>' +
+        '<div class="pmeta">' + tags + '</div>' +
+      '</div>' +
+      iconSvg('chevronDown', 'chev') +
+    '</div>' +
+    '<div class="bom-grid-anim"><div>' +
+      '<div class="bom">' +
+        '<div class="bom-label">BOM — Ingredient Composition</div>' +
+        bomHtml +
+        '<div class="ai-cta">' +
+          '<button class="btn btn-ai" onclick="requestUpgrade(event, \'' + product.obCode + '\')">' +
+            iconSvg('sparkles') + ' AI 업그레이드 분석' +
+          '</button>' +
+          '<div class="ai-box" id="upgrade-' + product.obCode + '"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div></div>';
+
+  item.addEventListener('click', function(e) {
+    if (e.target.closest('.ai-cta')) return;
+    if (currentActive && currentActive !== item) currentActive.classList.remove('open');
+    item.classList.toggle('open');
+    currentActive = item.classList.contains('open') ? item : null;
+  });
+
+  return item;
+}
+
+/* ── AI Upgrade ────────────────────────────────────────────────── */
+function requestUpgrade(e, obCode) {
+  e.stopPropagation();
+  var box = document.getElementById('upgrade-' + obCode);
+  var btn = e.currentTarget;
+
+  if (box.classList.contains('visible')) {
+    box.classList.remove('visible');
+    return;
+  }
+
+  box.innerHTML = '<div class="loading" style="padding:20px 0;"><div class="spinner ai sm"></div><p>AI가 업그레이드 분석 중...</p></div>';
+  box.classList.add('visible');
+  btn.disabled = true;
+
+  var product = allResults.find(function(p) { return p.obCode === obCode; });
+  if (!product) {
+    box.innerHTML = '<div class="loading" style="padding:16px;">제품 데이터를 찾을 수 없습니다.</div>';
+    return;
+  }
+
+  google.script.run
+    .withSuccessHandler(function(response) {
+      btn.disabled = false;
+      if (response.error) {
+        box.innerHTML = '<div class="loading" style="padding:16px;color:var(--drop);">' + response.error + '</div>';
+        return;
+      }
+      renderUpgradeResult(box, response);
+    })
+    .withFailureHandler(function(err) {
+      btn.disabled = false;
+      box.innerHTML = '<div class="loading" style="padding:16px;color:var(--drop);">오류: ' + err.message + '</div>';
+    })
+    .getUpgradeAnalysis(product);
+}
+
+function renderUpgradeResult(box, response) {
+  var html = '<div class="ai-box-head">' + iconSvg('sparkles') + ' AI UPGRADE ANALYSIS</div>' +
+             '<div class="ai-box-body">';
+
+  html += '<div class="ai-summary">' + (response.summary || '').replace(/\n/g, '<br>') + '</div>';
+
+  if (response.replaceItems && response.replaceItems.length > 0) {
+    html += '<div class="up-title">대체 원료 제안</div>';
+    response.replaceItems.forEach(function(item) {
+      html += '<div class="up-item">' +
+        '<div class="up-item-head">' +
+          '<span class="up-badge badge-replace">REPLACE</span>' +
+          '<span class="up-name">' + (item.currentName || '') + '<span class="arrow">→</span><strong>' + (item.newName || '') + '</strong></span>' +
+        '</div>' +
+        '<div class="up-reason">' + (item.reason || '') + '</div>' +
+        '<div class="up-meta">' +
+          (item.newCode ? '<span class="tag tag-type">' + item.newCode + '</span>' : '') +
+          (item.salesPrice ? '<span class="tag tag-weight">' + item.currency + ' ' + item.salesPrice + '</span>' : '') +
+          (item.supplier ? '<span class="tag tag-date">' + item.supplier + '</span>' : '') +
+        '</div>' +
+      '</div>';
+    });
+  }
+
+  if (response.addItems && response.addItems.length > 0) {
+    html += '<div class="up-title">추가 원료 제안</div>';
+    response.addItems.forEach(function(item) {
+      html += '<div class="up-item">' +
+        '<div class="up-item-head">' +
+          '<span class="up-badge badge-add">ADD</span>' +
+          '<span class="up-name"><strong>' + (item.name || '') + '</strong></span>' +
+        '</div>' +
+        '<div class="up-reason">' + (item.reason || '') + '</div>' +
+        '<div class="up-meta">' +
+          (item.code ? '<span class="tag tag-type">' + item.code + '</span>' : '') +
+          (item.salesPrice ? '<span class="tag tag-weight">' + item.currency + ' ' + item.salesPrice + '</span>' : '') +
+          (item.supplier ? '<span class="tag tag-date">' + item.supplier + '</span>' : '') +
+        '</div>' +
+      '</div>';
+    });
+  }
+
+  html += '</div>';
+  box.innerHTML = html;
+}
+
+/* ── Util ──────────────────────────────────────────────────────── */
+function showError(msg) {
+  var box = document.getElementById('errorBox');
+  box.textContent = msg;
+  box.style.display = 'block';
+}
+
+/* ── Nav URL fix: derive GM/Guide URLs from the rendered pricingUrl ── */
+(function() {
+  var pricingAnchor = document.querySelector('a.nav-item[href*="page=pricing"]');
+  if (!pricingAnchor) return;
+  var base = pricingAnchor.href.replace(/[?#].*$/, '');
+  document.querySelectorAll('a[data-sales-page]').forEach(function(a) {
+    a.href = base + '?page=' + a.getAttribute('data-sales-page');
+  });
+})();
+</script>
+<script src="../shared/demo-badge.js"></script>
+</body>
+</html>
