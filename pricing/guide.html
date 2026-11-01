@@ -2,10 +2,18 @@
 <html lang="ko">
 <head>
 <title>User Guide · Demo</title>
-<!-- demo runtime: GAS emulator + synthetic data (see README) -->
-<script>window.DEMO_TODAY = '2026-10-29';</script>
+
+<script>
+window.DEMO_TODAY = "2026-10-29";
+</script>
 <script src="../shared/demo-clock.js"></script>
-<script>window.GAS_DEMO_KEY = 'pricing-demo'; try { sessionStorage.setItem('pricingAuth', '1'); } catch (e) {} /* demo: skip the old password gate */</script>
+<script>
+window.GAS_DEMO_KEY = "pricing-demo";
+try {
+  sessionStorage.setItem("pricingAuth", "1");
+} catch (e) {
+}
+</script>
 <script src="../shared/gas-emulator.js"></script>
 <script src="seed.js"></script>
 <script src="mocks.js"></script>
@@ -16,159 +24,668 @@
   <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-/* ── Design tokens (shared with Pricing.html / GM.html) ─────── */
 :root {
-  --bg:#f4f4f2; --surface:#fff; --surface-2:#fafaf8; --surface-3:#f1f1ee;
-  --border:#e7e6e1; --border-2:#dad9d3;
-  --ink:#1b1b19; --ink-soft:#3a3a37; --muted:#76756d; --faint:#a4a39b;
-  --accent:#4f46e5; --accent-press:#4338ca; --accent-soft:#eef0fe; --accent-ring:rgba(79,70,229,0.16);
-  --ok:#15803d; --ok-bg:#e7f6ec; --warn:#92600a; --warn-bg:#fbf2db;
-  --info:#0369a1; --info-bg:#e6f3fb;
-  --radius:14px; --radius-sm:9px; --radius-xs:6px;
-  --shadow-sm:0 1px 2px rgba(24,24,22,.05),0 1px 3px rgba(24,24,22,.04);
-  --shadow:0 4px 16px rgba(24,24,22,.07),0 1px 3px rgba(24,24,22,.04);
-  --sans:'DM Sans',system-ui,sans-serif;
-  --display:'Space Grotesk','DM Sans',sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --bg:#f5f7fa;
+  --surface:#fff;
+  --surface-2:#f9fafb;
+  --surface-3:#f0f3f7;
+  --border:#e2e7ee;
+  --border-2:#d3dae3;
+  --ink:#111827;
+  --ink-soft:#374151;
+  --muted:#6b7280;
+  --faint:#9ca3af;
+  --accent:#2563eb;
+  --accent-press:#1d4ed8;
+  --accent-soft:#eaf1fe;
+  --accent-ring:rgba(37,99,235,0.16);
+  --ok:#15803d;
+  --ok-bg:#e7f6ec;
+  --warn:#92600a;
+  --warn-bg:#fbf2db;
+  --info:#0369a1;
+  --info-bg:#e6f3fb;
+  --radius:14px;
+  --radius-sm:9px;
+  --radius-xs:6px;
+  --shadow-sm:0 1px 2px rgba(17,24,39,.05),0 1px 3px rgba(17,24,39,.04);
+  --shadow:0 4px 16px rgba(17,24,39,.07),0 1px 3px rgba(17,24,39,.04);
+  --sans:"Hanken Grotesk",system-ui,sans-serif;
+  --display:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
   --pad-card:26px;
-
-  /* Guide-specific accent palette */
-  --tool-rd:#7c3aed;      --tool-rd-bg:#f5f0ff;
-  --tool-pr:#4f46e5;      --tool-pr-bg:#eef0fe;
-  --tool-gm:#15803d;      --tool-gm-bg:#e7f6ec;
+  --tool-rd:#0f766e;
+  --tool-rd-bg:#e6f6f4;
+  --tool-pr:#2563eb;
+  --tool-pr-bg:#eaf1fe;
+  --tool-gm:#15803d;
+  --tool-gm-bg:#e7f6ec;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;}
-body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
-*::-webkit-scrollbar{width:10px;}
-*::-webkit-scrollbar-thumb{background:#d4d3cc;border-radius:20px;border:3px solid transparent;background-clip:content-box;}
-
-/* App shell — matches Pricing.html */
-.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
-.sidebar{position:sticky;top:0;align-self:start;height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 16px;overflow-y:auto;}
-.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 22px;}
-/* 사이드바 접기 (아이콘만) — 넓은 화면에서만, 상태는 localStorage 'appSidebar' */
-.sb-toggle{margin-left:auto;width:28px;height:28px;flex-shrink:0;display:grid;place-items:center;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--muted);cursor:pointer;transition:background 0.14s,color 0.14s;}
-.sb-toggle:hover{background:var(--surface-3);color:var(--ink);}
-.sb-toggle svg{width:15px;height:15px;transition:transform 0.2s;}
-@media(min-width:901px){
-  .app{transition:grid-template-columns 0.2s ease;}
-  .app.sb-collapsed{grid-template-columns:72px 1fr;}
-  .app.sb-collapsed .sidebar{padding:18px 10px;overflow-x:hidden;}
-  .app.sb-collapsed .brand{flex-direction:column;gap:10px;padding:4px 0 14px;}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #cdd5df;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px;
+  overflow-y: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 6px 8px 22px;
+}
+.sb-toggle {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+}
+.sb-toggle:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+.sb-toggle svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s;
+}
+@media (min-width: 901px) {
+  .app {
+    transition: grid-template-columns 0.2s ease;
+  }
+  .app.sb-collapsed {
+    grid-template-columns: 72px 1fr;
+  }
+  .app.sb-collapsed .sidebar {
+    padding: 18px 10px;
+    overflow-x: hidden;
+  }
+  .app.sb-collapsed .brand {
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0 14px;
+  }
   .app.sb-collapsed .brand-text,
   .app.sb-collapsed .nav-section,
   .app.sb-collapsed .nav-item span,
   .app.sb-collapsed .nav-item .nav-badge,
   .app.sb-collapsed .user-meta,
-  .app.sb-collapsed .sidebar-foot > :not(.user-chip){display:none;}
-  .app.sb-collapsed .sb-toggle{margin-left:0;}
-  .app.sb-collapsed .sb-toggle svg{transform:rotate(180deg);}
-  .app.sb-collapsed .nav-section + .nav{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-  .app.sb-collapsed .nav-item{justify-content:center;padding:10px 0;}
-  .app.sb-collapsed .user-chip{justify-content:center;padding:8px 0;}
+  .app.sb-collapsed .sidebar-foot > :not(.user-chip) {
+    display: none;
+  }
+  .app.sb-collapsed .sb-toggle {
+    margin-left: 0;
+  }
+  .app.sb-collapsed .sb-toggle svg {
+    transform: rotate(180deg);
+  }
+  .app.sb-collapsed .nav-section + .nav {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .app.sb-collapsed .nav-item {
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .app.sb-collapsed .user-chip {
+    justify-content: center;
+    padding: 8px 0;
+  }
 }
-@media(max-width:900px){ .sb-toggle{display:none;} }
-.brand-mark{width:38px;height:38px;border-radius:11px;flex-shrink:0;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;letter-spacing:-0.5px;}
-.brand-text .name{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-0.2px;}
-.brand-text .sub{font-size:0.7rem;color:var(--faint);margin-top:1px;}
-.nav-section{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);padding:14px 10px 8px;}
-.nav{display:flex;flex-direction:column;gap:3px;}
-.nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:0.9rem;font-weight:500;color:var(--ink-soft);cursor:pointer;border:none;background:none;width:100%;text-align:left;text-decoration:none;transition:background .14s,color .14s;}
-.nav-item svg{width:18px;height:18px;flex-shrink:0;color:var(--muted);}
-.nav-item>span:not(.nav-badge){flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.nav-item:hover{background:var(--surface-3);}
-.nav-item.active{background:var(--ink);color:#fff;}
-.nav-item.active svg{color:#fff;}
-.sidebar-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
-.user-chip{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;}
-.user-avatar{width:32px;height:32px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:0.82rem;flex-shrink:0;}
-.user-meta .u-name{font-size:0.82rem;font-weight:600;}
-.user-meta .u-role{font-size:0.68rem;color:var(--faint);}
-.main{min-width:0;display:flex;flex-direction:column;}
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;padding:16px 34px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
-.topbar h1{font-family:var(--display);font-size:1.16rem;font-weight:600;letter-spacing:-0.3px;}
-.topbar-spacer{flex:1;}
-.topbar-tag{display:inline-flex;align-items:center;gap:7px;font-size:0.76rem;color:var(--muted);padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--surface);}
-.topbar-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);}
-.content{padding:28px 34px 90px;max-width:1060px;width:100%;margin:0 auto;}
-
-/* ── Guide-specific components ────────────────────────── */
-.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 34px;margin-bottom:28px;display:flex;align-items:flex-start;gap:24px;}
-.hero-icon{width:52px;height:52px;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center;flex-shrink:0;}
-.hero-icon svg{width:26px;height:26px;}
-.hero-body h2{font-family:var(--display);font-size:1.3rem;font-weight:600;letter-spacing:-0.3px;margin-bottom:6px;}
-.hero-body p{font-size:0.92rem;color:var(--muted);line-height:1.65;max-width:620px;}
-
-.tool-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px;}
-.tool-tab{padding:10px 18px;font-size:0.86rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;border-radius:8px 8px 0 0;white-space:nowrap;}
-.tool-tab:hover{color:var(--ink-soft);background:var(--surface-3);}
-.tool-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
-.tool-tab .tab-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;}
-
-.tool-panel{display:none;}
-.tool-panel.active{display:block;}
-
-.section-head{font-family:var(--mono);font-size:0.64rem;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-
-.guide-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--pad-card);margin-bottom:16px;box-shadow:var(--shadow-sm);}
-.guide-card-title{font-family:var(--display);font-size:1rem;font-weight:600;letter-spacing:-0.2px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
-.guide-card-title svg{width:18px;height:18px;color:var(--muted);}
-.guide-card-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
-
-.step-list{display:flex;flex-direction:column;gap:0;}
-.step-item{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--border);}
-.step-item:last-child{border-bottom:none;padding-bottom:0;}
-.step-num{width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:0.72rem;font-weight:700;flex-shrink:0;}
-.step-body{}
-.step-title{font-size:0.88rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
-.step-desc{font-size:0.83rem;color:var(--muted);line-height:1.55;}
-
-.code-tag{display:inline-block;font-family:var(--mono);font-size:0.72rem;background:var(--surface-3);border:1px solid var(--border);padding:1px 7px;border-radius:5px;color:var(--ink-soft);}
-
-.tip-box{background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:0.84rem;color:var(--ink-soft);line-height:1.6;}
-.tip-box strong{color:var(--accent);}
-.warn-box{background:var(--warn-bg);border-left:3px solid #D4890A;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:0.84rem;color:#6B3800;line-height:1.6;}
-
-.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
-@media(max-width:720px){.feature-grid{grid-template-columns:1fr;}}
-.feature-item{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
-.feature-item .fi-label{font-size:0.78rem;font-weight:700;color:var(--ink-soft);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
-.feature-item .fi-label svg{width:14px;height:14px;color:var(--muted);}
-.feature-item .fi-desc{font-size:0.82rem;color:var(--muted);line-height:1.55;}
-
-.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:0.3px;}
-.badge-rd{background:var(--tool-rd-bg);color:var(--tool-rd);}
-.badge-pr{background:var(--tool-pr-bg);color:var(--tool-pr);}
-.badge-gm{background:var(--tool-gm-bg);color:var(--tool-gm);}
-.badge-new{background:#f1ebfe;color:#6d28d9;}
-
-.kv-row{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;}
-.kv-row:last-child{border-bottom:none;}
-.kv-key{font-weight:600;color:var(--ink-soft);width:140px;flex-shrink:0;}
-.kv-val{color:var(--muted);flex:1;line-height:1.5;}
-
-.pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:0.78rem;font-weight:500;background:var(--surface-3);border:1px solid var(--border);color:var(--ink-soft);}
-
-.tbl-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:0.83rem;}
-thead tr{background:var(--ink);color:#fff;}
-thead th{padding:8px 13px;text-align:left;font-size:0.7rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;}
-tbody tr:nth-child(even){background:var(--surface-2);}
-tbody tr:hover{background:var(--accent-soft);}
-td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink-soft);line-height:1.5;}
-td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
-
-.divider{height:1px;background:var(--border);margin:22px 0;}
+@media (max-width: 900px) {
+  .sb-toggle {
+    display: none;
+  }
+}
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: -0.5px;
+}
+.brand-text .name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.2px;
+}
+.brand-text .sub {
+  font-size: 0.7rem;
+  color: var(--faint);
+  margin-top: 1px;
+}
+.nav-section {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 14px 10px 8px;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  transition: background .14s, color .14s;
+}
+.nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.nav-item > span:not(.nav-badge) {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-item:hover {
+  background: var(--surface-3);
+}
+.nav-item.active {
+  background: var(--ink);
+  color: #fff;
+}
+.nav-item.active svg {
+  color: #fff;
+}
+.sidebar-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+.user-meta .u-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.user-meta .u-role {
+  font-size: 0.68rem;
+  color: var(--faint);
+}
+.main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 34px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar h1 {
+  font-family: var(--display);
+  font-size: 1.16rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+.topbar-spacer {
+  flex: 1;
+}
+.topbar-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  color: var(--muted);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+}
+.topbar-tag .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+.content {
+  padding: 28px 34px 90px;
+  max-width: 1060px;
+  width: 100%;
+  margin: 0 auto;
+}
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 34px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.hero-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.hero-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.hero-body h2 {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+.hero-body p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 620px;
+}
+.tool-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.tool-tab {
+  padding: 10px 18px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color .15s, border-color .15s;
+  border-radius: 8px 8px 0 0;
+  white-space: nowrap;
+}
+.tool-tab:hover {
+  color: var(--ink-soft);
+  background: var(--surface-3);
+}
+.tool-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tool-tab .tab-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+.tool-panel {
+  display: none;
+}
+.tool-panel.active {
+  display: block;
+}
+.section-head {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--pad-card);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.guide-card-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.guide-card-title svg {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+}
+.guide-card-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.step-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.step-body {
+}
+.step-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.step-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.code-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 5px;
+  color: var(--ink-soft);
+}
+.tip-box {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.tip-box strong {
+  color: var(--accent);
+}
+.warn-box {
+  background: var(--warn-bg);
+  border-left: 3px solid #D4890A;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  font-size: 0.84rem;
+  color: #6B3800;
+  line-height: 1.6;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.feature-item {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.feature-item .fi-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.feature-item .fi-label svg {
+  width: 14px;
+  height: 14px;
+  color: var(--muted);
+}
+.feature-item .fi-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.badge-rd {
+  background: var(--tool-rd-bg);
+  color: var(--tool-rd);
+}
+.badge-pr {
+  background: var(--tool-pr-bg);
+  color: var(--tool-pr);
+}
+.badge-gm {
+  background: var(--tool-gm-bg);
+  color: var(--tool-gm);
+}
+.badge-new {
+  background: #fdf3e2;
+  color: #b45309;
+}
+.kv-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.kv-row:last-child {
+  border-bottom: none;
+}
+.kv-key {
+  font-weight: 600;
+  color: var(--ink-soft);
+  width: 140px;
+  flex-shrink: 0;
+}
+.kv-val {
+  color: var(--muted);
+  flex: 1;
+  line-height: 1.5;
+}
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+}
+.tbl-wrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+thead tr {
+  background: var(--ink);
+  color: #fff;
+}
+thead th {
+  padding: 8px 13px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) {
+  background: var(--surface-2);
+}
+tbody tr:hover {
+  background: var(--accent-soft);
+}
+td {
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+td .mono {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink);
+}
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 22px 0;
+}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- ── Sidebar ── -->
+  
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark">DL</div>
@@ -262,21 +779,26 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
     </div>
   </aside>
   <script>
-  // 사이드바 접기 상태 복원 + 아이콘만 보일 때 메뉴 이름 툴팁
-  (function() {
-    try { if (localStorage.getItem('appSidebar') === 'collapsed') document.querySelector('.app').classList.add('sb-collapsed'); } catch (e) {}
-    document.querySelectorAll('.sidebar .nav-item').forEach(function(a) {
-      var s = a.querySelector('span');
-      if (!a.title && s) a.title = s.textContent.trim();
-    });
-  })();
-  function toggleSidebar() {
-    var collapsed = document.querySelector('.app').classList.toggle('sb-collapsed');
-    try { localStorage.setItem('appSidebar', collapsed ? 'collapsed' : 'expanded'); } catch (e) {}
+(function() {
+  try {
+    if (localStorage.getItem("appSidebar") === "collapsed") document.querySelector(".app").classList.add("sb-collapsed");
+  } catch (e) {
   }
-  </script>
+  document.querySelectorAll(".sidebar .nav-item").forEach(function(a) {
+    var s = a.querySelector("span");
+    if (!a.title && s) a.title = s.textContent.trim();
+  });
+})();
+function toggleSidebar() {
+  var collapsed = document.querySelector(".app").classList.toggle("sb-collapsed");
+  try {
+    localStorage.setItem("appSidebar", collapsed ? "collapsed" : "expanded");
+  } catch (e) {
+  }
+}
+</script>
 
-  <!-- ── Main ── -->
+  
   <div class="main">
     <div class="topbar">
       <h1>User guide</h1>
@@ -289,7 +811,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
 
     <div class="content">
 
-      <!-- Hero -->
+      
       <div class="hero">
         <div class="hero-icon">
           <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-9v4m0-8v.01"/></svg>
@@ -300,7 +822,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
         </div>
       </div>
 
-      <!-- Product code legend -->
+      
       <div class="guide-card" style="margin-bottom:24px;">
         <div class="guide-card-title">
           <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1-4H9a1 1 0 00-1 1v4h8V4a1 1 0 00-1-1z"/></svg>
@@ -308,15 +830,15 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
         </div>
         <div class="guide-card-desc">Product code types used across all tools.</div>
         <div class="pill-row">
-          <span class="pill"><code class="code-tag">OR</code>&nbsp;Raw material</span>
-          <span class="pill"><code class="code-tag">OP</code>&nbsp;Packaging</span>
-          <span class="pill"><code class="code-tag">OB</code>&nbsp;Bulk</span>
-          <span class="pill"><code class="code-tag">OC</code>&nbsp;Individual / Blister</span>
-          <span class="pill"><code class="code-tag">OF</code>&nbsp;Finished goods</span>
+          <span class="pill"><code class="code-tag">RM</code>&nbsp;Raw material</span>
+          <span class="pill"><code class="code-tag">PK</code>&nbsp;Packaging</span>
+          <span class="pill"><code class="code-tag">BK</code>&nbsp;Bulk</span>
+          <span class="pill"><code class="code-tag">IP</code>&nbsp;Individual / Blister</span>
+          <span class="pill"><code class="code-tag">FG</code>&nbsp;Finished goods</span>
         </div>
       </div>
 
-      <!-- Tool Tabs -->
+      
       <div class="tool-tabs">
         <button class="tool-tab active" onclick="switchTab('rd')">
           <span class="tab-dot" style="background:var(--tool-rd)"></span>
@@ -332,9 +854,9 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
         </button>
       </div>
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- PANEL 1: R&D Tool -->
-      <!-- ═══════════════════════════════════════════════ -->
+      
+      
+      
       <div id="panel-rd" class="tool-panel active">
 
         <div class="section-head">R&amp;D Tool overview</div>
@@ -352,14 +874,14 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Tool 1: Search -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             Tool 1 — Product search (R&amp;D Search)
             <span class="badge badge-rd" style="margin-left:auto;">?page=search</span>
           </div>
-          <div class="guide-card-desc">Find products in the OB (bulk) database by keyword and dosage form, and view each product’s ingredient list (BOM).</div>
+          <div class="guide-card-desc">Find products in the BK (bulk) database by keyword and dosage form, and view each product’s ingredient list (BOM).</div>
 
           <div class="step-list">
             <div class="step-item">
@@ -373,7 +895,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
               <div class="step-num">2</div>
               <div class="step-body">
                 <div class="step-title">Enter a keyword</div>
-                <div class="step-desc">Product name, OB code, ingredient name, client name — anything. E.g. <code class="code-tag">OB-2301</code>, <code class="code-tag">Fish Oil</code>, <code class="code-tag">Southern Light</code></div>
+                <div class="step-desc">Product name, BK code, ingredient name, client name — anything. E.g. <code class="code-tag">BK-2301</code>, <code class="code-tag">Fish Oil</code>, <code class="code-tag">Southern Light</code></div>
               </div>
             </div>
             <div class="step-item">
@@ -397,19 +919,19 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Tool 2: AI Recommend -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             Tool 2 — AI ingredient suggestions (AI Recommend)
             <span class="badge badge-rd" style="margin-left:auto;">?page=recommend</span>
           </div>
-          <div class="guide-card-desc">Google Gemini suggests ingredients (OR) and packaging (OP) for a brief, or proposes how to upgrade an existing product.</div>
+          <div class="guide-card-desc">Google Gemini suggests ingredients (RM) and packaging (PK) for a brief, or proposes how to upgrade an existing product.</div>
 
           <div class="divider"></div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
-            <!-- New product -->
+            
             <div>
               <div class="section-head" style="margin-bottom:12px;">Ingredients for a new product</div>
               <div class="step-list">
@@ -424,7 +946,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                   <div class="step-num">2</div>
                   <div class="step-body">
                     <div class="step-title">Review the AI suggestions</div>
-                    <div class="step-desc">Gemini returns a list of ingredients by OR code, with the reason for each and an expected mg/ea.</div>
+                    <div class="step-desc">Gemini returns a list of ingredients by RM code, with the reason for each and an expected mg/ea.</div>
                   </div>
                 </div>
                 <div class="step-item">
@@ -436,7 +958,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                 </div>
               </div>
             </div>
-            <!-- Upgrade -->
+            
             <div>
               <div class="section-head" style="margin-bottom:12px;">Upgrade analysis for an existing product</div>
               <div class="step-list">
@@ -444,7 +966,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                   <div class="step-num">1</div>
                   <div class="step-body">
                     <div class="step-title">Load an existing product’s BOM</div>
-                    <div class="step-desc">Enter an OB code or pick a product from search to load its current BOM.</div>
+                    <div class="step-desc">Enter an BK code or pick a product from search to load its current BOM.</div>
                   </div>
                 </div>
                 <div class="step-item">
@@ -466,14 +988,14 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
 
           <div class="warn-box" style="margin-top:16px;">
-            <strong>Note:</strong> AI suggestions are a reference based on the OR/OP database. An R&amp;D owner must review them before choosing final ingredients.
+            <strong>Note:</strong> AI suggestions are a reference based on the RM/PK database. An R&amp;D owner must review them before choosing final ingredients.
           </div>
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- PANEL 2: Pricing Calculator -->
-      <!-- ═══════════════════════════════════════════════ -->
+      
+      
+      
       <div id="panel-pricing" class="tool-panel">
 
         <div class="section-head">Pricing Calculator overview</div>
@@ -492,7 +1014,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- 6 STEP overview -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
@@ -507,7 +1029,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                 <tr>
                   <td><span class="badge badge-pr">STEP 1</span></td>
                   <td><strong>Basics</strong></td>
-                  <td>Product name, total units, tablets/capsules per bottle. Upload a PFS file or enter an OF/OB/OC code to fill the BOM.</td>
+                  <td>Product name, total units, tablets/capsules per bottle. Upload a PFS file or enter an FG/BK/IP code to fill the BOM.</td>
                   <td>PFS upload <em>or</em> enter a code, then "Load BOM"</td>
                 </tr>
                 <tr>
@@ -519,14 +1041,14 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                 <tr>
                   <td><span class="badge badge-pr">STEP 3</span></td>
                   <td><strong>Raw Material</strong></td>
-                  <td>Search ingredients by OR code, enter mg/ea, choose currency, Incoterms and freight. Final Price (NZD/kg) and subtotal update live. Set the loss rate.</td>
-                  <td>Type an OR code or ingredient name in the search box</td>
+                  <td>Search ingredients by RM code, enter mg/ea, choose currency, Incoterms and freight. Final Price (NZD/kg) and subtotal update live. Set the loss rate.</td>
+                  <td>Type an RM code or ingredient name in the search box</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-pr">STEP 4</span></td>
                   <td><strong>Packages + Processing</strong></td>
-                  <td>Search packaging by OP code; Processing items switch on by packaging_type. Tier prices by quantity apply automatically. Processing items can be added by hand.</td>
-                  <td>Search OP → check the Processing rows are on</td>
+                  <td>Search packaging by PK code; Processing items switch on by packaging_type. Tier prices by quantity apply automatically. Processing items can be added by hand.</td>
+                  <td>Search PK → check the Processing rows are on</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-pr">STEP 5</span></td>
@@ -545,7 +1067,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Key features -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -558,14 +1080,14 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 PFS autocomplete
               </div>
-              <div class="fi-desc">Upload a PFS (Product Formula Sheet) and the ingredient list fills STEP 3. Prices and currencies come in too, matched by OR code.</div>
+              <div class="fi-desc">Upload a PFS (Product Formula Sheet) and the ingredient list fills STEP 3. Prices and currencies come in too, matched by RM code.</div>
             </div>
             <div class="feature-item">
               <div class="fi-label">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 BOM code autocomplete
               </div>
-              <div class="fi-desc">Enter an OF/OB/OC code → ingredients (STEP 3) and packaging (STEP 4) load from the BOM sheet at once. One code fills the whole formula.</div>
+              <div class="fi-desc">Enter an FG/BK/IP code → ingredients (STEP 3) and packaging (STEP 4) load from the BOM sheet at once. One code fills the whole formula.</div>
             </div>
             <div class="feature-item">
               <div class="fi-label">
@@ -598,7 +1120,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Calculation rules -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
@@ -617,9 +1139,9 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- PANEL 3: GM Dashboard -->
-      <!-- ═══════════════════════════════════════════════ -->
+      
+      
+      
       <div id="panel-gm" class="tool-panel">
 
         <div class="section-head">GM Dashboard overview</div>
@@ -638,7 +1160,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Data pipeline -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 12H2M12 2v20M17 7l5 5-5 5M7 7l-5 5 5 5"/></svg>
@@ -658,14 +1180,14 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
               <div class="step-num">2</div>
               <div class="step-body">
                 <div class="step-title">Prepare the sales data</div>
-                <div class="step-desc"><code class="code-tag">gm_analysis/data/sales/Sales_statistics.xlsx</code>Replace it with the latest file.</div>
+                <div class="step-desc"><code class="code-tag">gm_analysis/data/sales/sales_export.xlsx</code>Replace it with the latest file.</div>
               </div>
             </div>
             <div class="step-item">
               <div class="step-num">3</div>
               <div class="step-body">
                 <div class="step-title">Parse factory costs</div>
-                <div class="step-desc">In PowerShell, run <code class="code-tag">python parse_cost_files.py</code> → <code class="code-tag">output/cost_master.csv</code> is created. Normalises six companies’ factory cost Excel files and extracts OF code, OB code, unit_cost, etc.</div>
+                <div class="step-desc">In PowerShell, run <code class="code-tag">python parse_cost_files.py</code> → <code class="code-tag">output/cost_master.csv</code> is created. Normalises six companies’ factory cost Excel files and extracts FG code, BK code, unit_cost, etc.</div>
               </div>
             </div>
             <div class="step-item">
@@ -689,7 +1211,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Dashboard features -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -707,7 +1229,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
             </div>
             <div class="feature-item">
               <div class="fi-label">GM% by product</div>
-              <div class="fi-desc">OF code, product name, client, factory cost, supply price, GM%, cumulative revenue, total quantity. Search, client filter and GM% band filter (under 15% / 15–25% / 25% or more).</div>
+              <div class="fi-desc">FG code, product name, client, factory cost, supply price, GM%, cumulative revenue, total quantity. Search, client filter and GM% band filter (under 15% / 15–25% / 25% or more).</div>
             </div>
             <div class="feature-item">
               <div class="fi-label">GM% by company</div>
@@ -724,7 +1246,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
           </div>
         </div>
 
-        <!-- Client codes -->
+        
         <div class="guide-card">
           <div class="guide-card-title">
             <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
@@ -737,7 +1259,7 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
               <tbody>
                 <tr><td class="mono">RS</td><td>Southern Light</td></tr>
                 <tr><td class="mono">HW</td><td>Tui Naturals</td></tr>
-                <tr><td class="mono">AROHA</td><td>Aroha Botanics</td></tr>
+                <tr><td class="mono">RATA</td><td>Rata Botanics</td></tr>
                 <tr><td class="mono">Harbourside</td><td>Harbourside</td></tr>
                 <tr><td class="mono">Pohu Vita</td><td>Pohu Vita</td></tr>
                 <tr><td class="mono">Lotus Bay</td><td>Lotus Bay</td></tr>
@@ -747,18 +1269,22 @@ td .mono{font-family:var(--mono);font-size:0.78rem;color:var(--ink);}
         </div>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /app -->
+    </div>
+  </div>
+</div>
 
 <script>
 function switchTab(tool) {
-  document.querySelectorAll('.tool-tab').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.tool-panel').forEach(function(p) { p.classList.remove('active'); });
-  var btn = document.querySelector('[onclick="switchTab(\'' + tool + '\')"]');
-  var panel = document.getElementById('panel-' + tool);
-  if (btn) btn.classList.add('active');
-  if (panel) panel.classList.add('active');
+  document.querySelectorAll(".tool-tab").forEach(function(t) {
+    t.classList.remove("active");
+  });
+  document.querySelectorAll(".tool-panel").forEach(function(p) {
+    p.classList.remove("active");
+  });
+  var btn = document.querySelector(`[onclick="switchTab('` + tool + `')"]`);
+  var panel = document.getElementById("panel-" + tool);
+  if (btn) btn.classList.add("active");
+  if (panel) panel.classList.add("active");
 }
 </script>
 <script src="../shared/demo-badge.js"></script>
