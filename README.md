@@ -51,7 +51,16 @@ python tools/build_pricing.py <path>/sales_toolkit        # real source     -> p
 python tools/build_rd.py <path>/rd_toolkit                # real source     -> rd/*.html, code.js
 python tools/gen_crm_seed.py                              # synthetic data  -> crm/seed_kv.js, production_seed.js
 python tools/build_crm.py <path>/<crm-repo>/preview          # real source     -> crm/index.html, worker.js, tab modules
+python tools/translate_en.py apply                        # Korean UI text -> English (run after the builds)
 ```
+
+The tools were built for a team that works in Korean and English. The demo shows English only:
+`tools/translate_en.py` replaces each piece of Korean text from the dictionary in
+`tools/i18n/en.json` and fails if any visible Korean is left (`todo` lists what is missing,
+`merge` adds new translations). The Delays and Production tabs already carry English next to
+Korean, so they are pinned to English and their language toggle is removed. The AI prompts are
+translated too, and the demo AI mocks (`*/mocks.js`) read the English prompts. Apart from the
+text, the code is unchanged.
 
 `build_crm.py` also reads every real client and outreach-prospect name from the private source,
 in memory only, replaces them, and fails the build if any is left. The Outreach tab's data file is

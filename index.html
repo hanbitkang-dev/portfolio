@@ -4,132 +4,181 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hanbit Kang · Tools</title>
-<meta name="description" content="Sales and operations tools I built for a contract manufacturer (demos on synthetic data), and live New Zealand pharmaceutical market tools on public data.">
+<meta name="description" content="New Zealand pharmaceutical market tools running on public data, and the sales and operations tools I built for a contract manufacturer (demos on synthetic data).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f5f2;--card:#fff;--ink:#16181d;--muted:#5d636e;--line:#e4e2dc;--accent:#4f46e5;--accent-soft:#eef0ff;--ok:#15803d;--mono:ui-monospace,"JetBrains Mono",SFMono-Regular,Menlo,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121317;--card:#1b1d23;--ink:#eceef2;--muted:#9aa1ad;--line:#2b2e36;--accent:#8b85ff;--accent-soft:#25264a;--ok:#4ade80}}
-:root[data-theme="dark"]{--bg:#121317;--card:#1b1d23;--ink:#eceef2;--muted:#9aa1ad;--line:#2b2e36;--accent:#8b85ff;--accent-soft:#25264a;--ok:#4ade80}
+:root{
+  --bg:#f8fafc;--surface:#fff;--surface-2:#f1f5f9;--border:#e6eaf0;--border-strong:#d4dae3;
+  --text:#0f172a;--text-dim:#475569;--text-mute:#8a96a8;
+  --accent:#3b82f6;--green:#16a34a;--green-soft:rgba(22,163,74,.11);--amber:#d97706;--amber-soft:rgba(217,119,6,.13);
+  --gray-soft:rgba(100,116,139,.12);
+  --shadow:0 1px 2px rgba(15,23,42,.04),0 1px 3px rgba(15,23,42,.06);
+  --shadow-hover:0 4px 6px rgba(15,23,42,.05),0 10px 24px rgba(15,23,42,.10);
+  --radius:12px;--mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Hanken Grotesk',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#080b12;--surface:#111722;--surface-2:#0e141e;--border:#1e2937;--border-strong:#2a3849;
+  --text:#e8edf4;--text-dim:#98a6ba;--text-mute:#5f6e83;--accent:#60a5fa;--green:#34d399;--green-soft:rgba(52,211,153,.14);
+  --amber:#fbbf24;--amber-soft:rgba(251,191,36,.14);--gray-soft:rgba(148,163,184,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.3);--shadow-hover:0 8px 24px rgba(0,0,0,.45);
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
-main{max-width:960px;margin:0 auto;padding:56px 16px 80px}
-.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:12px 0 12px;letter-spacing:-.02em}
-.lede{color:var(--muted);max-width:640px;margin:0}
-h2{font-size:20px;margin:48px 0 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
-.card h3{margin:0;font-size:18px}
-.card p{margin:0;color:var(--muted);font-size:15px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font:500 11.5px/1 var(--mono);padding:5px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
-.status{font:600 12px/1 var(--mono);color:var(--ok)}
-.status.soon{color:var(--muted)}
-.btn{align-self:flex-start;margin-top:6px;text-decoration:none;background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:9px;font-weight:600;font-size:14px}
-.btn[aria-disabled="true"]{background:var(--line);color:var(--muted);pointer-events:none}
-ul.feat{margin:4px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
-.how{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;overflow-x:auto}
-.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
-.flow div{flex:1 1 150px;border:1px dashed var(--line);border-radius:10px;padding:12px;font-size:14px}
-.flow b{display:block;font:600 12px/1.4 var(--mono);color:var(--accent);margin-bottom:4px}
-.note{font-size:14px;color:var(--muted);margin-top:14px}
-footer{margin-top:56px;font-size:13px;color:var(--muted)}
-code{font-family:var(--mono);font-size:.9em}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+header.top{background:var(--surface);border-bottom:1px solid var(--border)}
+header.top .wrap{display:flex;align-items:center;gap:12px;height:62px}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 13px/1 var(--mono)}
+.brand{font-weight:700;font-size:17px}.brand b{color:var(--accent);font-weight:700}
+.brand-sub{color:var(--text-mute);font-size:13px;margin-left:4px}
+.top-links{margin-left:auto;display:flex;gap:8px}
+.top-links a{text-decoration:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:13.5px;font-weight:500;color:var(--text-dim);background:var(--surface)}
+.top-links a:hover{border-color:var(--border-strong);color:var(--text)}
+
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding:40px 0 28px;flex-wrap:wrap}
+.hero h1{font-size:30px;line-height:1.2;margin:0 0 8px;letter-spacing:-.015em;font-weight:700}
+.hero p{margin:0;color:var(--text-dim);max-width:640px}
+.stats{display:flex}
+.stat{padding:0 22px;border-left:1px solid var(--border);text-align:left}
+.stat:first-child{border-left:0;padding-left:0}
+.stat .n{font:600 22px/1.1 var(--mono)}
+.stat .l{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-top:6px}
+
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border);padding-bottom:10px;margin:22px 0 18px}
+.eyebrow{font:600 11.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.sec-note{font-size:13px;color:var(--text-mute)}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.grid{grid-template-columns:1fr}.stats{width:100%}.stat{padding:0 14px}}
+
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--c);border-radius:var(--radius);
+  box-shadow:var(--shadow);text-decoration:none;overflow:hidden;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.shot{aspect-ratio:16/9;background:var(--surface-2);border-bottom:1px solid var(--border);overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.body{padding:16px 18px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card h3{margin:0;font-size:17px;font-weight:700}
+.pill{font:600 11px/1 var(--mono);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.live{color:var(--green);background:var(--green-soft)}
+.dev{color:var(--amber);background:var(--amber-soft)}
+.demo{color:var(--text-dim);background:var(--gray-soft)}
+.card p{margin:0;color:var(--text-dim);font-size:14px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+.tags{font:500 11.5px/1.4 var(--mono);color:var(--text-mute)}
+.open{font-weight:600;font-size:13.5px;color:var(--accent);white-space:nowrap}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+@media (max-width:980px){.how{grid-template-columns:repeat(2,1fr)}}
+.how div{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-size:13px;color:var(--text-dim)}
+.how b{display:block;font:600 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin-bottom:2px}
+
+footer{margin:44px 0 36px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text-mute);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
 </head>
 <body>
-<main>
-  <div class="eyebrow">Portfolio · tools</div>
-  <h1>Tools I built and run</h1>
-  <p class="lede">Two sets of tools. The first is what my sales team at a dietary-supplement contract manufacturer uses every day for quoting, margin tracking and customer management, rebuilt here as working demos on synthetic data. The second is a set of New Zealand pharmaceutical market tools that run live on public PHARMAC, PBS, Medsafe and FDA data.</p>
-
-  <h2>Sales &amp; operations tools · demos</h2>
-  <div class="grid">
-    <article class="card" id="pricing">
-      <span class="status">● Live demo</span>
-      <h3>Pricing Tool</h3>
-      <p>Six-step quote calculator for contract manufacturing: BOM auto-fill, landed raw-material cost with FX, Incoterms, freight and customs, packaging, processing price tiers, and a margin table.</p>
-      <ul class="feat">
-        <li>Saved quote library with review status</li>
-        <li>GM analysis: factory cost vs selling price by product and client</li>
-        <li>Price finder: procurement history, similar items in the DB, AI estimate</li>
-        <li>Ingredient sourcing check, data upload, classification</li>
-      </ul>
-      <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Vanilla JS</span><span class="tag">Gemini API</span></div>
-      <a class="btn" href="pricing/">Open the Pricing Tool</a>
-    </article>
-    <article class="card" id="crm">
-      <span class="status">● Live demo</span>
-      <h3>CRM</h3>
-      <p>The sales team's CRM: clients and reorders, a deal pipeline with AI Q&amp;A, the weekly sales meeting, production line loading, delivery-delay reviews and an outreach toolkit.</p>
-      <ul class="feat">
-        <li>Clients: tiers, account managers, reorder follow-up, credit</li>
-        <li>Pipeline: kanban, funnel, stall reasons, AI questions on the pipeline</li>
-        <li>Production: line gap warnings and new orders vs capacity from one weekly upload</li>
-        <li>Delays: why late orders were late, stage by stage, on a SQL database</li>
-      </ul>
-      <div class="tags"><span class="tag">Cloudflare Workers</span><span class="tag">KV</span><span class="tag">D1 (SQLite)</span><span class="tag">Cloudflare Access</span><span class="tag">Gemini API</span></div>
-      <a class="btn" href="crm/">Open the CRM</a>
-    </article>
-    <article class="card" id="rd-toolkit">
-      <span class="status">● Live demo</span>
-      <h3>R&amp;D Toolkit</h3>
-      <p>Product search over existing formulations with their BOM, an AI upgrade review of a formula, and AI ingredient and packaging recommendations from a customer brief, chosen only from the company's own ingredient database.</p>
-      <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Google Sheets</span><span class="tag">Gemini API</span></div>
-      <a class="btn" href="rd/">Open the R&amp;D Toolkit</a>
-    </article>
+<header class="top">
+  <div class="wrap">
+    <div class="logo">HK</div>
+    <div class="brand">Hanbit <b>Kang</b></div>
+    <span class="brand-sub">Auckland, New Zealand</span>
+    <nav class="top-links">
+      <a href="https://github.com/hanbitkang-dev" target="_blank" rel="noopener">GitHub</a>
+    </nav>
   </div>
+</header>
 
-  <h2>How the demos work</h2>
-  <div class="how">
-    <div class="flow">
-      <div><b>1 · Real front end</b>The same HTML and JavaScript the team uses, with company names removed.</div>
-      <div><b>2 · Real back end</b>The Apps Script server code runs unchanged in your browser.</div>
-      <div><b>3 · Emulators</b>Apps Script tools: a stand-in for Sheets, Properties, UrlFetch and <code>google.script.run</code>. CRM: the real Worker runs in your browser with KV, a SQLite database for D1 and a signed sign-in token for Cloudflare Access.</div>
-      <div><b>4 · Synthetic data</b>Invented ingredients, prices, clients and sales. Your changes stay in your browser.</div>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Market intelligence and sales tools</h1>
+      <p>New Zealand pharmaceutical market tools on public data, and the tools a contract manufacturer’s sales team runs on every day.</p>
     </div>
-    <p class="note">No server and no sign-in. AI features return fixed demo answers instead of calling Gemini. Use the Reset button on any page to restore the original demo data.</p>
-  </div>
+    <div class="stats" aria-label="Tool counts">
+      <div class="stat"><div class="n">6</div><div class="l">Tools</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Live</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">In development</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Demos</div></div>
+    </div>
+  </section>
 
-  <h2>NZ pharmaceutical market tools · live</h2>
+  <div class="sec-head">
+    <span class="eyebrow">NZ pharmaceutical market</span>
+    <span class="sec-note">Public PHARMAC, PBS, Medsafe and FDA data</span>
+  </div>
   <div class="grid">
-    <article class="card" id="pharmac-tracker">
-      <span class="status">● Live · public data</span>
-      <h3>PHARMAC Tracker</h3>
-      <p>Look up what PHARMAC funds, what is being delisted, supply issues, the funding-application queue, Medsafe registration, and medicines funded in Australia but not in New Zealand.</p>
-      <ul class="feat">
-        <li>Weekly refresh from the PHARMAC Schedule; saved copies keep tabs filled when a source is down</li>
-        <li>Supplier view: tender awards and sole-supply periods by company</li>
-        <li>Read-only API that also serves NZ BD Compass</li>
-      </ul>
-      <div class="tags"><span class="tag">Node / Express</span><span class="tag">React</span><span class="tag">Playwright</span><span class="tag">GitHub Actions</span></div>
-      <a class="btn" href="https://pharmac-tracker.onrender.com" target="_blank" rel="noopener">Open PHARMAC Tracker</a>
-    </article>
-    <article class="card" id="nz-bd-compass">
-      <span class="status">● Live · public data</span>
-      <h3>NZ BD Compass</h3>
-      <p>Business-development analysis on top of PHARMAC Tracker: medicines funded in Australia but not New Zealand, and sole-supply contracts coming up for re-tender.</p>
-      <ul class="feat">
-        <li>In-licensing gaps sorted into tracks by how much is known about each medicine</li>
-        <li>Tender clock: sole-supply expiries by year and who holds them</li>
-        <li>Every summary count adds up to its total</li>
-      </ul>
-      <div class="tags"><span class="tag">React</span><span class="tag">Vite</span><span class="tag">Static site</span></div>
-      <a class="btn" href="https://nz-bd-compass.onrender.com" target="_blank" rel="noopener">Open NZ BD Compass</a>
-    </article>
-    <article class="card" id="pharma-intel">
-      <span class="status">● Live · public data</span>
-      <h3>Pharma Intel</h3>
-      <p>Global pharmaceutical market dashboard: drug profiles across therapeutic sectors, company revenue, and FDA label data, with a news and trial feed.</p>
-      <ul class="feat">
-        <li>Drug profiles collected from OpenFDA, checked against a company whitelist</li>
-        <li>Saved copies served when an outside source fails</li>
-      </ul>
-      <div class="tags"><span class="tag">Node / Express</span><span class="tag">React</span><span class="tag">OpenFDA</span><span class="tag">Gemini API</span></div>
-      <a class="btn" href="https://pharma-intel.onrender.com" target="_blank" rel="noopener">Open Pharma Intel</a>
-    </article>
+    <a class="card" style="--c:#0d9488" href="https://pharmac-tracker.onrender.com" target="_blank" rel="noopener">
+      <div class="shot"><img src="assets/pharmac-tracker.jpg" alt="PHARMAC Tracker: funded medicines list" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>PHARMAC Tracker</h3><span class="pill live">Live</span></div>
+        <p>What PHARMAC funds, delists and is short of, Medsafe registration, and medicines funded in Australia but not in New Zealand.</p>
+        <div class="foot"><span class="tags">Express · React · Playwright</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
+    <a class="card" style="--c:#3b82f6" href="https://pharma-intel.onrender.com" target="_blank" rel="noopener">
+      <div class="shot"><img src="assets/pharma-intel.jpg" alt="Pharma Intel: therapeutic area overview" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>Pharma Intel</h3><span class="pill live">Live</span></div>
+        <p>Global market by therapeutic area: market size, drug profiles from FDA labels, pipeline and news.</p>
+        <div class="foot"><span class="tags">Express · React · OpenFDA</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
+    <a class="card" style="--c:#d97706" href="https://nz-bd-compass.onrender.com" target="_blank" rel="noopener">
+      <div class="shot"><img src="assets/nz-bd-compass.jpg" alt="NZ BD Compass: home screen" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>NZ BD Compass</h3><span class="pill dev">In development</span></div>
+        <p>Business development view on PHARMAC Tracker data: in-licensing gaps and sole-supply contracts coming up for re-tender.</p>
+        <div class="foot"><span class="tags">React · Vite</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
   </div>
 
-  <footer>Hanbit Kang · Auckland, New Zealand · Demo data is synthetic. The live tools use public data only.</footer>
+  <div class="sec-head">
+    <span class="eyebrow">Sales &amp; operations · contract manufacturer</span>
+    <span class="sec-note">Demos on synthetic data · no sign-in</span>
+  </div>
+  <div class="grid">
+    <a class="card" style="--c:#4f46e5" href="pricing/">
+      <div class="shot"><img src="assets/pricing.jpg" alt="Pricing Tool: quote calculator" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>Pricing Tool</h3><span class="pill demo">Demo</span></div>
+        <p>Quote calculator: ingredient cost with FX and freight, packaging, processing and margin, plus saved quotes and GM analysis.</p>
+        <div class="foot"><span class="tags">Apps Script · Sheets · Gemini</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
+    <a class="card" style="--c:#2f6f5e" href="crm/">
+      <div class="shot"><img src="assets/crm-production.jpg" alt="CRM: production line gap warnings" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>CRM</h3><span class="pill demo">Demo</span></div>
+        <p>Clients, pipeline, the weekly sales meeting, production line loading, delivery delays and outreach.</p>
+        <div class="foot"><span class="tags">Cloudflare Workers · D1 · Access</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
+    <a class="card" style="--c:#7c3aed" href="rd/">
+      <div class="shot"><img src="assets/rd.jpg" alt="R&amp;D Toolkit: product search" loading="lazy"></div>
+      <div class="body">
+        <div class="row"><h3>R&amp;D Toolkit</h3><span class="pill demo">Demo</span></div>
+        <p>Search existing formulas and their ingredients; AI suggestions drawn only from the company’s own ingredient database.</p>
+        <div class="foot"><span class="tags">Apps Script · Sheets · Gemini</span><span class="open">Open ›</span></div>
+      </div>
+    </a>
+  </div>
+  <div class="how">
+    <div><b>Real front end</b>The pages the team uses, translated to English, company names removed.</div>
+    <div><b>Real back end</b>The server code runs in your browser; only its text is translated.</div>
+    <div><b>Emulators</b>Stand-ins for Google Sheets, Cloudflare KV, D1 and Access.</div>
+    <div><b>Synthetic data</b>AI answers are fixed. Changes stay in your browser.</div>
+  </div>
+
+  <footer>
+    <span>Hanbit Kang · Auckland, New Zealand</span>
+    <span>Demo data is synthetic. The live tools use public data only.</span>
+  </footer>
 </main>
 </body>
 </html>
