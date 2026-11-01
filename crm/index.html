@@ -646,7 +646,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <h1 class="topbar__title" id="topbarTitle">Clients</h1>
   <span class="topbar__spacer"></span>
   <button type="button" class="btn btn--sm" id="hintToggleBtn" onclick="toggleTabHint()" aria-pressed="false"><span class="icon">help</span>How to use this tab</button>
-  <button type="button" class="btn btn--sm btn--ghost" id="hintLangBtn" onclick="toggleHintLang()" title="Language for &quot;How to use this tab&quot; hints"></button>
 </div>
 <div id="saveFailBanner" style="display:none;background:var(--warn-soft);color:var(--warn);padding:8px 24px;font-size:12px;font-weight:600;align-items:center;gap:10px;border-bottom:1px solid #e3c48f;flex-shrink:0">
   <span class="icon" style="font-size:17px">warning</span>
@@ -660,17 +659,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint">
     <summary>Weekly Sales — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        매주 수요일 세일즈 미팅용 화면이에요. 담당자(Clients › Account Management의 Primary)별로 <b>이번 주에 논의할 파트너만</b> 골라서 짧게 적어요.
-        <div class="hint-pills">
-          <span class="hint-pill">+ Add partner — 내 고객사·딜이 먼저, 다른 담당자 것은 검색으로</span>
-          <span class="hint-pill">Situation · Remark · Meeting notes / decision</span>
-          <span class="hint-pill">+ Add note — 파트너와 무관한 보고</span>
-          <span class="hint-pill">번호 왼쪽 ⋮⋮ 를 끌어서 중요도 순으로 정렬</span>
-          <span class="hint-pill">숫자는 CRM 데이터에서 자동으로</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ 누구나 수정할 수 있고, 한국어·영어 모두 괜찮아요. 칸에서 벗어나면 자동 저장돼요. 고객사 이름을 누르면 Clients, 딜을 누르면 Pipeline으로 이동해요. 지난주 회의 메모가 있으면 같은 파트너 위에 보여줘요.</div>
-      </div>
       <div class="hint-en">
         The agenda for the Wednesday sales meeting. For each account owner (Primary in Clients › Account Management), pick <b>only the partners worth discussing this week</b> and write a short update.
         <div class="hint-pills">
@@ -694,18 +682,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint" style="margin:10px 14px 0;flex-shrink:0">
     <summary>Clients — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        전체 고객사 목록과 매출 현황을 한눈에 볼 수 있어요. 왼쪽 리스트에서 고객사를 클릭하면 오른쪽에 상세 정보가 나타납니다.
-        <div class="hint-pills">
-          <span class="hint-pill">Sort By — 매출/오더수/최근오더/가나다순 정렬</span>
-          <span class="hint-pill">Period — 기간 설정으로 특정 구간 매출 비교</span>
-          <span class="hint-pill">Groups — 고객사를 그룹으로 묶어서 관리</span>
-          <span class="hint-pill">⚠ Inactive — 장기 미주문 고객사 코멘트 관리</span>
-          <span class="hint-pill">Reorders — 전체 고객사의 다음 오더 예상일 + 오더 주기가 길어지는 제품(이탈 신호)</span>
-          <span class="hint-pill">🌱 — SKU 10개 이상 주문한 브랜드 (잠재력 신호, 이미 Tier 1이면 표시 안 함)</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ 고객사 클릭 → 오더 내역, 단가 변동 이력, 휴면 사유 등 상세 정보 확인. 메모(Remarks)는 브라우저에 저장됩니다.</div>
-      </div>
       <div class="hint-en">
         Browse the full client list and revenue summary. Click a client on the left to see their details on the right.
         <div class="hint-pills">
@@ -808,15 +784,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint">
     <summary>Delays — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        늦게 끝난 오더가 <b>어느 단계에서 왜</b> 늦었는지 기록하고, 그 결과로 단계별 표준 리드타임을 정해요. 사유는 Planning이 확정합니다.
-        <div class="hint-pills">
-          <span class="hint-pill">완료 오더 리뷰 — 지연 라인마다 단계·원인 코드·통제 가능 여부, Planning 확정</span>
-          <span class="hint-pill">케이스 — 부서가 함께 볼 라인, 부서별 질문 복사, 답변 기록</span>
-          <span class="hint-pill">진행 오더 — 표준대로면 납기를 넘길 라인, 단계 목표일</span>
-          <span class="hint-pill">리드타임 표준 · 연결 — 표준값, Kanban·Cin7 연결 상태</span>
-        </div>
-      </div>
       <div class="hint-en">
         Record <b>where and why</b> late orders lost time, stage by stage, and set the stage lead-time standards from it. Planning confirms each verdict.
         <div class="hint-pills">
@@ -870,31 +837,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint" style="margin:10px 14px 0;flex-shrink:0">
     <summary>Pipeline — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        신규 개발 딜을 Kanban 보드로 관리해요. 드래그 앤 드롭으로 단계를 이동할 수 있어요.
-        <div class="hint-pills">
-          <span class="hint-pill">Contacted → Lead → Quoted → Negotiating → Won / Drop</span>
-        </div>
-        <b>딜 카드 읽는 법</b>
-        <div class="hint-pills" style="margin-top:4px">
-          <span class="hint-pill" style="background:var(--warn-soft);color:var(--warn)">⚠ 1M</span> 30일 이상 정체 — 클릭하면 메모 입력. 메모 저장 즉시 하이라이트 해제
-          <span class="hint-pill">🔴🟡🟢</span> 배지 색상은 매니저만 변경 가능 — ⚙ 매니저 설정에서 설정
-          <span class="hint-pill" style="background:var(--bad-soft);color:var(--bad)">D+N</span> 예상 종결일 초과
-          <span class="hint-pill" style="background:var(--ok-soft);color:var(--ok)">♻ Revived</span> Drop에서 재개된 딜
-        </div>
-        <b><span class="icon icon--inline">search</span>딜 검색</b> — 키워드 입력 시 제목·고객사·담당자·노트·활동 로그 전체 검색. 결과 클릭 시 해당 딜 모달 바로 열림.<br>
-        <b>Stall 필터</b> — 1M+/2M+/3M+ 버튼으로 해당 기간 이상 정체된 딜만 표시 (견적 발송일 기준).<br>
-        <b>Activity Log</b> — 이메일/통화/미팅 등 기록. 스테이지 이동 시 🔄 로그 자동 기입, 수정 불가.<br>
-        <b><span class="icon icon--inline">restart_alt</span>딜 재개</b> — Drop 딜을 활성 스테이지로 드래그하면 재개 가능. 이전 히스토리 유지.
-        <b>Owner Scorecard</b>
-        <div class="hint-pills" style="margin-top:4px">
-          <span class="hint-pill">🎯 명사수</span> Won 건수 많은 순
-          <span class="hint-pill">💰 승부수</span> Won Value 높은 순
-          <span class="hint-pill">🌱 다작왕</span> 총 딜 수 많은 순
-        </div>
-        기간 버튼(전체/3M/6M/1Y)으로 Close Date 기준 필터링. <b>메이킹률</b> = Won ÷ 전체딜수, 25% 이상 초록.
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ Won/Drop 이동 시 종결 사유 선택. 저장하지 않은 딜 닫을 때 확인 팝업.</div>
-      </div>
       <div class="hint-en">
         Manage new development deals on a Kanban board. Drag and drop cards to move them through stages.
         <div class="hint-pills">
@@ -1087,16 +1029,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint">
     <summary>Production — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        oERP 추출 파일(Sales_statistics.xlsx) <b>하나를 mother data로</b> Planning·Production 팀과 Sales 팀이 각자 필요한 리포트를 봐요. 매주 <b>Data</b>에서 최신 파일을 올리면 모든 화면이 같이 바뀌어요(배포 필요 없음).
-        <div class="hint-pills">
-          <span class="hint-pill">Production — 라인 공백 경고, 월 수주 vs 목표, 생산대기 현황, 준비·Client hold 표시</span>
-          <span class="hint-pill hint-sales">Sales — 라인을 채우려면 더 따야 할 양, Client hold 팔로업, 잔고·예측</span>
-          <span class="hint-pill">Output history — 기존 생산 실적 화면</span>
-          <span class="hint-pill">Data — 업로드, 지난 파일과 비교, 데이터 점검, 캐파·목표 설정</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ Client hold는 고객 쪽(디자인·고객 공급 자재·성분 컨펌·디파짓)을 기다리는 오더예요. 밀린 생산일수·공백 경고·공장 납기 위험에서 빠지고 Sales 화면에 담당자별로 모여요.</div>
-      </div>
       <div class="hint-en">
         One oERP export (Sales_statistics.xlsx) is the <b>mother data</b> for both the Planning / Production team and Sales. Upload the newest file in <b>Data</b> each week and every view updates — no deploy needed.
         <div class="hint-pills">
@@ -1117,15 +1049,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint" style="margin:10px 14px 0;flex-shrink:0">
     <summary>Credit — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        고객사별 SO마다 <b>청구해야 할 Deposit / Balance 예상 금액</b>을 자동 계산해요. Xero에서 하나씩 찾아볼 필요 없이, 이 표를 기준으로 인보이스를 확인하면 돼요.
-        <div class="hint-pills">
-          <span class="hint-pill">Deposit = 주문금액 × Deposit % × (1 + GST)</span>
-          <span class="hint-pill">Balance = 생산완료 수량 × 단가 × (1 + GST) − Deposit</span>
-          <span class="hint-pill">📥 CSV — 엑셀 시트에 그대로 붙여넣기</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ 예상 금액이에요. 실제 인보이스 발행/입금 여부는 아직 Xero 데이터와 연결되지 않았어요. Deposit %는 Clients 탭, GST는 Customer Profile의 Tax Rate를 따릅니다 (비어 있으면 NZD=15%, 그 외=0%).</div>
-      </div>
       <div class="hint-en">
         Automatically calculates the <b>expected Deposit / Balance invoice amounts</b> for every SO of a client, so you don't have to hunt through Xero one order at a time.
         <div class="hint-pills">
@@ -1145,15 +1068,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint" style="margin:10px 14px 0;flex-shrink:0">
     <summary>Forecast — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        향후 매출을 세 가지 기준으로 예측해요.
-        <div class="hint-pills">
-          <span class="hint-pill">📦 Existing Clients — 현재 고객사 기반 반복 오더 예측</span>
-          <span class="hint-pill">🎯 Pipeline — 딜 예상 수익 × 확률(Weighted)</span>
-          <span class="hint-pill">📈 Combined — 위 둘을 합산한 전체 전망</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ Pipeline 예측은 Pipeline 탭에서 딜을 추가/업데이트할수록 정확해져요.</div>
-      </div>
       <div class="hint-en">
         Projects future revenue across three views.
         <div class="hint-pills">
@@ -1175,16 +1089,6 @@ html.role-ops #appVersionBadge{pointer-events:none}
   <details class="tab-hint">
     <summary>Outreach — How to use this tab</summary>
     <div class="hint-body">
-      <div class="hint-ko">
-        신규 OEM 고객 발굴(Project WhaleHunting)용 화면이에요. 우리 전략과 상위 픽을 보고, 타겟 12개사 리서치를 확인하고, 회사별 메일 시퀀스·콜 스크립트·첨부 파일을 바로 만들어요. 첫 접촉은 항상 <b>이메일</b>(공개된 주소만)이에요.
-        <div class="hint-pills">
-          <span class="hint-pill">Strategy — 포지셔닝·강점·누구에게·Top picks·메일 순서·콜 방법·합의할 것</span>
-          <span class="hint-pill">Research &amp; approach — 회사별 발견·Email route·담당자·접근 포인트</span>
-          <span class="hint-pill">Draft generator — 프리셋을 누르면 메일 4통·콜 스크립트 자동 작성</span>
-          <span class="hint-pill">Market screening — 시장 전체 브랜드를 기준별로 필터</span>
-        </div>
-        <div style="margin-top:6px;color:var(--muted);font-size:11px">※ 노란 "Internal notes" 칸은 내부용이라 메일에 절대 넣지 마세요. 2~4번째 메일은 첫 메일 스레드에 답장으로 보내요. 메일은 To / Subject / 본문을 따로 복사하거나 "Open in Gmail"로 열고, 첨부 파일은 Gmail에서 직접 붙여요. 서명(Signature)은 이 브라우저에 저장돼요.</div>
-      </div>
       <div class="hint-en">
         Prospecting for new OEM clients (Project WhaleHunting): our strategy and top picks, research on the 12 target companies, and a generator for each one's email sequence, call script and attachments. The first touch is always <b>email</b>, to a published address only.
         <div class="hint-pills">
@@ -1305,7 +1209,7 @@ var UPDATE_LOG=[
     'Roles: the CRM now asks who is signed in (/api/me, from the Cloudflare Access login) before showing anything. The Production team (Morgan) sees only the Production tab, with its Production, Output history and Data views and the language switch; other tabs, the Sales view, FX Rates, Groups, the Pricing Tool link and the Update Log are hidden for that role. Everyone else sees the CRM as before.'
   ]},
   {version:'3.21',date:'2026-10-27',tabs:['Production'],notes:[
-    'Production tab is now in Korean by default for the Production team, with a 한국어 / EN switch at the top right of the tab (remembered in each browser). Line names, Ready / Remaining / Client hold, the Planning pivot column names, dates and amounts stay in English.'
+    'Production tab: Korean for the Production team, with a Korean / EN switch at the top right of the tab (remembered in each browser; this demo shows English only). Line names, Ready / Remaining / Client hold, the Planning pivot column names, dates and amounts stay in English.'
   ]},
   {version:'3.20',date:'2026-10-27',tabs:['Outreach'],notes:[
     'Companies > Korean importers: a filter above the table — All, Contact found (a phone number or website from a public source) and No contact yet (numbered targets without one).'
@@ -1322,7 +1226,7 @@ var UPDATE_LOG=[
   ]},
   {version:'3.17',date:'2026-10-27',tabs:['Outreach'],notes:[
     'Korean importers 6–10 now show what we found on public sources — website, the page with their contact details, phone and representative — in Companies > Korean importers and in the Tracker. Open the contact page and copy the address yourself (no email addresses are stored, by law); "Draft" also fills in the phone number for the call script.',
-    'KR-09 (정단) is on hold for the CEO: it imports and wholesales a client, a New Zealand brand it doesn’t own — the same case as #5. KR-06–08: no company details found online yet; search the product names on Naver or Coupang and read the importer on the product page.'
+    'KR-09 is on hold for the CEO: it imports and wholesales a client, a New Zealand brand it doesn’t own — the same case as #5. KR-06–08: no company details found online yet; search the product names on Naver or Coupang and read the importer on the product page.'
   ]},
   {version:'3.16',date:'2026-10-27',tabs:['Outreach','Pipeline'],notes:[
     'Outreach > Tracker: a company at Replied or Meeting has a "→ Pipeline" button. It adds the company as a client (or links to an existing client name), creates an Outbound deal at Lead with the contacts and next step in its notes, and copies the outreach log into the deal’s activity log. The Tracker row then shows "In Pipeline" with an "Open deal" button.',
@@ -1342,8 +1246,8 @@ var UPDATE_LOG=[
     'The Korean importer email now follows the harbourleaf email in Korean: a one-paragraph intro, the same five strengths (references, 15+ years, fast quotes and lead time, our formats next to the products they import, innovative development), the NDA line, a call / video call / factory visit ask, and the pass-it-on request at the end next to the opt-out lines.'
   ]},
   {version:'3.12',date:'2026-10-27',tabs:['Outreach'],notes:[
-    'Strategy > Korean importers: the 24 target importers are numbered 1–24, with a new "대표님 검토" column for the CEO’s review on 27 Oct (1, 2, 3 and 5 Pass, 4 to check, 6–10 Go).',
-    'Go rows have a "Draft" button that opens the Korean importer email ((광고) subject, opt-out lines and our address) with the company and its imported products filled in. Type in the address once someone has checked it on a public source; the dosage-form ticks are guessed from the product names, so check them before sending.',
+    'Strategy > Korean importers: the 24 target importers are numbered 1–24, with a new "CEO review" column for the CEO’s review on 27 Oct (1, 2, 3 and 5 Pass, 4 to check, 6–10 Go).',
+    'Go rows have a "Draft" button that opens the Korean importer email ((ad) subject, opt-out lines and our address) with the company and its imported products filled in. Type in the address once someone has checked it on a public source; the dosage-form ticks are guessed from the product names, so check them before sending.',
     'Wave 1: a client, a client, OnBlends and a client email 1 sent on 27 Oct (Top picks notes).'
   ]},
   {version:'3.11.3',date:'2026-10-23',tabs:['Outreach'],notes:[
@@ -1383,12 +1287,12 @@ var UPDATE_LOG=[
   ]},
   {version:'3.5',date:'2026-10-15',tabs:['Outreach'],notes:[
     'Wider target pool: 12 new NZ companies with published email addresses (24 in total), scored and placed in waves. New in Wave 1: a client (Korean-born founder), a client, a client (Korean OEM broker) and a client. Each has research, an email route with its source, and a preset with a suggested template.',
-    'Strategy > Korean importers: who imports NZ-made 건강기능식품 into Korea and which NZ factory makes it, from two years of Korean import records (274 entries, 수입식품정보마루). 24 importers marked as targets, importers that already buy from Demo Labs left out, and conflicts with Demo Labs customer-manufacturers flagged. Includes the Korean anti-spam rules: advertising email to Korea needs prior consent, so the first route is an introduction or a call.',
+    'Strategy > Korean importers: who imports NZ-made health functional foods into Korea and which NZ factory makes it, from two years of Korean import records (274 entries, Korea’s imported food information portal). 24 importers marked as targets, importers that already buy from Demo Labs left out, and conflicts with Demo Labs customer-manufacturers flagged. Includes the Korean anti-spam rules: advertising email to Korea needs prior consent, so the first route is an introduction or a call.',
     'Strategy > Needs a contact: good-fit companies found without a published email yet (e.g. a client, a client, Nutriage), plus the companies excluded for running their own factory.',
     'Korean importer template: the opt-out line is now in Korean and English, as Korean law requires.'
   ]},
   {version:'3.4',date:'2026-10-15',tabs:['Outreach'],notes:[
-    'Email templates: pick one in the Draft generator (or "Use" in Strategy > Email templates) and the whole sequence, call script and LinkedIn note follow it. NZ brand (second source), Asia-linked NZ brand, past customer (reconnect), Korean-owned NZ company (Korean) and Korean importer (Korean, with "(광고)" and a 수신거부 line for recipients in Korea).',
+    'Email templates: pick one in the Draft generator (or "Use" in Strategy > Email templates) and the whole sequence, call script and LinkedIn note follow it. NZ brand (second source), Asia-linked NZ brand, past customer (reconnect), Korean-owned NZ company (Korean) and Korean importer (Korean, with "(ad)" and an opt-out line for recipients in Korea).',
     'Strengths from the 10-14 sales meeting are in the strategy and the copy: many dosage forms in one place, premium packaging (alu-alu blisters, liquid-filled hard capsules), taste-led product development, target volumes agreed to fit each brand, and competitive lead times (no number promised).',
     'Top picks give +1 when the owner, a key person or the parent company is Asian, as a public source states. Decisions now show Agreed / Partly agreed / Open, with what the meeting decided.',
     'a client and a client are flagged as past Demo Labs customers (from the CRM) and open with the reconnect template instead of a cold intro.'
@@ -8237,7 +8141,7 @@ document.getElementById('saveGroupBtn').addEventListener('click',function(){
 });
 
 /* ── Hint language toggle ── */
-var _hintLang=localStorage.getItem('app_hint_lang')||'en';
+var _hintLang='en';
 function _renderHintLangBtn(){
   var btn=document.getElementById('hintLangBtn');
   if(btn)btn.innerHTML='<span class="icon">translate</span>'+(_hintLang==='en'?'EN':'KR');

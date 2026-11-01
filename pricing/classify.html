@@ -126,9 +126,9 @@ tr.saved td{animation:flash 0.9s ease;}
       <div class="brand-mark">DL</div>
       <div class="brand-text">
         <div class="name">Demo Labs Sales Pricing Tool</div>
-        <div class="sub">분류 관리 · v1.33 demo</div>
+        <div class="sub">Categories · v1.33 demo</div>
       </div>
-    <button class="sb-toggle" type="button" onclick="toggleSidebar()" title="사이드바 접기 / 펼치기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+    <button class="sb-toggle" type="button" onclick="toggleSidebar()" title="Collapse / expand sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
 
     <div class="nav-section">R&amp;D</div>
     <nav class="nav">
@@ -154,15 +154,15 @@ tr.saved td{animation:flash 0.9s ease;}
       </a>
       <a class="nav-item active" href="classify.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
-        <span>분류 관리</span>
+        <span>Categories</span>
       </a>
       <a class="nav-item" href="upload.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <span>데이터 업로드</span>
+        <span>Data upload</span>
       </a>
       <a class="nav-item" href="sourcing.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>원료 점검</span>
+        <span>Ingredient check</span>
       </a>
       <a class="nav-item" href="procurement.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/><circle cx="9.5" cy="20.5" r="1"/><circle cx="17.5" cy="20.5" r="1"/></svg>
@@ -178,15 +178,15 @@ tr.saved td{animation:flash 0.9s ease;}
       </a>
     </nav>
 
-    <div class="nav-section">도움말</div>
+    <div class="nav-section">Help</div>
     <nav class="nav">
       <a class="nav-item" href="guide.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>사용 가이드</span>
+        <span>User guide</span>
       </a>
       <a class="nav-item" href="changelog.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><path d="M3.05 11a9 9 0 116.9 9.5"/><path d="M3 4v5h5"/></svg>
-        <span>업데이트 로그</span>
+        <span>Update log</span>
       </a>
     </nav>
 
@@ -220,25 +220,25 @@ tr.saved td{animation:flash 0.9s ease;}
   <main class="main">
     <div class="content">
       <div class="page-header">
-        <div class="page-title">분류 마스터 관리</div>
-        <div class="page-sub">OF/OB코드 → 회사·브랜드·시장·자사 여부. 수정 시 자동 저장됩니다.</div>
+        <div class="page-title">Category master</div>
+        <div class="page-sub">OF/OB code → company · brand · market · in-house. Changes save automatically.</div>
       </div>
 
       <div class="toolbar">
-        <input type="text" class="search-box" id="searchBox" placeholder="OF코드·회사·브랜드 검색…" oninput="renderRows()">
-        <button class="btn btn-primary" onclick="addNewRow()">+ 새 분류 추가</button>
+        <input type="text" class="search-box" id="searchBox" placeholder="Search OF code, company, brand…" oninput="renderRows()">
+        <button class="btn btn-primary" onclick="addNewRow()">+ Add category</button>
         <span class="count-info" id="countInfo"></span>
       </div>
 
       <datalist id="companyList"></datalist>
       <datalist id="brandList"></datalist>
 
-      <div id="stateLoading" class="state-box"><div class="spinner"></div><div>불러오는 중…</div></div>
+      <div id="stateLoading" class="state-box"><div class="spinner"></div><div>Loading…</div></div>
       <div class="tbl-wrap" id="tblWrap" style="display:none;">
         <table>
           <thead><tr>
-            <th class="col-of">OF / OB코드</th><th>회사 (Company)</th><th>브랜드 (Brand)</th>
-            <th class="col-mkt">시장</th><th class="col-inh">자사</th><th class="col-act"></th>
+            <th class="col-of">OF / OB code</th><th>Company</th><th>Brand</th>
+            <th class="col-mkt">Market</th><th class="col-inh">In-house</th><th class="col-act"></th>
           </tr></thead>
           <tbody id="tbody"></tbody>
         </table>
@@ -252,13 +252,13 @@ tr.saved td{animation:flash 0.9s ease;}
 <div id="pwGate" style="position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;align-items:center;justify-content:center;">
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px 36px;width:min(360px,92vw);box-shadow:var(--shadow-lg);text-align:center;">
     <div style="width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;margin:0 auto 20px;">DL</div>
-    <div style="font-family:var(--display);font-size:1.15rem;font-weight:600;margin-bottom:6px;">분류 관리</div>
-    <div style="color:var(--muted);font-size:0.82rem;margin-bottom:24px;">비밀번호를 입력하세요.</div>
-    <input type="password" id="pwInput" placeholder="비밀번호"
+    <div style="font-family:var(--display);font-size:1.15rem;font-weight:600;margin-bottom:6px;">Categories</div>
+    <div style="color:var(--muted);font-size:0.82rem;margin-bottom:24px;">Enter the password.</div>
+    <input type="password" id="pwInput" placeholder="Password"
       style="width:100%;height:42px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;letter-spacing:3px;margin-bottom:10px;font-family:var(--sans);"
       onkeydown="if(event.key==='Enter')submitPassword()">
     <div id="pwError" style="color:var(--drop);font-size:0.78rem;min-height:20px;margin-bottom:10px;"></div>
-    <button id="pwBtn" onclick="submitPassword()" style="width:100%;height:44px;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;">확인</button>
+    <button id="pwBtn" onclick="submitPassword()" style="width:100%;height:44px;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;">OK</button>
   </div>
 </div>
 
@@ -271,12 +271,12 @@ var NEW_SEQ = 0;
 function hideGate(){ document.getElementById('pwGate').style.display='none'; }
 function submitPassword(){
   var pw=document.getElementById('pwInput').value||''; var btn=document.getElementById('pwBtn');
-  btn.disabled=true; btn.textContent='확인 중…';
+  btn.disabled=true; btn.textContent='Checking…';
   google.script.run.withSuccessHandler(function(res){
-    btn.disabled=false; btn.textContent='확인';
+    btn.disabled=false; btn.textContent='OK';
     if (res && res.ok){ try{sessionStorage.setItem('pricingAuth','1');}catch(e){} hideGate(); load(); }
-    else { document.getElementById('pwError').textContent='비밀번호가 올바르지 않습니다.'; document.getElementById('pwInput').value=''; }
-  }).withFailureHandler(function(){ btn.disabled=false; btn.textContent='확인'; }).checkPricingPassword(pw);
+    else { document.getElementById('pwError').textContent='Wrong password.'; document.getElementById('pwInput').value=''; }
+  }).withFailureHandler(function(){ btn.disabled=false; btn.textContent='OK'; }).checkPricingPassword(pw);
 }
 
 function load(){
@@ -289,7 +289,7 @@ function load(){
   }).withFailureHandler(function(err){
     document.getElementById('stateLoading').style.display='none';
     document.getElementById('tblWrap').style.display='';
-    document.getElementById('tbody').innerHTML='<tr><td colspan="6" style="color:var(--drop);padding:14px;">로딩 오류: '+((err&&err.message)||'')+'</td></tr>';
+    document.getElementById('tbody').innerHTML='<tr><td colspan="6" style="color:var(--drop);padding:14px;">Loading error: '+((err&&err.message)||'')+'</td></tr>';
   }).getClassifications();
 }
 
@@ -310,23 +310,23 @@ var CAP = 200;
 function renderRows(){
   var q=(document.getElementById('searchBox').value||'').trim();
   var list=filtered();
-  document.getElementById('countInfo').textContent = ROWS.length+'건'+(q?(' · '+list.length+' 일치'):'');
+  document.getElementById('countInfo').textContent = ROWS.length+'items'+(q?(' · '+list.length+' match'):'');
   var shown = list.slice(0, CAP);
   document.getElementById('tbody').innerHTML = shown.map(rowHtml).join('');
   var hint=document.getElementById('moreHint');
-  if(list.length>CAP){ hint.style.display=''; hint.textContent='상위 '+CAP+'건만 표시 중 — 검색으로 좁혀주세요 (총 '+list.length+'건 일치).'; }
+  if(list.length>CAP){ hint.style.display=''; hint.textContent='Showing the top '+CAP+'only — narrow it with search ( '+list.length+'match in total).'; }
   else hint.style.display='none';
 }
 
 function rowHtml(r){
   var id = r._id || ('of-'+esc(r.ofCode));
   return '<tr id="'+id+'">' +
-    '<td class="col-of"><input class="cell-in mono" value="'+esc(r.ofCode)+'" readonly title="코드는 수정 불가 (삭제 후 재추가)"></td>' +
+    '<td class="col-of"><input class="cell-in mono" value="'+esc(r.ofCode)+'" readonly title="Code can’t be edited (delete and add again)"></td>' +
     '<td><input class="cell-in" list="companyList" value="'+esc(r.company)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
     '<td><input class="cell-in" list="brandList" value="'+esc(r.brand)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
     '<td class="col-mkt"><input class="cell-in mono" value="'+esc(r.market)+'" oninput="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
     '<td class="col-inh"><input type="checkbox" class="chk"'+(r.inHouse?' checked':'')+' onchange="onEdit(this,\''+esc(r.ofCode)+'\')"></td>' +
-    '<td class="col-act"><button class="btn-del" title="삭제" onclick="delRow(\''+esc(r.ofCode)+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/><path d="M19 6l-1 14a1 1 0 01-1 1H7a1 1 0 01-1-1L5 6"/></svg></button></td>' +
+    '<td class="col-act"><button class="btn-del" title="Delete" onclick="delRow(\''+esc(r.ofCode)+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/><path d="M19 6l-1 14a1 1 0 01-1 1H7a1 1 0 01-1-1L5 6"/></svg></button></td>' +
   '</tr>';
 }
 
@@ -351,10 +351,10 @@ function saveRow(ofCode, meta, tr){
 }
 
 function addNewRow(){
-  var of = (prompt('추가할 OF코드 (예: OF0001)') || '').trim().toUpperCase();
+  var of = (prompt('OF code to add (e.g. OF0001)') || '').trim().toUpperCase();
   if(!of) return;
-  if(!/^O[FB]\d+/.test(of)){ alert('OF 또는 OB 코드 형식이어야 합니다.'); return; }
-  if(ROWS.some(function(r){return r.ofCode===of;})){ alert('이미 있는 코드입니다: '+of); document.getElementById('searchBox').value=of; renderRows(); return; }
+  if(!/^O[FB]\d+/.test(of)){ alert('Must be an OF or OB code.'); return; }
+  if(ROWS.some(function(r){return r.ofCode===of;})){ alert('Code already exists: '+of); document.getElementById('searchBox').value=of; renderRows(); return; }
   var rec = { ofCode:of, company:'', brand:'', market:'', inHouse:false };
   ROWS.unshift(rec);
   document.getElementById('searchBox').value = of;
@@ -364,11 +364,11 @@ function addNewRow(){
 }
 
 function delRow(ofCode){
-  if(!confirm(ofCode+' 분류를 삭제할까요?')) return;
+  if(!confirm(ofCode+' Delete this category?')) return;
   google.script.run.withSuccessHandler(function(res){
     if(res && res.ok){ ROWS = ROWS.filter(function(x){return x.ofCode!==ofCode;}); renderRows(); }
-    else alert('삭제 오류: '+((res&&res.error)||''));
-  }).withFailureHandler(function(err){ alert('삭제 오류: '+((err&&err.message)||'')); }).deleteClassification(ofCode);
+    else alert('Delete error: '+((res&&res.error)||''));
+  }).withFailureHandler(function(err){ alert('Delete error: '+((err&&err.message)||'')); }).deleteClassification(ofCode);
 }
 
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }

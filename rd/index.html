@@ -241,15 +241,15 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
-        <span>저장된 견적</span>
+        <span>Saved quotes</span>
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9a3 3 0 100 6 3 3 0 000-6z"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-2.9 1.2V21a2 2 0 11-4 0v-.1A1.7 1.7 0 006.7 19l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00-1.2-2.9H3a2 2 0 110-4h.1A1.7 1.7 0 005 6.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H10a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V10a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
-        <span>설정</span>
+        <span>Settings</span>
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5M14 4v4M6 10v4M11 16v4"/></svg>
-        <span>Processing 설정</span>
+        <span>Processing settings</span>
       </a>
     </nav>
 
@@ -261,11 +261,11 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       </a>
     </nav>
 
-    <div class="nav-section">도움말</div>
+    <div class="nav-section">Help</div>
     <nav class="nav">
       <a class="nav-item" href="../pricing/guide.html" data-sales-page="guide">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>사용 가이드</span>
+        <span>User guide</span>
       </a>
     </nav>
     
@@ -300,12 +300,12 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
         </div>
         <div class="grid-2" style="margin-bottom:16px;">
           <div class="field">
-            <label>제형 종류 (Type)</label>
+            <label>Dosage form (Type)</label>
             <select id="inputType" class="input"></select>
           </div>
           <div class="field">
-            <label>제품명 / 효능 키워드</label>
-            <input type="text" id="inputKeyword" class="input" placeholder="예: propolis, immunity, collagen">
+            <label>Product name / benefit keyword</label>
+            <input type="text" id="inputKeyword" class="input" placeholder="e.g. propolis, immunity, collagen">
           </div>
         </div>
         <button class="btn btn-primary btn-block" onclick="runSearch()" id="searchBtn">Search Products</button>
@@ -314,7 +314,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
       <!-- Loading -->
       <div id="loadingBox" class="loading" style="display:none;">
         <div class="spinner"></div>
-        <p>데이터베이스 검색 중...</p>
+        <p>Searching the database...</p>
       </div>
 
       <!-- Error -->
@@ -331,7 +331,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
             <div class="field">
               <label>Status</label>
               <select id="filterStatus" class="input" onchange="applyFilters()">
-                <option value="">전체</option>
+                <option value="">All</option>
                 <option value="approve">Approve</option>
                 <option value="pending">Pending</option>
                 <option value="new">New</option>
@@ -339,23 +339,23 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
               </select>
             </div>
             <div class="field">
-              <label>추가 키워드</label>
-              <input type="text" id="filterKeyword" class="input" placeholder="예: zinc, propolis" oninput="applyFilters()">
+              <label>Extra keyword</label>
+              <input type="text" id="filterKeyword" class="input" placeholder="e.g. zinc, propolis" oninput="applyFilters()">
             </div>
             <div class="field">
-              <label>키워드 기준</label>
+              <label>Search in</label>
               <select id="filterTarget" class="input" onchange="applyFilters()">
-                <option value="name">OB 제품명</option>
-                <option value="ingredient">OR 원료명 (BOM)</option>
+                <option value="name">OB product name</option>
+                <option value="ingredient">OR ingredient name (BOM)</option>
               </select>
             </div>
           </div>
 
           <div class="toolbar">
-            <span style="font-size:0.78rem;color:var(--muted);">정렬</span>
+            <span style="font-size:0.78rem;color:var(--muted);">Sort</span>
             <div class="seg">
-              <button id="sortName" class="active" onclick="setSort('name')">이름순</button>
-              <button id="sortDate" onclick="setSort('date')">최신등록순</button>
+              <button id="sortName" class="active" onclick="setSort('name')">By name</button>
+              <button id="sortDate" onclick="setSort('date')">Newest first</button>
             </div>
           </div>
 
@@ -364,7 +364,7 @@ select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
           </div>
 
           <div class="plist" id="productList"></div>
-          <button class="btn-more" id="btnMore" onclick="loadMore()" style="display:none;">+ 더 보기</button>
+          <button class="btn-more" id="btnMore" onclick="loadMore()" style="display:none;">+ Show more</button>
         </div>
       </div>
 
@@ -404,13 +404,13 @@ window.onload = function() {
       sel.innerHTML = '';
       types.forEach(function(t) {
         var opt = document.createElement('option');
-        opt.value = (t === '전체') ? '' : t;
+        opt.value = (t === 'All') ? '' : t;
         opt.textContent = t;
         sel.appendChild(opt);
       });
     })
     .withFailureHandler(function() {
-      document.getElementById('inputType').innerHTML = '<option value="">전체</option>';
+      document.getElementById('inputType').innerHTML = '<option value="">All</option>';
     })
     .getTypeList();
 
@@ -443,7 +443,7 @@ function runSearch() {
     .withFailureHandler(function(err) {
       document.getElementById('loadingBox').style.display = 'none';
       document.getElementById('searchBtn').disabled       = false;
-      showError('오류: ' + err.message);
+      showError('Error: ' + err.message);
     })
     .searchProductWeb(type, keyword);
 }
@@ -499,7 +499,7 @@ function renderList() {
   var list = document.getElementById('productList');
   if (shownCount === 0) list.innerHTML = '';
   if (filteredResults.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--faint);">필터 조건에 맞는 제품이 없습니다.</div>';
+    list.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--faint);">No products match the filters.</div>';
     document.getElementById('resultsCount').innerHTML = '<b>0</b> ITEMS';
     document.getElementById('btnMore').style.display = 'none';
     return;
@@ -533,7 +533,7 @@ function makeCard(product) {
   if (product.targetBenefit) tags += '<span class="tag tag-benefit" title="' + product.targetBenefit + '">' + product.targetBenefit + '</span>';
 
   /* BOM table */
-  var bomHtml = '<div class="no-bom">BOM 데이터 없음</div>';
+  var bomHtml = '<div class="no-bom">No BOM data</div>';
   if (product.bom && product.bom.length > 0) {
     var rows = product.bom.map(function(b) {
       return '<tr>' +
@@ -543,7 +543,7 @@ function makeCard(product) {
         '<td><span class="unit">' + (b.unit || '-') + '</span></td>' +
       '</tr>';
     }).join('');
-    bomHtml = '<table class="bom-table"><thead><tr><th>원료 코드</th><th>원료명</th><th>수량</th><th>단위</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    bomHtml = '<table class="bom-table"><thead><tr><th>Ingredient code</th><th>Ingredient</th><th>Quantity</th><th>Unit</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   item.innerHTML =
@@ -561,7 +561,7 @@ function makeCard(product) {
         bomHtml +
         '<div class="ai-cta">' +
           '<button class="btn btn-ai" onclick="requestUpgrade(event, \'' + product.obCode + '\')">' +
-            iconSvg('sparkles') + ' AI 업그레이드 분석' +
+            iconSvg('sparkles') + ' AI upgrade analysis' +
           '</button>' +
           '<div class="ai-box" id="upgrade-' + product.obCode + '"></div>' +
         '</div>' +
@@ -589,13 +589,13 @@ function requestUpgrade(e, obCode) {
     return;
   }
 
-  box.innerHTML = '<div class="loading" style="padding:20px 0;"><div class="spinner ai sm"></div><p>AI가 업그레이드 분석 중...</p></div>';
+  box.innerHTML = '<div class="loading" style="padding:20px 0;"><div class="spinner ai sm"></div><p>AI is analysing an upgrade...</p></div>';
   box.classList.add('visible');
   btn.disabled = true;
 
   var product = allResults.find(function(p) { return p.obCode === obCode; });
   if (!product) {
-    box.innerHTML = '<div class="loading" style="padding:16px;">제품 데이터를 찾을 수 없습니다.</div>';
+    box.innerHTML = '<div class="loading" style="padding:16px;">Product data not found.</div>';
     return;
   }
 
@@ -610,7 +610,7 @@ function requestUpgrade(e, obCode) {
     })
     .withFailureHandler(function(err) {
       btn.disabled = false;
-      box.innerHTML = '<div class="loading" style="padding:16px;color:var(--drop);">오류: ' + err.message + '</div>';
+      box.innerHTML = '<div class="loading" style="padding:16px;color:var(--drop);">Error: ' + err.message + '</div>';
     })
     .getUpgradeAnalysis(product);
 }
@@ -622,7 +622,7 @@ function renderUpgradeResult(box, response) {
   html += '<div class="ai-summary">' + (response.summary || '').replace(/\n/g, '<br>') + '</div>';
 
   if (response.replaceItems && response.replaceItems.length > 0) {
-    html += '<div class="up-title">대체 원료 제안</div>';
+    html += '<div class="up-title">Suggested replacements</div>';
     response.replaceItems.forEach(function(item) {
       html += '<div class="up-item">' +
         '<div class="up-item-head">' +
@@ -640,7 +640,7 @@ function renderUpgradeResult(box, response) {
   }
 
   if (response.addItems && response.addItems.length > 0) {
-    html += '<div class="up-title">추가 원료 제안</div>';
+    html += '<div class="up-title">Suggested additions</div>';
     response.addItems.forEach(function(item) {
       html += '<div class="up-item">' +
         '<div class="up-item-head">' +

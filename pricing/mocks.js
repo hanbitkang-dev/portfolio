@@ -11,8 +11,8 @@
     var isPkg = /packaging component/.test(prompt);
     var branded = /[®™]/.test(name);
     return {
-      identity: { branded: branded ? 'yes' : 'ambiguous', brands: branded ? [{ name: name.replace(/\s*\(.*$/, ''), owner: '확인 필요', distributors: [], label_name: name }] : [],
-        generic_equivalents: [name.replace(/[®™]/g, '').trim()], notes: '데모 응답: 실제 웹 검색 대신 고정 예시 데이터입니다.' },
+      identity: { branded: branded ? 'yes' : 'ambiguous', brands: branded ? [{ name: name.replace(/\s*\(.*$/, ''), owner: 'Needs checking', distributors: [], label_name: name }] : [],
+        generic_equivalents: [name.replace(/[®™]/g, '').trim()], notes: 'Demo response: fixed sample data instead of a real web search.' },
       dose_mg_per_day: { value: null, basis: '' },
       retail_products: [],
       b2b_listings: [{ source: 'Demo B2B listing', grade: 'food', price_low: isPkg ? 0.05 : 18, price_high: isPkg ? 0.12 : 46, currency: 'USD', unit: isPkg ? 'ea' : 'kg', incoterms: 'FOB', moq: isPkg ? '10,000 ea' : '25 kg', note: 'demo' }],
@@ -32,20 +32,20 @@
     var mid = med ? +(med * fx).toFixed(isPkg ? 4 : 1) : (isPkg ? 0.08 : 32);
     var low = p25 ? +(p25 * fx).toFixed(isPkg ? 4 : 1) : +(mid * 0.75).toFixed(isPkg ? 4 : 1);
     var high = p75 ? +(p75 * fx).toFixed(isPkg ? 4 : 1) : +(mid * 1.4).toFixed(isPkg ? 4 : 1);
-    var cases = [{ key: 'A', label: branded ? '브랜드 원료' : '일반 원료 (식품 등급)', type: branded ? 'branded' : 'generic', currency: 'USD', unit: unit,
+    var cases = [{ key: 'A', label: branded ? 'Branded ingredient' : 'Generic ingredient (food grade)', type: branded ? 'branded' : 'generic', currency: 'USD', unit: unit,
       low: low, mid: mid, high: high, incoterms: 'FOB', moq: isPkg ? '10,000 ea' : '25 kg', confidence: med ? 'medium' : 'low',
-      confidence_note: med ? '사내 같은 분류 구매가 분포를 기준으로 함' : '사내 근거가 적어 범위가 넓음',
-      basis: [med ? '같은 분류 중앙값 NZD ' + med + '/' + unit + ' → USD 환산 ' + mid : '데모 기본값', '웹 B2B 범위와 교차 확인 (데모)'], grade_note: '' }];
-    if (!isPkg && !branded) cases.push({ key: 'B', label: '고함량·브랜드일 경우', type: 'branded', currency: 'USD', unit: unit,
+      confidence_note: med ? 'Based on the spread of company purchase prices in the same category' : 'Few company data points, so the range is wide',
+      basis: [med ? 'Same-category median NZD ' + med + '/' + unit + ' → converted to USD ' + mid : 'Demo default', 'Cross-checked with web B2B ranges (demo)'], grade_note: '' }];
+    if (!isPkg && !branded) cases.push({ key: 'B', label: 'If high-strength or branded', type: 'branded', currency: 'USD', unit: unit,
       low: +(mid * 1.8).toFixed(1), mid: +(mid * 2.6).toFixed(1), high: +(mid * 3.5).toFixed(1), incoterms: 'FOB', moq: '5 kg', confidence: 'low',
-      confidence_note: '브랜드 여부 확인 전', basis: ['브랜드 원료는 일반 원료의 2~4배 수준 (데모 가정)'], grade_note: '' });
+      confidence_note: 'Before confirming branded or not', basis: ['Branded ingredients cost about 2–4× generic (demo assumption)'], grade_note: '' });
     return {
-      summary: name + ': 추천 ' + mid + ' USD/' + unit + ' (데모 추정)', branded: branded ? 'yes' : 'no', brand_candidates: [],
+      summary: name + ': recommended ' + mid + ' USD/' + unit + ' (demo estimate)', branded: branded ? 'yes' : 'no', brand_candidates: [],
       cases: cases, recommended: 'A',
-      recommendation: 'A 기준으로 견적하고, 고객에게 브랜드 원료 여부를 먼저 확인하세요. (데모 응답)',
-      db_evidence: med ? '같은 분류 사내 구매 n건의 p25~p75 범위' : '사내 유사 품목 부족',
-      client_questions: [{ q: '특정 브랜드 원료를 라벨에 표기해야 하나요?', why: '브랜드 원료면 단가가 크게 달라짐' }],
-      procurement_requests: ['공급사 2곳 이상 견적 요청 (MOQ·리드타임 포함)'],
+      recommendation: 'Quote on A and check with the client first whether it is a branded ingredient. (demo response)',
+      db_evidence: med ? 'p25–p75 range of n company purchases in the same category' : 'Few similar items in the company DB',
+      client_questions: [{ q: 'Does a specific branded ingredient need to be on the label?', why: 'A branded ingredient changes the price a lot' }],
+      procurement_requests: ['Ask at least two suppliers for quotes (incl. MOQ and lead time)'],
     };
   }
 

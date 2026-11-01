@@ -109,21 +109,21 @@ function getTypeList() {
     var cfg = getConfig();
     const ss = SpreadsheetApp.openById(cfg.SPREADSHEET_ID);
     const obSheet = ss.getSheetByName("OB");
-    if (!obSheet) return { error: "OB 시트를 찾을 수 없습니다." };
+    if (!obSheet) return { error: "OB sheet not found." };
 
     const obData = obSheet.getDataRange().getValues();
     const headers = obData[0];
     const idxType = col(headers, "type");
-    if (idxType === -1) return { error: "type 컬럼을 찾을 수 없습니다." };
+    if (idxType === -1) return { error: "type column not found." };
 
     const types = new Set();
     for (let i = 1; i < obData.length; i++) {
       const type = obData[i][idxType];
       if (type) types.add(type.toString().trim());
     }
-    return ["전체", ...Array.from(types).sort()];
+    return ["All", ...Array.from(types).sort()];
   } catch(e) {
-    return { error: "제형 목록 조회 오류: " + e.message };
+    return { error: "Dosage form list error: " + e.message };
   }
 }
 
@@ -133,7 +133,7 @@ function searchProductWeb(type, keyword) {
     const ss = SpreadsheetApp.openById(cfg.SPREADSHEET_ID);
     const obSheet    = ss.getSheetByName("OB");
     const obBomSheet = ss.getSheetByName("OB_BOM");
-    if (!obSheet || !obBomSheet) return { error: "시트를 찾을 수 없습니다." };
+    if (!obSheet || !obBomSheet) return { error: "sheet not found." };
 
     const obData  = obSheet.getDataRange().getValues();
     const headers = obData[0];
@@ -163,7 +163,7 @@ function searchProductWeb(type, keyword) {
       const obRegisterDate  = idxRegisterDate  !== -1 ? formatDate(row[idxRegisterDate])             : "";
       const obTargetBenefit = idxTargetBenefit !== -1 ? row[idxTargetBenefit].toString()             : "";
 
-      const matchType    = searchType === "" || searchType === "전체" || obType === searchType;
+      const matchType    = searchType === "" || searchType === "All" || obType === searchType;
       const matchKeyword = searchKeyword === "" ||
         obName.toLowerCase().includes(searchKeyword) ||
         obTargetBenefit.toLowerCase().includes(searchKeyword);
@@ -180,7 +180,7 @@ function searchProductWeb(type, keyword) {
       }
     }
 
-    if (results.length === 0) return { error: "조건에 맞는 제품을 찾을 수 없습니다." };
+    if (results.length === 0) return { error: "No products match." };
 
     const bomData    = obBomSheet.getDataRange().getValues();
     const bomHeaders = bomData[0];
@@ -210,7 +210,7 @@ function searchProductWeb(type, keyword) {
 
     return { results };
   } catch(e) {
-    return { error: "제품 검색 오류: " + e.message };
+    return { error: "Product search error: " + e.message };
   }
 }
 
@@ -307,22 +307,22 @@ function getAIRecommendation(requirements) {
     }).join('\n');
 
     var prompt =
-      "당신은 건강기능식품 R&D 전문가입니다. " +
-      "아래 원료 DB와 부자재 DB를 기반으로 클라이언트 요구사항에 맞는 원료와 부자재를 추천해주세요.\n\n" +
-      "=== 클라이언트 요구사항 ===\n" +
-      "제형: "          + requirements.formType                          + "\n" +
-      "타겟 고객: "     + (requirements.targetCustomer || '미지정')      + "\n" +
-      "예산 수준: "     + (requirements.budget         || '미지정')      + "\n" +
-      "타겟 효능: "     + requirements.targetBenefit                     + "\n" +
-      "원산지 선호: "   + (requirements.origin         || '없음')        + "\n" +
-      "추가 요구사항: " + (requirements.extraNotes     || '없음')        + "\n\n" +
-      "=== 원료 DB (OR) — 코드 | 원료명 | 통화 단가 | 공급사 ===\n" + orText + "\n\n" +
-      "=== 부자재 DB (OP) — 코드 | 부자재명 | 타입 | 통화 단가 | 공급사 ===\n" + opText + "\n\n" +
-      "=== 응답 형식 (반드시 아래 JSON 형식으로만 응답) ===\n" +
-      '{"summary":"전체 추천 요약 2-3문장",' +
-      '"orItems":[{"code":"OR코드","name":"원료명","salesPrice":"단가","currency":"통화","supplier":"공급사","reason":"추천이유"}],' +
-      '"opItems":[{"code":"OP코드","name":"부자재명","pkgType":"타입","salesPrice":"단가","currency":"통화","supplier":"공급사","reason":"추천이유"}]}' +
-      "\n원료 5~8개, 부자재 3~5개 추천. JSON 외 텍스트 절대 포함 금지.";
+      "You are an R&D expert in health supplements. " +
+      "Using the ingredient DB and packaging DB below, recommend ingredients and packaging that fit the client brief.\n\n" +
+      "=== Client brief ===\n" +
+      "Dosage form: "          + requirements.formType                          + "\n" +
+      "Target consumer: "     + (requirements.targetCustomer || 'Not specified')      + "\n" +
+      "Budget level: "     + (requirements.budget         || 'Not specified')      + "\n" +
+      "Target benefit: "     + requirements.targetBenefit                     + "\n" +
+      "Origin preference: "   + (requirements.origin         || 'none')        + "\n" +
+      "Other requirements: " + (requirements.extraNotes     || 'none')        + "\n\n" +
+      "=== Ingredient DB (OR) — code | name | price in currency | supplier ===\n" + orText + "\n\n" +
+      "=== Packaging DB (OP) — code | name | type | price in currency | supplier ===\n" + opText + "\n\n" +
+      "=== Response format (reply only in the JSON format below) ===\n" +
+      '{"summary":"Overall recommendation summary in 2–3 sentences",' +
+      '"orItems":[{"code":"OR code","name":"Ingredient","salesPrice":"Price","currency":"Currency","supplier":"Supplier","reason":"Reason for recommending"}],' +
+      '"opItems":[{"code":"OP code","name":"Packaging name","pkgType":"Type","salesPrice":"Price","currency":"Currency","supplier":"Supplier","reason":"Reason for recommending"}]}' +
+      "\nRecommend 5–8 ingredients and 3–5 packaging items. No text outside the JSON.";
 
     var url     = "https://generativelanguage.googleapis.com/v1beta/models/" + GEMINI_MODEL_DEFAULT + ":generateContent?key=" + cfg.GEMINI_API_KEY;
     var payload = {
@@ -338,17 +338,17 @@ function getAIRecommendation(requirements) {
     });
     var responseJson = JSON.parse(response.getContentText());
 
-    if (responseJson.error) return { error: 'Gemini API 오류: ' + responseJson.error.message };
+    if (responseJson.error) return { error: 'Gemini API error: ' + responseJson.error.message };
 
     var candidate = responseJson.candidates[0];
-    if (candidate.finishReason === 'MAX_TOKENS') return { error: 'AI 응답이 너무 길어 잘렸습니다. 잠시 후 다시 시도해주세요.' };
+    if (candidate.finishReason === 'MAX_TOKENS') return { error: 'The AI response was too long and got cut off. Please try again shortly.' };
 
     var text  = candidate.content.parts[0].text;
     var clean = text.replace(/```json|```/g, '').trim();
     return JSON.parse(clean);
 
   } catch(e) {
-    return { error: '오류가 발생했습니다: ' + e.message };
+    return { error: 'An error occurred: ' + e.message };
   }
 }
 
@@ -370,31 +370,31 @@ function getUpgradeAnalysis(product) {
     }).join('\n');
 
     var prompt =
-      "당신은 건강기능식품 R&D 전문가입니다. " +
-      "아래 제품의 현재 원료 구성(BOM)을 분석하고, 우리 원료 DB를 기반으로 업그레이드 방안을 제안해주세요.\n" +
-      "단, 다음 규칙을 반드시 지키세요:\n" +
-      "1. 핵심 주원료(가장 함량이 높은 원료)는 절대 대체 제안하지 마세요.\n" +
-      "2. 대체 제안은 부형제, 보조 원료 위주로만 하세요.\n" +
-      "3. 추가 원료는 현재 효능 목적과 시너지가 있는 것만 제안하세요.\n" +
-      "4. 단가가 지나치게 비싼 원료(USD 100 이상)는 Economy/Standard 제품에 추천하지 마세요.\n\n" +
+      "You are an R&D expert in health supplements. " +
+      "Analyse the current formula (BOM) of the product below and propose an upgrade based on our ingredient DB.\n" +
+      "Follow these rules:\n" +
+      "1. Never suggest replacing the main active (the ingredient with the highest amount).\n" +
+      "2. Suggest replacements only for excipients and supporting ingredients.\n" +
+      "3. Suggest added ingredients only if they work with the current purpose of the product.\n" +
+      "4. Don’t recommend very expensive ingredients (USD 100 or more) for Economy/Standard products.\n\n" +
 
-      "=== 분석 대상 제품 ===\n" +
-      "제품코드: " + product.obCode + "\n" +
-      "제품명: " + product.obName + "\n" +
-      "제형: " + product.obType + "\n" +
-      "타겟 효능: " + (product.targetBenefit || '미지정') + "\n\n" +
+      "=== Product to analyse ===\n" +
+      "Product code: " + product.obCode + "\n" +
+      "Product name: " + product.obName + "\n" +
+      "Dosage form: " + product.obType + "\n" +
+      "Target benefit: " + (product.targetBenefit || 'Not specified') + "\n\n" +
 
-      "=== 현재 원료 구성 (BOM) ===\n" +
-      (bomText || '데이터 없음') + "\n\n" +
+      "=== Current formula (BOM) ===\n" +
+      (bomText || 'No data') + "\n\n" +
 
-      "=== 원료 DB (OR) — 코드 | 원료명 | 통화 단가 | 공급사 ===\n" +
+      "=== Ingredient DB (OR) — code | name | price in currency | supplier ===\n" +
       orText + "\n\n" +
 
-      "=== 응답 형식 (반드시 아래 JSON 형식으로만 응답) ===\n" +
-      '{"summary":"현재 제품 분석 및 업그레이드 방향 요약 2-3문장",' +
-      '"replaceItems":[{"currentCode":"현재 원료코드","currentName":"현재 원료명","newCode":"대체 원료코드","newName":"대체 원료명","salesPrice":"단가","currency":"통화","supplier":"공급사","reason":"대체 이유"}],' +
-      '"addItems":[{"code":"추가 원료코드","name":"추가 원료명","salesPrice":"단가","currency":"통화","supplier":"공급사","reason":"추가 이유"}]}' +
-      "\n대체 원료 2~4개, 추가 원료 2~3개 제안. 반드시 원료 DB에 있는 것만 추천. JSON 외 텍스트 절대 포함 금지.";
+      "=== Response format (reply only in the JSON format below) ===\n" +
+      '{"summary":"Current product analysis and upgrade direction in 2–3 sentences",' +
+      '"replaceItems":[{"currentCode":"Current ingredient code","currentName":"Current ingredient name","newCode":"Replacement ingredient code","newName":"Replacement ingredient name","salesPrice":"Price","currency":"Currency","supplier":"Supplier","reason":"Reason for replacing"}],' +
+      '"addItems":[{"code":"Added ingredient code","name":"Added ingredient name","salesPrice":"Price","currency":"Currency","supplier":"Supplier","reason":"Reason for adding"}]}' +
+      "\nSuggest 2–4 replacement ingredients and 2–3 added ingredients. Only ingredients in the ingredient DB. No text outside the JSON.";
 
     var url = "https://generativelanguage.googleapis.com/v1beta/models/" + GEMINI_MODEL_ADVANCED + ":generateContent?key=" + cfg.GEMINI_API_KEY;
     var payload = {
@@ -410,18 +410,18 @@ function getUpgradeAnalysis(product) {
     });
     var responseJson = JSON.parse(response.getContentText());
 
-    if (responseJson.error) return { error: 'Gemini API 오류: ' + responseJson.error.message };
+    if (responseJson.error) return { error: 'Gemini API error: ' + responseJson.error.message };
 
     var candidate = responseJson.candidates[0];
-    if (candidate.finishReason === 'MAX_TOKENS') return { error: 'AI 응답이 너무 길어 잘렸습니다. 잠시 후 다시 시도해주세요.' };
+    if (candidate.finishReason === 'MAX_TOKENS') return { error: 'The AI response was too long and got cut off. Please try again shortly.' };
 
     var text  = candidate.content.parts[0].text;
     var clean = text.replace(/```json|```/g, '').trim();
     var jsonMatch = clean.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) return { error: 'AI 응답 형식 오류' };
+    if (!jsonMatch) return { error: 'AI response format error' };
     return JSON.parse(jsonMatch[0]);
 
   } catch(e) {
-    return { error: '오류: ' + e.message };
+    return { error: 'Error: ' + e.message };
   }
 }

@@ -19,10 +19,10 @@
 (function () {
   'use strict';
 
-  const FORMAT_EN = { '하드캡슐': 'Hard capsule', '타블렛': 'Tablet', '소프트젤': 'Softgel', '파우더/사셰': 'Powder / sachet',
-    '리퀴드': 'Liquid', '구미': 'Gummy', '바': 'Bar', '허니': 'Honey', '허브티': 'Herbal tea' };
-  const PRODUCTS = { p_hardcap: ['Hard capsule', 'hard capsules', '하드캡슐'], p_tablet: ['Tablet', 'tablets', '정제'], p_softgel: ['Softgel', 'softgel capsules', '소프트젤'],
-    p_powder: ['Powder / sachet', 'powders and sachets', '분말·스틱'], p_liquid: ['Liquid', 'liquids', '액상'] };
+  const FORMAT_EN = { 'Hard capsules': 'Hard capsule', 'Tablets': 'Tablet', 'Softgels': 'Softgel', 'Powder/sachets': 'Powder / sachet',
+    'Liquids': 'Liquid', 'Gummies': 'Gummy', 'Bars': 'Bar', 'Honey': 'Honey', 'Herbal tea': 'Herbal tea' };
+  const PRODUCTS = { p_hardcap: ['Hard capsule', 'hard capsules', 'Hard capsules'], p_tablet: ['Tablet', 'tablets', 'tablets'], p_softgel: ['Softgel', 'softgel capsules', 'Softgels'],
+    p_powder: ['Powder / sachet', 'powders and sachets', 'powder · sticks'], p_liquid: ['Liquid', 'liquids', 'liquids'] };
   // Korean particle after a word: a when the last syllable has a final consonant, else b (을/를, 과/와).
   const josa = (w, a, b) => { const ch = String(w).charCodeAt(String(w).length - 1); return ch >= 0xAC00 && ch <= 0xD7A3 && (ch - 0xAC00) % 28 ? a : b; };
   // Local parts that mean a shared inbox rather than a person.
@@ -61,8 +61,8 @@
     return keys.map(target).filter(Boolean).concat(byPriority().filter(t => !keys.includes(t.key)));
   }
   const pickOf = key => D.strategy ? scoredPicks().find(p => p.keys.includes(key)) : null;
-  const isGeneralContact = c => /^일반 문의/.test((c && c.name) || '');
-  const formatGroup = t => t.formats.every(f => f === '파우더/사셰') ? 'powder' : 'capsule';
+  const isGeneralContact = c => /^General enquiry/.test((c && c.name) || '');
+  const formatGroup = t => t.formats.every(f => f === 'Powder/sachets') ? 'powder' : 'capsule';
   const isSharedInbox = email => SHARED_INBOX.test(String(email || '').split('@')[0]);
   const isMainLine = phone => MAIN_LINE.test(String(phone || '').replace(/[\s()-]/g, ''));
   function joinList(items) {
@@ -75,7 +75,7 @@
   // "the CEO Stobie, CEO" -> {name, title, first}; null when it isn't a person.
   function splitContact(contact) {
     const s = String(contact || '').trim();
-    if (!s || /^(general|일반|customer service)/i.test(s)) return null;
+    if (!s || /^(general|customer service)/i.test(s)) return null;
     const i = s.indexOf(',');
     const name = (i < 0 ? s : s.slice(0, i)).trim();
     return { name, title: i < 0 ? '' : s.slice(i + 1).trim(), first: name.split(/\s+/)[0] };
@@ -257,7 +257,7 @@
   }
 
   // Korean templates: the same sequence, call script and LinkedIn note, written in Korean.
-  // adLabel templates go to recipients in Korea: "(광고)" leads every subject and every email
+  // adLabel templates go to recipients in Korea: "(ad)" leads every subject and every email
   // carries a 수신거부 line and the company address (정보통신망법 제50조).
   function composeKo(f, tpl) {
     const s = f.sender || D.defaultSender;
@@ -267,28 +267,28 @@
     const products = f.products && f.products.length ? f.products : ['p_hardcap'];
     const productList = products.map(p => PRODUCTS[p][2]).join('·');
     const skus = String(f.skus || '').split(',').map(x => x.trim()).filter(Boolean).join(', ');
-    const honor = person ? person.name + (/대표|CEO|Founder|Owner|Managing Director|\bMD\b|President|창업/i.test(person.title) ? ' 대표님' : '님') : '';
+    const honor = person ? person.name + (/CEO|Founder|Owner|Managing Director|\bMD\b|President/i.test(person.title) ? ' ' : '') : '';
     const c = { company: f.company, person, productList, skus, sender: s, facts, generalInbox: !!f.generalInbox };
     const named = !f.generalInbox && person;
-    const greeting = named ? `${honor}, 안녕하세요.` : `${f.company ? f.company + ' ' : ''}담당자님께,`;
-    const passTo = person ? `${honor}께` : '제조·공급 담당자분께';
-    const routing = f.generalInbox ? `${passTo} 전달 부탁드립니다. 감사합니다.` : '';
-    const hello = `${named ? '' : '안녕하세요. '}뉴질랜드 오클랜드 오클랜드에서 건강기능식품을 생산하는 데모랩스(Demo Labs)의 ${me}입니다.`;
-    const ad = tpl.adLabel ? '(광고) ' : '';
-    const attn = f.generalInbox && person ? `[${honor} 앞] ` : '';
+    const greeting = named ? `${honor}, hello.` : `${f.company ? f.company + ' ' : ''}To the person in charge,`;
+    const passTo = person ? `${honor}` : 'To the manufacturing / supply contact';
+    const routing = f.generalInbox ? `${passTo} Please pass this on. Thank you.` : '';
+    const hello = `${named ? '' : 'Hello. '}This is ${me}at Demo Labs, a health supplement manufacturer in Auckland, New Zealand.`;
+    const ad = tpl.adLabel ? '(ad) ' : '';
+    const attn = f.generalInbox && person ? `[${honor} ] ` : '';
     const subject = ad + attn + tpl.subject(f.company);
     const ticked = D.attachments.filter(a => a.rule !== 'never' && (f.attachments || []).includes(a.id));
     const optOut = tpl.adLabel
-      ? `[수신거부] 이런 메일을 더 받고 싶지 않으시면 회신으로 "수신거부"라고만 보내 주세요. 바로 발송을 멈추고 더 연락드리지 않겠습니다.
+      ? `[Unsubscribe] If you don’t want these emails, just reply with "unsubscribe"and we’ll stop at once and not contact you again.
 [Unsubscribe] If you do not wish to receive these emails, reply "Unsubscribe" and we will stop immediately.`
-      : `관련이 없으시면 회신으로 알려 주세요. 더 연락드리지 않겠습니다.`;
-    const signature = ['감사합니다.', `${s.name} 드림`, `${s.title ? s.title + ' | ' : ''}데모랩스 (${facts.company})`,
+      : `If this isn’t relevant, let us know by reply and we won’t contact you again.`;
+    const signature = ['Thank you.', `${s.name} `, `${s.title ? s.title + ' | ' : ''}Demo Labs (${facts.company})`,
       tpl.adLabel ? '44 Westpoint Drive, Auckland, Auckland 0618, New Zealand' : '', `T. ${s.phone}`, facts.site].filter(Boolean).join('\n');
     const points = (D.koPoints || []).map(x => '- ' + x).join('\n');
     // A template with its own pitch (ko_importer, v3.13) follows the harbourleaf email: the
     // formats line names their products, and the pass-it-on request moves to the end.
     const own = typeof tpl.pitch === 'function';
-    c.formatLine = `${productList}${products.includes('p_hardcap') ? '(액상 충전 캡슐 포함)' : ''} 생산 — 지금 수입하고 계신 ${skus ? skus + josa(skus, '과', '와') : '제품과'} 같은 제형입니다.`;
+    c.formatLine = `${productList}${products.includes('p_hardcap') ? '(incl. liquid-filled capsules)' : ''} — the same dosage form as the ${skus ? skus + josa(skus, 'and', 'and') : 'products'} you import now.`;
     const pitch = own ? tpl.pitch(c) : [];
     const body = [
       greeting,
@@ -296,12 +296,12 @@
       own ? hello + ' ' + pitch[0] : hello,
       ...(own ? pitch.slice(1) : [
         ...tpl.intro(c),
-        `저희와 함께하시는 브랜드들이 주로 보시는 점입니다.\n${points}`,
-        'NDA 체결 후 COA 샘플과 저희가 만든 제품(액상 하드캡슐 등)을 직접 보여 드릴 수 있습니다.'
+        `What the brands we work with usually look at:\n${points}`,
+        'Under an NDA we can show COA samples and products we have made (liquid hard capsules, etc.).'
       ]),
-      ticked.length ? `회사 소개 자료(${ticked.map(a => a.phraseKo || a.phrase).join(', ')})를 첨부드립니다.` : '',
+      ticked.length ? `Company profile (${ticked.map(a => a.phraseKo || a.phrase).join(', ')}) attached.` : '',
       tpl.cta,
-      own && f.generalInbox ? '제조·공급 담당자분이 따로 계시면 전달 부탁드립니다.' : '',
+      own && f.generalInbox ? 'If someone else handles manufacturing and supply, please pass this on.' : '',
       optOut,
       signature
     ].filter(Boolean).join('\n\n');
@@ -311,57 +311,57 @@
     const steps = {
       fu1: { subject: re, body: [
         greeting,
-        `지난번 보내 드린 메일을 다시 한번 올려 드립니다${f.generalInbox ? ` — ${passTo} 전달해 주시면 감사하겠습니다` : ''}.`,
-        `저희는 오클랜드에서 ${productList}${josa(productList, '을', '를')} 생산하는 GMP 인증 제조사이고, 보통 한 품목부터 작게 시작합니다. 통화가 어려우시면 메일로 궁금하신 점 두세 가지만 주셔도 바로 답변드리겠습니다.`,
+        `Bringing my last email back to the top${f.generalInbox ? ` — ${passTo} I’d be grateful if you could pass it on` : ''}.`,
+        `We are a GMP-certified manufacturer in Auckland making ${productList}${josa(productList, '', '')} , and we usually start small with one product. If a call is hard, send two or three questions by email and we’ll answer straight away.`,
         optOut,
         signature
       ].join('\n\n') },
       fu2: { subject: re, body: [
         greeting,
-        '브랜드 담당자분들이 저희에게 가장 먼저 물어보시는 것들을 정리해 드립니다.',
-        ['- 리드타임: 뉴질랜드 현지 자체 공장에서 생산해 해외 운송 대기 없이 공급합니다.',
-          '- 유연성: 완성 포뮬러·핵심 원료·컨셉 어느 단계에서든 시작할 수 있고, 생산 수량은 상황에 맞춰 협의합니다.',
-          '- 제형·패키징: 하드캡슐(액상 충전 포함)·정제·소프트젤·분말·액상, 알루알루 블리스터 등 프리미엄 패키징.',
-          tasteMatters ? '- 맛: 분말·액상은 맛이 중요한데, 고객사들이 특히 좋게 평가하시는 부분입니다. 샘플을 보내 드릴 수 있습니다.' : '',
-          '- 검증: NDA 체결 후 COA 샘플과 배치 기록을 공유하고, 저희가 만든 제품도 보여 드립니다. 공장 방문도 환영합니다.'].filter(Boolean).join('\n'),
-        f.generalInbox ? `제조·공급 담당자분이 따로 계시면 ${passTo} 전달 부탁드립니다.` : '',
-        '앞으로 2주 안에 15분 정도 통화 가능하실까요?',
+        'The questions brand owners ask us first:',
+        ['- Lead time: made in our own factory in New Zealand, with no wait for overseas freight.',
+          '- Flexibility: start from a finished formula, key ingredients or just a concept; production quantities agreed to suit you.',
+          '- Forms and packaging: hard capsules (incl. liquid-filled), tablets, softgels, powders, liquids, and premium packaging such as alu-alu blisters.',
+          tasteMatters ? '- Taste: taste matters for powders and liquids, and it is something our clients rate highly. We can send samples.' : '',
+          '- Proof: under an NDA we share COA samples and batch records and show products we have made. Factory visits are welcome.'].filter(Boolean).join('\n'),
+        f.generalInbox ? `If someone else handles manufacturing and supply, ${passTo} please pass this on.` : '',
+        'Could we have a 15-minute call in the next two weeks?',
         optOut,
         signature
       ].filter(Boolean).join('\n\n') },
       breakup: { subject: re, body: [
         greeting,
-        '답장이 없으셔서 지금은 시기가 맞지 않는 것으로 알고 더 연락드리지 않겠습니다.',
-        `나중에 신제품이나 공급 문제로 뉴질랜드 생산처가 필요하시면 언제든 연락 주세요.${s.phone ? ` 직통: ${s.phone}` : ''}`,
+        'As we haven’t heard back, I’ll take it that the timing isn’t right and won’t contact you again.',
+        `If you ever need a New Zealand manufacturer for a new product or a supply problem, please get in touch any time.${s.phone ? ` Direct: ${s.phone}` : ''}`,
         tpl.adLabel ? optOut : '',
         signature
       ].filter(Boolean).join('\n\n') }
     };
 
     const linkedin = person
-      ? `${person.name}님, 안녕하세요. 오클랜드에서 건강기능식품을 생산하는 데모랩스의 ${me}입니다. 최근 ${f.company || '귀사'} 앞으로 메일을 드렸는데, 앞으로도 도움이 될 수 있을 것 같아 연결 요청드립니다.`
+      ? `${person.name}, hello. This is ${me}at Demo Labs, a health supplement manufacturer in Auckland. Recently ${f.company || 'your company'} I emailed, and I’m asking to connect as I think we could help in future.`
       : '';
 
-    const askFor = person ? honor : '제조·공급 담당자분';
+    const askFor = person ? honor : 'the manufacturing / supply contact';
     const call = [
-      `To: ${f.contact || '[담당자]'}${f.phone ? ' — ' + f.phone + (f.generalLine ? ' (대표번호)' : '') : ' — [확인된 전화번호 없음, 연락처 참고]'}`,
-      f.generalLine ? `리셉션 (10초)\n"안녕하세요, 데모랩스 ${me}입니다. 오클랜드에서 건강기능식품을 생산하는 회사인데요, ${askFor}${josa(askFor, '과', '와')} 통화할 수 있을까요?"\n용건을 물으면: "지난주 보내 드린 메일 관련해서 연락드렸습니다. 메일로 대신해도 괜찮습니다. 어느 분 앞으로 보내면 될까요?"` : '',
-      `오프닝 (15초)\n"안녕하세요${person ? ' ' + honor : ''}, 데모랩스 ${me}입니다. 지난주에 메일 드렸는데요, 뉴질랜드 현지 생산처로 저희를 한번 소개드리고 싶어서 연락드렸습니다. 2분 정도 괜찮으세요?"`,
-      '질문 (2~3개만, 듣기 위주)\n- 지금 제조는 한 곳에서 하세요, 여러 곳에서 하세요?\n- 잘 나가는 제품은 주문부터 입고까지 보통 얼마나 걸리나요?\n- 앞으로 6~12개월 안에 신제품이나 리뉴얼 계획이 있으신가요?\n- 새 제조처를 시험해 보신다면 무엇을 먼저 확인하고 싶으세요?',
-      `핵심 포인트\n${points}`,
-      '예상 반론 → 답변\n"지금 제조사에 만족합니다." → "좋습니다. 바꾸시라는 게 아니라 한 품목만 추가 생산처로 두시면 일정이 급할 때 도움이 됩니다."\n"TGA 있나요?" → "TGA는 없습니다. 그래서 호주 등록 의약품(AUST L)은 맞지 않고, 뉴질랜드 건강기능식품과 한국·아시아 수출용 제품, 분말 같은 식품형 제품에 강점이 있습니다."\n"MOQ가 얼마예요?" → "품목과 생각하시는 수량을 알려 주시면 상황에 맞춰 협의해 드립니다."',
-      '마무리\n"15분 미팅을 잡아도 될까요, 아니면 자료를 먼저 보내 드리고 2주 뒤에 다시 연락드릴까요?"',
-      `음성 메시지 (20초)\n"안녕하세요${person ? ' ' + honor : ''}, 데모랩스 ${me}입니다. 지난주 ${f.company || '귀사'} 앞으로 메일 드렸습니다. 메일로 다시 연락드리겠고, ${s.phone || '[전화번호]'}로 연락 주셔도 됩니다. 감사합니다."`
+      `To: ${f.contact || '[contact]'}${f.phone ? ' — ' + f.phone + (f.generalLine ? ' (main line)' : '') : ' — [no confirmed phone number, see contacts]'}`,
+      f.generalLine ? `Reception (10 s)\n"Hello, this is ${me}from Demo Labs. We make health supplements in Auckland — ${askFor}${josa(askFor, 'and', 'and')} could I speak with them?"\nIf asked what it’s about: "It’s about the email I sent last week. Email is fine too — who should I send it to?"` : '',
+      `Opening (15 s)\n"Hello${person ? ' ' + honor : ''}, this is ${me}from Demo Labs. I emailed last week and wanted to introduce us as a manufacturer based in New Zealand. Do you have two minutes?"`,
+      'Questions (only 2–3, mostly listening)\n- Do you manufacture with one company or several?\n- For your best sellers, how long does it usually take from order to delivery?\n- Any new products or relaunches planned in the next 6–12 months?\n- If you trialled a new manufacturer, what would you want to check first?',
+      `Key points\n${points}`,
+      'Likely objections → answers\n"We’re happy with our current manufacturer." → "That’s fine. Not a switch — keeping one product with a second manufacturer helps when timing gets tight."\n"Do you have TGA?" → "No TGA. So Australian listed medicines (AUST L) aren’t a fit; our strengths are NZ supplements, products for export to Korea and Asia, and food-type products such as powders."\n"What’s your MOQ?" → "Tell us the product and the quantity you have in mind and we’ll work it out to suit you."',
+      'Close\n"Can we book a 15-minute meeting, or shall I send material first and call again in two weeks?"',
+      `Voicemail (20 s)\n"Hello${person ? ' ' + honor : ''}, this is ${me}. Last week I ${f.company || 'your company'} sent an email. I’ll follow up by email, and ${s.phone || '[phone number]'}is also fine to call. Thank you."`
     ].filter(Boolean).join('\n\n');
 
     const warnings = [];
     if (f.mfgSetup === 'own') warnings.push(['warn', 'Flagged as having its own factory / in-house GMP — conversion odds are low. Treat it as an overflow-capacity conversation or deprioritise it.']);
     if (!f.email) warnings.push(['warn', tpl.adLabel
-      ? 'No send-to email yet — open the importer\'s contact page (Companies › Korean importers, or the Tracker) and copy the address in by hand. Addresses are never stored here (정보통신망법 §50-2).'
+      ? 'No send-to email yet — open the importer\'s contact page (Companies › Korean importers, or the Tracker) and copy the address in by hand. Addresses are never stored here (Korea’s Network Act §50-2).'
       : 'No send-to email yet — add one in "Send-to email". Email is the first channel: use a published address only, never a guessed one.']);
-    if (tpl.adLabel) warnings.push(['warn', 'Recipient in Korea: 정보통신망법 §50 asks for the recipient’s prior consent to advertising email, B2B included. The CEO decided on 27 Oct to contact the Go importers — calling first and asking "may I email you our profile?" gives both the address and the consent. The (광고) subject, opt-out lines and our address are already in.']);
+    if (tpl.adLabel) warnings.push(['warn', 'Recipient in Korea: Korea’s Network Act §50 asks for the recipient’s prior consent to advertising email, B2B included. The CEO decided on 27 Oct to contact the Go importers — calling first and asking "may I email you our profile?" gives both the address and the consent. The (ad) subject, opt-out lines and our address are already in.']);
     if (f.generalInbox) warnings.push(['info', person
-      ? `Goes to a shared inbox, so the subject starts "[${honor} 앞]" and the email asks them to pass it on.`
+      ? `Goes to a shared inbox, so the subject starts "[${honor} ]" and the email asks them to pass it on.`
       : 'Goes to a shared inbox with no named contact, so the email asks them to pass it to the right person.']);
     if (ticked.length) warnings.push(['info', 'Korean email: attach the Korean company profile (260408_Demo Labs_Company profile_Final_KR.pdf in Outreach Toolkit / Related information) instead of the English one where you can.']);
     return { to: f.email, subject, body, steps, linkedin, call, warnings, lang: 'ko' };
@@ -537,7 +537,7 @@
 
   function positionCard(S) {
     const P = S.position;
-    return stratCard('position', 'Where we play', '포지셔닝', `
+    return stratCard('position', 'Where we play', 'Positioning', `
       <div class="table-wrap"><table class="or-table or-pos">
         <thead><tr><th></th>${P.cols.map((c, i) => `<th class="${i === 1 ? 'or-mid' : ''}">${c}</th>`).join('')}</tr></thead>
         <tbody>${P.rows.map(r => `<tr><th scope="row">${r[0]}</th>${r.slice(1).map((c, i) => `<td class="${i === 1 ? 'or-mid' : 'or-muted'}">${c}</td>`).join('')}</tr>`).join('')}</tbody>
@@ -546,7 +546,7 @@
   }
 
   function strengthsCard(S) {
-    return stratCard('strengths', 'Why us — proof points', '강점과 근거. 영문 문구는 메일·통화에 그대로 쓸 수 있는 표현', `
+    return stratCard('strengths', 'Why us — proof points', 'Strengths and evidence. The English lines can be used as they are in emails and calls', `
       <div class="table-wrap"><table class="or-table">
         <thead><tr><th>Strength</th><th>What we say (English)</th><th>Proof</th><th>Status</th></tr></thead>
         <tbody>${S.strengths.map(x => {
@@ -562,7 +562,7 @@
   }
 
   function gapsCard(S) {
-    return stratCard('gaps', 'Gaps &amp; how we answer', '약점은 숨기지 않고 먼저 말한다', `
+    return stratCard('gaps', 'Gaps &amp; how we answer', 'Say the weaknesses first instead of hiding them', `
       <div class="or-gaps">${S.gaps.map(g => `<div class="or-gapitem">
         <div class="or-gapitem__title">${g.title}</div>
         <div class="or-small"><b>Impact</b> · ${g.impact}</div>
@@ -573,7 +573,7 @@
 
   function icpCard(S) {
     const I = S.icp;
-    return stratCard('icp', 'Who we contact', '고객 유형(ICP)', `
+    return stratCard('icp', 'Who we contact', 'Customer types (ICP)', `
       <div class="or-icp">
         <div class="or-icp__fit">${I.fit.map(f => `<div class="or-tier">
           <span class="or-tier__badge or-tier__badge--${esc(f.tier[0])}">${f.tier}</span>
@@ -620,7 +620,7 @@
         <td><button type="button" class="btn btn--sm" data-or-draft="${esc(t.key)}"><span class="icon">edit_note</span>Draft</button></td>
       </tr>`;
     }).join('');
-    return stratCard('picks', 'Top picks', `점수는 합의용 제안 — 각 0~3점, 아시아계 +1 가산점 (${picks.length}곳)`, `
+    return stratCard('picks', 'Top picks', `Scores are a proposal to agree on — 0–3 each, +1 bonus for Asian ownership (${picks.length}companies)`, `
       <div class="table-wrap"><table class="or-table or-picks">
         <thead><tr><th>#</th><th>Company · first email</th>${crit.map(c => `<th class="or-scorecell" title="${esc(c.help)}">${c.label}</th>`).join('')}<th class="or-scorecell">Total</th><th>Why</th><th></th></tr></thead>
         <tbody>${rows}</tbody>
@@ -631,7 +631,7 @@
   // Companies > Needs a contact: found in the pool search but not emailable yet.
   function backlogCard(S) {
     if (!S.backlog || !S.backlog.length) return '';
-    return stratCard('backlog', 'Needs a contact', '풀 확대에서 찾았지만 공개 메일이 없거나 먼저 확인할 것', `
+    return stratCard('backlog', 'Needs a contact', 'Found when widening the pool, but no public email or something to check first', `
       <div class="table-wrap"><table class="or-table">
         <thead><tr><th>Company</th><th>Why it fits</th><th>What is missing</th></tr></thead>
         <tbody>${S.backlog.map(b => `<tr>
@@ -650,7 +650,7 @@
     if (!w) return '';
     return `<div class="or-small or-krweb">${[w.site ? `<a href="${esc(w.site)}" target="_blank" rel="noopener">Website ↗</a>` : '',
       w.contact ? `<a href="${esc(w.contact)}" target="_blank" rel="noopener">Contact page ↗</a>` : '', w.phone ? esc(w.phone) : '',
-      w.ceo ? '대표 ' + esc(w.ceo) : '', w.brand ? '브랜드: ' + esc(w.brand) : '',
+      w.ceo ? 'CEO ' + esc(w.ceo) : '', w.brand ? 'Brands: ' + esc(w.brand) : '',
       w.match && w.match !== 'high' ? `match: ${esc(w.match)}` : ''].filter(Boolean).join(' · ')}${w.note ? `<div>${esc(w.note)}</div>` : ''}</div>`;
   };
 
@@ -665,23 +665,23 @@
     const TIER = { A: ['ok', 'Target'], conflict: ['warn', 'Customer conflict'], B: ['neutral', 'Check'], skip: ['muted', 'Skip'] };
     const counts = K.rows.reduce((m, r) => (m[r.tier] = (m[r.tier] || 0) + 1, m), {});
     // CEO review of the numbered target rows (row.ceo = {v: go | check | pass, note, date}).
-    const CEO = { go: ['ok', 'Go'], check: ['neutral', '확인'], pass: ['muted', 'Pass'] };
+    const CEO = { go: ['ok', 'Go'], check: ['neutral', 'OK'], pass: ['muted', 'Pass'] };
     const ceoCounts = K.rows.reduce((m, r) => (r.ceo && (m[r.ceo.v] = (m[r.ceo.v] || 0) + 1), m), {});
-    return stratCard('importers', 'Korean importers of NZ-made supplements', `A4 · 한국 수입 기록 역추적 — ${esc(K.range)}, 건강기능식품 ${K.total}건`, `
-      <div class="or-note or-note--warn">${K.law} <a href="${esc(K.lawSource)}" target="_blank" rel="noopener">KISA 안내서 ↗</a></div>
+    return stratCard('importers', 'Korean importers of NZ-made supplements', `A4 · traced back from Korean import records — ${esc(K.range)}, health functional food ${K.total}items`, `
+      <div class="or-note or-note--warn">${K.law} <a href="${esc(K.lawSource)}" target="_blank" rel="noopener">KISA guide ↗</a></div>
       <div class="or-callmeta">
         <div><h4 class="or-subhead">How to refresh</h4><ol class="or-method__list">${K.method.map(m => `<li>${esc(m)}</li>`).join('')}</ol>
-          <div class="or-small"><a href="${esc(K.source)}" target="_blank" rel="noopener">수입식품정보마루 수입식품조회 ↗</a></div></div>
+          <div class="or-small"><a href="${esc(K.source)}" target="_blank" rel="noopener">Korea imported food lookup ↗</a></div></div>
         <div><h4 class="or-subhead">NZ manufacturers in Korean imports</h4>
           <div class="or-badges">${K.competitors.map(c => badge(c.demolabs ? 'ok' : c.customer ? 'info' : 'neutral', `${esc(c.name)} · ${c.n}`)).join('')}</div>
-          <div class="or-small">초록 = Demo Labs, 파랑 = Demo Labs 고객이기도 한 제조사. Demo Labs에서 이미 사는 수입사(${K.houseBuyers.length}곳)는 목록에서 뺐음: ${K.houseBuyers.map(esc).join(', ')}</div></div>
+          <div class="or-small">Green = Demo Labs, blue = a manufacturer that is also a Demo Labs customer. Importers already buying from Demo Labs (${K.houseBuyers.length}) left out of the list: ${K.houseBuyers.map(esc).join(', ')}</div></div>
       </div>
       <div class="or-badges">${Object.entries(TIER).map(([k, t]) => counts[k] ? badge(t[0], `${t[1]} ${counts[k]}`) : '').join('')}
-        ${Object.entries(CEO).map(([k, t]) => ceoCounts[k] ? badge(t[0], `대표님 ${t[1]} ${ceoCounts[k]}`) : '').join('')}</div>
+        ${Object.entries(CEO).map(([k, t]) => ceoCounts[k] ? badge(t[0], ` ${t[1]} ${ceoCounts[k]}`) : '').join('')}</div>
       <div class="seg seg--sm or-krfilter">${KRF.map(([k, l, f]) =>
         `<button type="button" class="${state.krF === k ? 'active' : ''}" data-or-krf="${k}">${l} (${K.rows.filter(f).length})</button>`).join('')}</div>
       <div class="table-wrap"><table class="or-table">
-        <thead><tr><th>#</th><th>Importer (Korea)</th><th>NZ manufacturer(s)</th><th>Products</th><th>Records</th><th>Last</th><th>Note</th><th>대표님 검토</th><th></th></tr></thead>
+        <thead><tr><th>#</th><th>Importer (Korea)</th><th>NZ manufacturer(s)</th><th>Products</th><th>Records</th><th>Last</th><th>Note</th><th>CEO review</th><th></th></tr></thead>
         <tbody>${K.rows.filter((KRF.find(x => x[0] === state.krF) || KRF[0])[2]).map(r => `<tr class="${r.tier === 'A' ? 'or-rec' : ''}">
           <td class="or-num">${r.no || ''}</td>
           <td><b>${esc(r.importer)}</b><div>${badge(TIER[r.tier][0], TIER[r.tier][1])}</div>${krWeb(r)}</td>
@@ -694,28 +694,28 @@
           <td>${r.ceo && r.ceo.v === 'go' ? `<button type="button" class="btn btn--sm btn--ghost" data-or-kr="${r.no}">Draft</button>` : ''}</td>
         </tr>`).join('')}</tbody>
       </table></div>
-      <div class="or-small or-strat__foot">연락처는 넣지 않았음 — 공개 출처에서 사람이 직접 확인(자동 수집 금지). 대표님이 Go로 정한 곳(10-27: 6~10번)은 "Draft"로 "한국 수입업체" 템플릿((광고)·수신거부·주소 포함)이 열림 — 확인한 주소를 Send-to email에 넣고, 제형 체크는 제품명으로 추정한 것이라 보내기 전에 확인.</div>`);
+      <div class="or-small or-strat__foot">No contact details here — a person checks them on a public source (no automated collection). The ones the CEO marked Go (27 Oct: nos. 6–10) open "Draft"with "Korean importer" the template ((ad), opt-out and address included) — put the checked address in Send-to email; the dosage-form ticks are guessed from product names, so check them before sending.</div>`);
   }
 
   // Strategy > Email templates: when to use each one; "Use" opens the generator with it.
   function templatesCard() {
     const T = D.templates || {};
-    return stratCard('templates', 'Email templates', '회사 유형별 첫 메일 — 4통 시퀀스·콜 스크립트가 같은 언어로 같이 나옴', `
+    return stratCard('templates', 'Email templates', 'First email by company type — the 4-email sequence and call script come out in the same language', `
       <div class="table-wrap"><table class="or-table">
         <thead><tr><th>Template</th><th>Language</th><th>When to use</th><th></th></tr></thead>
         <tbody>${Object.entries(T).map(([k, t]) => `<tr>
           <td><b>${esc(t.label)}</b></td>
-          <td>${badge(t.lang === 'ko' ? 'info' : 'neutral', t.lang === 'ko' ? '한국어' : 'English')}${t.adLabel ? ' ' + badge('warn', '(광고)') : ''}</td>
+          <td>${badge(t.lang === 'ko' ? 'info' : 'neutral', t.lang === 'ko' ? 'Korean' : 'English')}${t.adLabel ? ' ' + badge('warn', '(ad)') : ''}</td>
           <td>${esc(t.when || '')}</td>
           <td><button type="button" class="btn btn--sm btn--ghost" data-or-tpl="${esc(k)}">Use</button></td>
         </tr>`).join('')}</tbody>
       </table></div>
-      <div class="or-small or-strat__foot">"Use"는 Draft generator에서 지금 채워진 회사에 그 템플릿을 적용합니다. 회사 프리셋에는 추천 템플릿이 미리 정해져 있어요.</div>`);
+      <div class="or-small or-strat__foot">"Use"applies that template to the company now filled in the Draft generator. Company presets come with a suggested template.</div>`);
   }
 
   function sequenceCard(S) {
     const outLabel = { first: 'Open email 1', fu1: 'Open email 2', fu2: 'Open email 3', breakup: 'Open email 4', call: 'Open call script', linkedin: 'Open LinkedIn note' };
-    return stratCard('sequence', 'Email-first sequence', '메일 → 메일 → 메일 → 전화 → (LinkedIn) → 마무리 메일', `
+    return stratCard('sequence', 'Email-first sequence', 'email → email → email → call → (LinkedIn) → closing email', `
       <ol class="or-timeline">${S.sequence.map(st => `<li class="or-step${st.out ? '' : ' or-step--prep'}">
         <span class="or-step__day">${st.day}</span>
         <div class="or-step__main">
@@ -726,12 +726,12 @@
       </li>`).join('')}</ol>
       <h4 class="or-subhead">Rules</h4>
       <ul class="or-approach">${S.rules.map(x => `<li>${x}</li>`).join('')}</ul>
-      <div class="or-small or-strat__foot">"Open" 버튼은 Draft generator의 해당 단계를 엽니다. 먼저 회사 프리셋을 고르면 그 회사 기준으로 채워져요.</div>`);
+      <div class="or-small or-strat__foot">"Open" buttons open that step in the Draft generator. Pick a company preset first and it fills in for that company.</div>`);
   }
 
   function callCard(S) {
     const C = S.call;
-    return stratCard('call', 'Cold-call method', '메일 2통 뒤에 하는 전화 — 순서대로', `
+    return stratCard('call', 'Cold-call method', 'The call after two emails — in order', `
       <div class="or-callmeta">
         <div><h4 class="or-subhead">When</h4><div class="or-prose">${C.when}</div></div>
         <div><h4 class="or-subhead">Before you dial</h4><div class="or-prose">${C.before}</div></div>
@@ -754,7 +754,7 @@
   }
 
   function decisionsCard(S) {
-    return stratCard('decisions', 'Decisions for the CEO &amp; sales team', '수요일 미팅에서 정할 것 — 정해지면 Decision 칸을 채움', `
+    return stratCard('decisions', 'Decisions for the CEO &amp; sales team', 'To decide at the Wednesday meeting — fill in the Decision field once decided', `
       <div class="table-wrap"><table class="or-table or-decisions">
         <thead><tr><th>#</th><th>Topic</th><th>Proposal</th><th>Why</th><th>Decision</th></tr></thead>
         <tbody>${S.decisions.map((d, i) => {
@@ -800,7 +800,7 @@
     const list = state.researchGroup === 'all' ? all : all.filter(t => formatGroup(t) === state.researchGroup);
     pane.innerHTML = seg + staleNote() + picksCard(S, scoredPicks()) + `
       <details class="or-card or-method">
-        <summary><span class="icon icon--inline">info</span>How this list was built <span class="or-muted">— 타겟 선정 · 사실 검증 · 어프로치 목적 · 리스크 · 프레이밍 · 실행 순서</span></summary>
+        <summary><span class="icon icon--inline">info</span>How this list was built <span class="or-muted">— target selection · fact checking · purpose of the approach · risks · framing · order of work</span></summary>
         <ol class="or-method__list">${D.methodologyHtml}</ol>
       </details>
       <div class="or-note">${D.researchNoteHtml}</div>
@@ -822,7 +822,7 @@
       </div>
       ${list.map(companyCard).join('')}
       <div class="or-card">
-        <h3 class="or-card__title">Overall recommendation <span class="or-muted">— 종합 제언</span></h3>
+        <h3 class="or-card__title">Overall recommendation <span class="or-muted">— overall recommendation</span></h3>
         <div class="or-prose">${D.closingHtml}</div>
       </div>`;
   }
@@ -1284,8 +1284,8 @@
   }
 
   // ---------- Market screening ----------
-  const MX_FORMATS = ['하드캡슐', '타블렛', '소프트젤', '파우더/사셰', '리퀴드', '구미', '바', '허니', '허브티'];
-  const MX_FORMAT_OFF = ['구미', '바', '허니', '허브티']; // Demo Labs doesn't make these
+  const MX_FORMATS = ['Hard capsules', 'Tablets', 'Softgels', 'Powder/sachets', 'Liquids', 'Gummies', 'Bars', 'Honey', 'Herbal tea'];
+  const MX_FORMAT_OFF = ['Gummies', 'Bars', 'Honey', 'Herbal tea']; // Demo Labs doesn't make these
   const YNU = { yes: 'Yes', no: 'No', unknown: 'Unknown' };
   const MX_FILTERS = {
     market: { label: 'Market', values: ['NZ', 'SG', 'NZ + SG'] },
@@ -1415,7 +1415,7 @@
     if (!c) return null;
     const v = { go: ['todo', 'Find the address (by hand) → email 1'], check: ['hold', 'Check before contacting (see review)'], pass: ['closed', ''] }[c.v];
     return { stage: v[0], owner: c.v === 'go' ? 'Jamie' : '', next: v[1] ? { action: v[1], date: '' } : null,
-      log: [{ d: c.date, type: 'review', note: `대표님 ${{ go: 'Go', check: '확인', pass: 'Pass' }[c.v]}: ${c.note}` }] };
+      log: [{ d: c.date, type: 'review', note: ` ${{ go: 'Go', check: 'OK', pass: 'Pass' }[c.v]}: ${c.note}` }] };
   }
   // Tracker number of an NZ target (both brands of a two-brand pick share one).
   const nzCode = key => { const p = prospects().find(x => x.list === 'nz' && x.keys.includes(key)); return p ? pcode(p) : ''; };
@@ -1557,7 +1557,7 @@
   const ACT_OF = { email1: 'Email', email2: 'Email', email3: 'Email', email4: 'Email', email: 'Email', reply: 'Email', call: 'Call', meeting: 'Meeting' };
   function toPipeline(p) {
     const r = recOf(p), t = p.key && target(p.key);
-    const legal = t && /법인명:\s*([^·]+)/.exec(t.sub || '');
+    const legal = t && /Legal name:\s*([^·]+)/.exec(t.sub || '');
     const name = (prompt('Client name in the CRM (type an existing client to link to it):', legal ? `${legal[1].trim()} (${p.name})` : p.name) || '').trim();
     if (!name) return;
     // Full name ("Jamie" → "Jamie Park") from the account managers, or the reps list if those haven't loaded
@@ -1570,7 +1570,7 @@
       kvPut('crm:account_managers', ACCOUNT_MANAGERS);
     }
     const now = new Date().toISOString(), uid = () => Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-    const contacts = ((t && t.contacts) || []).filter(c => c.email && !/^일반 문의/.test(c.name)).map(c => `${c.name} (${c.title}) ${c.email}${c.phone ? ' · ' + c.phone : ''}`);
+    const contacts = ((t && t.contacts) || []).filter(c => c.email && !/^General enquiry/.test(c.name)).map(c => `${c.name} (${c.title}) ${c.email}${c.phone ? ' · ' + c.phone : ''}`);
     const deal = { id: 'deal_' + uid(), title: `${p.name} — outreach (${pcode(p)})`, customer: name, dealType: 'Outbound', stage: 'Lead', owner,
       unitPrice: 0, qty: 0, estValue: 0, probability: DEFAULT_PROB.Lead, startDate: ((r.log || []).filter(e => e.type === 'email1').map(e => e.d).sort()[0]) || today(),
       quoteSentDate: '', closeDate: '', linkedQuot: '', market: '', created: now, updated: now, stageEnteredAt: now,

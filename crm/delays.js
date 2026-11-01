@@ -145,7 +145,7 @@
   const VIEWS = [['review', 'fact_check', 'Review', '완료 오더 리뷰'], ['cases', 'forum', 'Cases', '케이스'], ['open', 'pending_actions', 'Open orders', '진행 오더'], ['lead', 'timer', 'Lead times', '리드타임 표준'], ['sources', 'hub', 'Sources', '연결']];
   const VIEW_KEY = 'dl_view', LANG_KEY = 'dl_lang';
   let H = null, root = null;
-  const S = { view: 'review', lang: 'ko', d: null, err: null, open: null, saving: false, hist: null };
+  const S = { view: 'review', lang: 'en', d: null, err: null, open: null, saving: false, hist: null };
   const F = { period: '12m', client: '', type: '', status: 'all', q: '', excl: false, oq: '', of: 'risk' };
 
   const T = (en, ko) => S.lang === 'en' ? en : ko;
@@ -217,7 +217,7 @@
     el.classList.add('dl');
     try {
       S.view = localStorage.getItem(VIEW_KEY) || 'review';
-      S.lang = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'ko';
+      S.lang = 'en';
     } catch (e) { /* private mode */ }
     if (!VIEWS.some(v => v[0] === S.view)) S.view = 'review';
     el.innerHTML = '<div class="dl-head" id="dl-head"></div><div id="dl-banner"></div>' +
@@ -239,7 +239,7 @@
       '<h2 class="dl-title">' + T('Delays — why orders were late', '납기 지연 — 왜 늦었나') + '</h2>' +
       '<div class="dl-sub">' + T('Order data: oERP, ', '오더 데이터: oERP, ') + n.toLocaleString() + T(' lines · verdicts and stage dates are shared (saved per change)', '라인 · 사유와 단계 날짜는 팀이 함께 씀(바꿀 때마다 저장)') + '</div></div>' +
       '<div class="dl-headctl"><div class="seg" id="dl-views">' + VIEWS.map(v => '<button type="button" data-dl-view="' + v[0] + '"' + (v[0] === S.view ? ' class="active"' : '') + '><span class="icon icon--inline">' + v[1] + '</span>' + T(v[2], v[3]) + '</button>').join('') + '</div>' +
-      '<div class="seg seg--sm dl-lang">' + [['ko', '한국어'], ['en', 'EN']].map(([k, nm]) => '<button type="button" data-dl-lang="' + k + '"' + (S.lang === k ? ' class="active"' : '') + '>' + nm + '</button>').join('') + '</div></div>';
+      '</div>';
   }
   function render() {
     renderHead();

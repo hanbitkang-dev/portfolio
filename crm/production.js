@@ -536,7 +536,7 @@
   const VIEWS = [['production', 'precision_manufacturing', 'Production', '생산'], ['sales', 'payments', 'Sales', '영업'], ['history', 'bar_chart', 'Output history', '생산 실적'], ['data', 'database', 'Data', '데이터·설정']];
 
   let H = null, root = null, R = null;
-  const S = { idx: null, snap: null, states: {}, notes: {}, setRaw: null, view: 'production', lang: 'ko', upload: null, edit: null, charts: {}, busy: false };
+  const S = { idx: null, snap: null, states: {}, notes: {}, setRaw: null, view: 'production', lang: 'en', upload: null, edit: null, charts: {}, busy: false };
   const UI = { metric: 'nw', range: 26, rg: 'all', rs: 'pre', rf: 'all', rq: '', sOwner: 'all', sLetter: 'all', sStage: 'all', sQuery: '', noOwn: false };
 
   // Korean first -- the Production team reads it more easily -- with an EN switch in the tab
@@ -635,7 +635,7 @@
     el.classList.add('pd');
     try {
       S.view = localStorage.getItem(VIEW_KEY) || 'production';
-      S.lang = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'ko';
+      S.lang = 'en';
     } catch (e) { /* private mode */ }
     if (!VIEWS.some(v => v[0] === S.view)) S.view = 'production';
     el.innerHTML = '<div class="pd-head" id="pd-head"></div><div id="pd-banner"></div>' +
@@ -657,7 +657,7 @@
     $('#pd-head').innerHTML = '<div><div class="pd-eyebrow">' + T('Operations · one mother data set', 'Operations · mother data 하나로') + '</div>' +
       '<h2 class="pd-title">' + (allowedViews().some(v => v[0] === 'sales') ? T('Production &amp; sales report', '생산·매출 리포트') : T('Production report', '생산 리포트')) + '</h2><div class="pd-sub">' + src + '</div></div>' +
       '<div class="pd-headctl"><div class="seg" id="pd-views">' + allowedViews().map(v => '<button type="button" data-pd-view="' + v[0] + '"' + (v[0] === S.view ? ' class="active"' : '') + '><span class="icon icon--inline">' + v[1] + '</span>' + T(v[2], v[3]) + '</button>').join('') + '</div>' +
-      '<div class="seg seg--sm pd-lang" title="' + T('Language of this tab', '이 탭의 언어') + '">' + [['ko', '한국어'], ['en', 'EN']].map(([k, n]) => '<button type="button" data-pd-lang="' + k + '"' + (S.lang === k ? ' class="active"' : '') + '>' + n + '</button>').join('') + '</div></div>';
+      '</div>';
   }
   function render() {
     const av = allowedViews();

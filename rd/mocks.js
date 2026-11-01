@@ -3,15 +3,15 @@
    by simple keyword matching, so it only ever recommends items that exist in the demo data. */
 (function () {
   var KEYWORDS = {
-    '면역': ['vitamin c', 'zinc', 'elderberry', 'echinacea', 'propolis', 'colostrum', 'vitamin d3', 'beta-glucan', 'lactoferrin'],
-    '수면': ['magnesium', 'theanine', '5-htp', 'ashwagandha', 'melatonin'],
-    '관절': ['glucosamine', 'chondroitin', 'msm', 'mussel', 'turmeric', 'hyaluronic', 'collagen'],
-    '피부': ['collagen', 'hyaluronic', 'vitamin c', 'astaxanthin', 'grape seed', 'biotin'],
-    '장': ['lactobacillus', 'bifidobacterium', 'inulin', 'kiwifruit'],
-    '눈': ['lutein', 'bilberry', 'astaxanthin', 'beta-carotene'],
-    '피로': ['ginseng', 'rhodiola', 'b12', 'coenzyme', 'iron', 'carnitine'],
-    '심혈관': ['fish oil', 'krill', 'coenzyme', 'vitamin k2', 'grape seed'],
-    '간': ['milk thistle', 'cysteine', 'lipoic'],
+    'immun': ['vitamin c', 'zinc', 'elderberry', 'echinacea', 'propolis', 'colostrum', 'vitamin d3', 'beta-glucan', 'lactoferrin'],
+    'sleep': ['magnesium', 'theanine', '5-htp', 'ashwagandha', 'melatonin'],
+    'joint': ['glucosamine', 'chondroitin', 'msm', 'mussel', 'turmeric', 'hyaluronic', 'collagen'],
+    'skin': ['collagen', 'hyaluronic', 'vitamin c', 'astaxanthin', 'grape seed', 'biotin'],
+    'gut': ['lactobacillus', 'bifidobacterium', 'inulin', 'kiwifruit'],
+    'eye': ['lutein', 'bilberry', 'astaxanthin', 'beta-carotene'],
+    'fatigue': ['ginseng', 'rhodiola', 'b12', 'coenzyme', 'iron', 'carnitine'],
+    'heart': ['fish oil', 'krill', 'coenzyme', 'vitamin k2', 'grape seed'],
+    'liver': ['milk thistle', 'cysteine', 'lipoic'],
   };
   function lines(prompt, header) {
     var i = prompt.indexOf(header); if (i < 0) return [];
@@ -35,41 +35,42 @@
   function price(s) { var m = /^(\w+)\s+(.+)$/.exec((s || '').trim()); return m ? { currency: m[1], salesPrice: m[2] } : { currency: '', salesPrice: s }; }
   function wordsFor(text) {
     var w = [];
-    Object.keys(KEYWORDS).forEach(function (k) { if (text.indexOf(k) !== -1) w = w.concat(KEYWORDS[k]); });
-    return w.length ? w : KEYWORDS['면역'];
+    var low = text.toLowerCase();
+    Object.keys(KEYWORDS).forEach(function (k) { if (low.indexOf(k) !== -1) w = w.concat(KEYWORDS[k]); });
+    return w.length ? w : KEYWORDS.immun;
   }
   function recommend(prompt) {
-    var benefit = (/타겟 효능: (.*)/.exec(prompt) || [])[1] || '';
-    var form = (/제형: (.*)/.exec(prompt) || [])[1] || '';
-    var or = pick(lines(prompt, '=== 원료 DB'), wordsFor(benefit), 6);
-    var op = lines(prompt, '=== 부자재 DB').filter(function (r) { return /bottle|cap|label|desiccant|seal|pouch|sachet|capsule|shell/i.test(r[1]); });
-    if (/소프트|soft/i.test(form)) op = op.filter(function (r) { return !/HPMC/i.test(r[1]); });
+    var benefit = (/Target benefit: (.*)/.exec(prompt) || [])[1] || '';
+    var form = (/Dosage form: (.*)/.exec(prompt) || [])[1] || '';
+    var or = pick(lines(prompt, '=== Ingredient DB'), wordsFor(benefit), 6);
+    var op = lines(prompt, '=== Packaging DB').filter(function (r) { return /bottle|cap|label|desiccant|seal|pouch|sachet|capsule|shell/i.test(r[1]); });
+    if (/soft/i.test(form)) op = op.filter(function (r) { return !/HPMC/i.test(r[1]); });
     op = op.slice(0, 4);
     return {
-      summary: '[데모 응답] "' + benefit + '" 효능에 맞춰 원료 DB에서 관련 원료 ' + or.length + '개와 ' + (form || '선택한 제형') + '에 쓰는 부자재 ' + op.length + '개를 골랐습니다. 실제 버전은 Gemini가 같은 DB를 보고 근거와 함께 추천합니다.',
-      orItems: or.map(function (r) { var p = price(r[2]); return { code: r[0], name: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: '타겟 효능(' + benefit + ')과 관련된 원료 (데모 매칭)' }; }),
-      opItems: op.map(function (r) { var p = price(r[3]); return { code: r[0], name: r[1], pkgType: r[2], salesPrice: p.salesPrice, currency: p.currency, supplier: r[4] || '', reason: '제형·포장에 맞는 기본 부자재 (데모)' }; }),
+      summary: '[Demo answer] For "' + benefit + '", picked ' + or.length + ' related ingredients from the ingredient DB and ' + op.length + ' packaging items for ' + (form || 'the chosen dosage form') + '. The real version has Gemini read the same DB and explain each pick.',
+      orItems: or.map(function (r) { var p = price(r[2]); return { code: r[0], name: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: 'Related to the target benefit (' + benefit + ') (demo match)' }; }),
+      opItems: op.map(function (r) { var p = price(r[3]); return { code: r[0], name: r[1], pkgType: r[2], salesPrice: p.salesPrice, currency: p.currency, supplier: r[4] || '', reason: 'Standard packaging for this dosage form and pack (demo)' }; }),
     };
   }
   function upgrade(prompt) {
-    var benefit = (/타겟 효능: (.*)/.exec(prompt) || [])[1] || '';
-    var bom = lines(prompt, '=== 현재 원료 구성');
-    var db = lines(prompt, '=== 원료 DB');
+    var benefit = (/Target benefit: (.*)/.exec(prompt) || [])[1] || '';
+    var bom = lines(prompt, '=== Current formula');
+    var db = lines(prompt, '=== Ingredient DB');
     var inBom = bom.map(function (b) { return b[0]; });
     var minor = bom.slice(1).filter(function (b) { return /cellulose|stearate|flour|dioxide|dicalcium|maltodextrin/i.test(b[1]); }).slice(0, 2);
     var alt = db.filter(function (r) { return /rice flour|silicon|sunflower lecithin|inulin/i.test(r[1]) && inBom.indexOf(r[0]) === -1; });
     var add = pick(db.filter(function (r) { return inBom.indexOf(r[0]) === -1; }), wordsFor(benefit), 3);
     return {
-      summary: '[데모 응답] 주원료는 유지하고, 부형제 일부를 클린 라벨 원료로 바꾸고 효능(' + benefit + ')을 보강할 원료를 더하는 방향입니다.',
-      replaceItems: minor.map(function (b, i) { var r = alt[i] || alt[0]; if (!r) return null; var p = price(r[2]); return { currentCode: b[0], currentName: b[1], newCode: r[0], newName: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: '클린 라벨 부형제로 교체 (데모)' }; }).filter(Boolean),
-      addItems: add.map(function (r) { var p = price(r[2]); return { code: r[0], name: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: '효능 시너지 (데모 매칭)' }; }),
+      summary: '[Demo answer] Keep the main actives, swap some excipients for clean-label ones, and add ingredients that support the benefit (' + benefit + ').',
+      replaceItems: minor.map(function (b, i) { var r = alt[i] || alt[0]; if (!r) return null; var p = price(r[2]); return { currentCode: b[0], currentName: b[1], newCode: r[0], newName: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: 'Clean-label excipient swap (demo)' }; }).filter(Boolean),
+      addItems: add.map(function (r) { var p = price(r[2]); return { code: r[0], name: r[1], salesPrice: p.salesPrice, currency: p.currency, supplier: r[3] || '', reason: 'Supports the benefit (demo match)' }; }),
     };
   }
   window.GAS_FETCH_MOCKS = [{
     match: /generativelanguage\.googleapis\.com/, respond: function (url, opts) {
       var body = JSON.parse(opts.payload || '{}');
       var prompt = (((body.contents || [])[0] || {}).parts || [{}])[0].text || '';
-      var out = /업그레이드/.test(prompt) ? upgrade(prompt) : recommend(prompt);
+      var out = /propose an upgrade/.test(prompt) ? upgrade(prompt) : recommend(prompt);
       return { body: { candidates: [{ content: { parts: [{ text: JSON.stringify(out) }] }, finishReason: 'STOP' }] } };
     },
   }];

@@ -589,7 +589,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         <div class="name">Demo Labs Sales Pricing Tool</div>
         <div class="sub">Pricing Calculator · v1.33 demo</div>
       </div>
-    <button class="sb-toggle" type="button" onclick="toggleSidebar()" title="사이드바 접기 / 펼치기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+    <button class="sb-toggle" type="button" onclick="toggleSidebar()" title="Collapse / expand sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
 
     <div class="nav-section">R&amp;D</div>
     <nav class="nav">
@@ -611,7 +611,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       </a>
       <button class="nav-item" id="estNavBtn" onclick="toggleEstPanel()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
-        <span>저장된 견적</span>
+        <span>Saved quotes</span>
       </button>
       <a class="nav-item" href="library.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
@@ -619,15 +619,15 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       </a>
       <a class="nav-item" href="classify.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg>
-        <span>분류 관리</span>
+        <span>Categories</span>
       </a>
       <a class="nav-item" href="upload.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <span>데이터 업로드</span>
+        <span>Data upload</span>
       </a>
       <a class="nav-item" href="sourcing.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span>원료 점검</span>
+        <span>Ingredient check</span>
       </a>
       <a class="nav-item" href="procurement.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/><circle cx="9.5" cy="20.5" r="1"/><circle cx="17.5" cy="20.5" r="1"/></svg>
@@ -635,11 +635,11 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       </a>
       <button class="nav-item" onclick="openSettings('calc')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9a3 3 0 100 6 3 3 0 000-6z"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-2.9 1.2V21a2 2 0 11-4 0v-.1A1.7 1.7 0 006.7 19l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00-1.2-2.9H3a2 2 0 110-4h.1A1.7 1.7 0 005 6.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H10a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V10a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
-        <span>설정</span>
+        <span>Settings</span>
       </button>
       <button class="nav-item" onclick="openSettings('proc')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5M14 4v4M6 10v4M11 16v4"/></svg>
-        <span>Processing 설정</span>
+        <span>Processing settings</span>
       </button>
     </nav>
 
@@ -651,15 +651,15 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       </a>
     </nav>
 
-    <div class="nav-section">도움말</div>
+    <div class="nav-section">Help</div>
     <nav class="nav">
       <a class="nav-item" href="guide.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>사용 가이드</span>
+        <span>User guide</span>
       </a>
       <a class="nav-item" href="changelog.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><path d="M3.05 11a9 9 0 116.9 9.5"/><path d="M3 4v5h5"/></svg>
-        <span>업데이트 로그</span>
+        <span>Update log</span>
       </a>
     </nav>
 
@@ -695,7 +695,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <span class="crumb">Pricing /</span>
       <h1>Pricing Calculator</h1>
       <span class="topbar-spacer"></span>
-      <span class="topbar-tag"><span class="dot"></span>공급가 자동 계산</span>
+      <span class="topbar-tag"><span class="dot"></span>Supply price calculator</span>
     </header>
 
     <div class="content wide">
@@ -704,30 +704,30 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <div class="settings-overlay" id="settingsOverlay" style="display:none;" onclick="if(event.target===this)closeSettings()">
         <div class="settings-modal">
           <div class="set-tabs">
-            <button class="set-tab active" id="stab-calc" onclick="switchSettingsTab('calc')">⚙️ 계산 설정</button>
-            <button class="set-tab" id="stab-proc" onclick="switchSettingsTab('proc')">⚙️ Processing 설정</button>
-            <button class="set-tab" id="stab-test" onclick="switchSettingsTab('test')">🧪 Test 비용</button>
+            <button class="set-tab active" id="stab-calc" onclick="switchSettingsTab('calc')">⚙️ Calculation settings</button>
+            <button class="set-tab" id="stab-proc" onclick="switchSettingsTab('proc')">⚙️ Processing settings</button>
+            <button class="set-tab" id="stab-test" onclick="switchSettingsTab('test')">🧪 Test cost</button>
           </div>
           <div id="settings-pane-calc">
             <div id="settingsRows"></div>
             <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-              <button class="btn btn-ghost" onclick="closeSettings()">취소</button>
-              <button class="btn btn-primary" onclick="doSaveSettings()" style="padding:10px 22px;">저장</button>
+              <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+              <button class="btn btn-primary" onclick="doSaveSettings()" style="padding:10px 22px;">Save</button>
             </div>
           </div>
           <div id="settings-pane-proc" style="display:none;">
             <div class="proc-subtabs">
-              <button class="proc-subtab active" id="pstab-encap" onclick="switchProcSub('encap')">🧮 Encapsulation 역산</button>
-              <button class="proc-subtab" id="pstab-tier" onclick="switchProcSub('tier')">📋 구간표 직접편집</button>
+              <button class="proc-subtab active" id="pstab-encap" onclick="switchProcSub('encap')">🧮 Encapsulation back-calculation</button>
+              <button class="proc-subtab" id="pstab-tier" onclick="switchProcSub('tier')">📋 Edit tier table</button>
             </div>
 
             <!-- ① 역산 편집 -->
             <div id="procsub-encap">
               <div id="encapEditorWrap"></div>
               <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-                <button class="btn btn-ghost" onclick="closeSettings()">취소</button>
-                <button class="btn btn-ghost" onclick="resetEncapModel()">기본값 초기화</button>
-                <button class="btn btn-primary" onclick="doSaveEncapModel()" style="padding:10px 22px;">저장</button>
+                <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+                <button class="btn btn-ghost" onclick="resetEncapModel()">Reset to defaults</button>
+                <button class="btn btn-primary" onclick="doSaveEncapModel()" style="padding:10px 22px;">Save</button>
               </div>
             </div>
 
@@ -736,26 +736,26 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
               <div class="proc-type-bar" id="procTypeBar"></div>
               <div id="procTierTableWrap" style="margin-bottom:16px;"></div>
               <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-                <button class="btn btn-ghost" onclick="closeSettings()">취소</button>
-                <button class="btn btn-ghost" onclick="resetCurrentProcTier()">기본값 초기화</button>
-                <button class="btn btn-primary" onclick="doSaveProcSettings()" style="padding:10px 22px;">저장</button>
+                <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+                <button class="btn btn-ghost" onclick="resetCurrentProcTier()">Reset to defaults</button>
+                <button class="btn btn-primary" onclick="doSaveProcSettings()" style="padding:10px 22px;">Save</button>
               </div>
             </div>
           </div>
 
           <div id="settings-pane-test" style="display:none;">
             <div class="set-desc" style="margin-bottom:14px;line-height:1.6;">
-              회사명 또는 브랜드명에 아래 <b>키워드</b>가 포함되면, 코드 검색 시 <b>Test 비용</b>이 자동으로 채워집니다.
-              (예: <code>Kauri Wellness</code> → 400) · 사용자가 직접 수정한 값은 유지됩니다.
+              When the company or brand name contains a <b>keyword</b>below, code search fills in the <b>Test cost</b>automatically.
+              (e.g. <code>Kauri Wellness</code> → 400) · values you edit yourself are kept.
             </div>
             <table class="tier-table" id="testRuleTable" style="max-width:520px;">
-              <thead><tr><th>키워드 (회사/브랜드 일부)</th><th>Test 비용 (NZD)</th><th></th></tr></thead>
+              <thead><tr><th>Keyword (part of company/brand)</th><th>Test cost (NZD)</th><th></th></tr></thead>
               <tbody id="testRuleBody"></tbody>
             </table>
-            <button class="btn btn-ghost" onclick="addTestRuleRow()" style="margin-top:12px;">+ 규칙 추가</button>
+            <button class="btn btn-ghost" onclick="addTestRuleRow()" style="margin-top:12px;">+ Add rule</button>
             <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-              <button class="btn btn-ghost" onclick="closeSettings()">취소</button>
-              <button class="btn btn-primary" onclick="doSaveTestRules()" style="padding:10px 22px;">저장</button>
+              <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+              <button class="btn btn-primary" onclick="doSaveTestRules()" style="padding:10px 22px;">Save</button>
             </div>
           </div>
         </div>
@@ -765,7 +765,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <div class="settings-overlay" id="priceFinderOverlay" style="display:none;" onclick="if(event.target===this)closePriceFinder()">
         <div class="settings-modal pf-modal">
           <div class="pf-head">
-            <div><div class="pf-title">🔎 단가 찾기 · <span id="pfTitle"></span></div><div class="pf-sub" id="pfSub"></div></div>
+            <div><div class="pf-title">🔎 Price finder · <span id="pfTitle"></span></div><div class="pf-sub" id="pfSub"></div></div>
             <button class="pf-close" onclick="closePriceFinder()">×</button>
           </div>
           <div id="pfBody"></div>
@@ -781,19 +781,19 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
           <div class="card-head">
             <div class="card-label">Saved Estimates</div>
             <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-              <button class="btn btn-ghost" onclick="loadEstList()" style="padding:7px 12px;font-size:0.8rem;">↻ 새로고침</button>
-              <button class="btn btn-ghost" onclick="toggleEstPanel()" style="padding:7px 12px;font-size:0.8rem;">✕ 닫기</button>
+              <button class="btn btn-ghost" onclick="loadEstList()" style="padding:7px 12px;font-size:0.8rem;">↻ Refresh</button>
+              <button class="btn btn-ghost" onclick="toggleEstPanel()" style="padding:7px 12px;font-size:0.8rem;">✕ Close</button>
             </div>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
             <div class="chips" id="estFilterChips">
-              <button class="chip active" onclick="filterEst('all',this)">전체</button>
+              <button class="chip active" onclick="filterEst('all',this)">All</button>
               <button class="chip" onclick="filterEst('Draft',this)"><span class="cdot" style="background:var(--muted)"></span>Draft</button>
               <button class="chip" onclick="filterEst('Reviewed',this)"><span class="cdot" style="background:var(--info)"></span>Reviewed</button>
               <button class="chip" onclick="filterEst('Approved',this)"><span class="cdot" style="background:var(--ok)"></span>Approved</button>
             </div>
             <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
-              <span style="font-size:0.74rem;color:var(--faint);font-family:var(--mono);white-space:nowrap;">표시</span>
+              <span style="font-size:0.74rem;color:var(--faint);font-family:var(--mono);white-space:nowrap;">shown</span>
               <div class="chips" id="estPageSizeChips">
                 <button class="chip active" onclick="setEstPageSize(5,this)">5</button>
                 <button class="chip" onclick="setEstPageSize(10,this)">10</button>
@@ -803,11 +803,11 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
             </div>
           </div>
           <div style="margin-bottom:14px;position:relative;">
-            <input type="text" class="input" id="estSearch" placeholder="🔍 코드 또는 제품명으로 검색 (예: OF0610, Vitamin C)"
+            <input type="text" class="input" id="estSearch" placeholder="🔍 Search by code or product name (e.g. OF0610, Vitamin C)"
               oninput="onEstSearch()" style="width:100%;">
           </div>
           <div class="est-list" id="estList">
-            <div class="est-empty">불러오는 중...</div>
+            <div class="est-empty">Loading...</div>
           </div>
           <div id="estPagination" style="display:none;align-items:center;justify-content:center;gap:8px;padding-top:14px;"></div>
         </div>
@@ -816,18 +816,18 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <!-- ── Loaded estimate banner ────────────────────────────── -->
       <div class="est-banner" id="estBanner" style="display:none;">
         <div>
-          <div class="est-banner-title">📂 불러온 견적</div>
+          <div class="est-banner-title">📂 Loaded quote</div>
           <div class="est-banner-name" id="estBannerName">—</div>
         </div>
         <span id="estBannerBadge"></span>
         <div class="est-banner-actions">
           <button class="est-banner-btn accent" id="btnToReviewed" onclick="doBannerStatus('Reviewed')" style="display:none;">→ Reviewed</button>
           <button class="est-banner-btn green" id="btnToApproved" onclick="doBannerStatus('Approved')" style="display:none;">→ Approved</button>
-          <input type="text" class="est-memo-input" id="bannerMemo" placeholder="메모...">
-          <button class="est-banner-btn" onclick="doBannerMemoSave()">메모 저장</button>
-          <button class="est-banner-btn" onclick="doSaveEstimate(false)">새 견적으로 저장</button>
-          <button class="est-banner-btn accent" onclick="doSaveEstimate(true)">업데이트 저장</button>
-          <button class="est-banner-btn" onclick="startNewEstimate()" style="border-color:rgba(255,255,255,0.15);opacity:0.7;">✕ 새 견적</button>
+          <input type="text" class="est-memo-input" id="bannerMemo" placeholder="Memo...">
+          <button class="est-banner-btn" onclick="doBannerMemoSave()">Save memo</button>
+          <button class="est-banner-btn" onclick="doSaveEstimate(false)">Save as new quote</button>
+          <button class="est-banner-btn accent" onclick="doSaveEstimate(true)">Update save</button>
+          <button class="est-banner-btn" onclick="startNewEstimate()" style="border-color:rgba(255,255,255,0.15);opacity:0.7;">✕ New quote</button>
         </div>
       </div>
 
@@ -836,10 +836,10 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <!-- ══════════════════════════════════════════════════════════ -->
       <div class="card" id="step1Card">
         <div class="card-head">
-          <div class="card-label"><span class="step-no">STEP 1</span> 기본 정보 · Basics</div>
+          <div class="card-label"><span class="step-no">STEP 1</span> Basics</div>
         </div>
 
-        <div class="sub-label">📄 PFS 파일 업로드</div>
+        <div class="sub-label">📄 Upload PFS file</div>
         <label class="pfs-upload-area" id="pfsDropZone"
           ondragover="event.preventDefault();this.classList.add('drag-over')"
           ondragleave="this.classList.remove('drag-over')"
@@ -849,23 +849,23 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
           </div>
           <div class="pfs-upload-text">
-            <div class="pfs-title">PFS Word 파일을 클릭하거나 드래그해서 업로드</div>
-            <div class="pfs-hint">.docx 형식만 지원 · 원료 코드 + mg/ea 자동 추출</div>
+            <div class="pfs-title">Click or drag a PFS Word file to upload</div>
+            <div class="pfs-hint">.docx only · ingredient codes + mg/ea extracted automatically</div>
           </div>
         </label>
         <div class="pfs-status" id="pfsStatus"></div>
 
         <hr class="card-divider">
 
-        <div class="sub-label">BOM 자동완성</div>
+        <div class="sub-label">BOM autocomplete</div>
         <div style="display:flex;gap:10px;align-items:flex-end;">
           <div class="field" style="flex:1;">
-            <label>OF / OB / OC 코드 <span class="hint">예: OF0001 · OB0002 · OC0003</span></label>
+            <label>OF / OB / OC code <span class="hint">e.g. OF0001 · OB0002 · OC0003</span></label>
             <input type="text" class="input" id="bomCode" placeholder="OF0001"
               oninput="onBomCodeInput(this)"
               onkeydown="if(event.key==='Enter')loadBom()">
           </div>
-          <button class="btn btn-primary" id="bomLoadBtn" onclick="loadBom()" style="padding:12px 20px;flex-shrink:0;">불러오기</button>
+          <button class="btn btn-primary" id="bomLoadBtn" onclick="loadBom()" style="padding:12px 20px;flex-shrink:0;">Load</button>
         </div>
         <div id="bomStatus" style="display:none;margin-top:11px;"></div>
 
@@ -873,15 +873,15 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
 
         <div class="grid-2" style="margin-bottom:16px;">
           <div class="field">
-            <label>회사 · Client <span class="hint">Library 분류 · 자동검색</span></label>
+            <label>Company · Client <span class="hint">Library category · autocomplete</span></label>
             <input type="text" class="input" id="company" list="companyList" autocomplete="off"
-              placeholder="예: Southern Light / Demo Labs" oninput="onCompanyChange()">
+              placeholder="e.g. Southern Light / Demo Labs" oninput="onCompanyChange()">
             <datalist id="companyList"></datalist>
           </div>
           <div class="field">
-            <label>브랜드 · Brand <span class="hint">자사 등 하위 분류 (선택)</span></label>
+            <label>Brand <span class="hint">Sub-category such as in-house (optional)</span></label>
             <input type="text" class="input" id="brand" list="brandList" autocomplete="off"
-              placeholder="예: Demo Labs" oninput="onBrandChange()">
+              placeholder="e.g. Demo Labs" oninput="onBrandChange()">
             <datalist id="brandList"></datalist>
             <div class="hint" id="classCodeHint" style="margin-top:5px;font-family:var(--mono);color:var(--faint);"></div>
           </div>
@@ -889,19 +889,19 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
 
         <div class="grid-2" style="margin-bottom:16px;">
           <div class="field">
-            <label>제품명 <span class="hint">BOM 자동완성 또는 직접 입력</span></label>
-            <input type="text" class="input" id="productName" placeholder="예: Southern Light Vitamin C 1000" oninput="updateSummary()">
+            <label>Product name <span class="hint">BOM autocomplete or type in</span></label>
+            <input type="text" class="input" id="productName" placeholder="e.g. Southern Light Vitamin C 1000" oninput="updateSummary()">
           </div>
           <div class="field">
-            <label>총 Unit 수 <span class="hint">pk</span></label>
-            <input type="number" class="input" id="totalUnits" placeholder="예: 1000" min="1" oninput="calcTotalCaps()" onchange="onTotalUnitsChange()">
+            <label>Total units <span class="hint">pk</span></label>
+            <input type="number" class="input" id="totalUnits" placeholder="e.g. 1000" min="1" oninput="calcTotalCaps()" onchange="onTotalUnitsChange()">
           </div>
           <div class="field">
-            <label>정/캡슐 per bottle</label>
+            <label>Tablets/capsules per bottle</label>
             <input type="number" class="input" id="capPerBottle" value="60" min="1" oninput="calcTotalCaps()">
           </div>
           <div class="field">
-            <label>총 캡슐 수 <span class="hint">자동계산</span></label>
+            <label>Total capsules <span class="hint">Auto-calculated</span></label>
             <div class="ro-field" id="totalCapsDisplay">—</div>
             <input type="text" id="totalCaps" style="display:none;" readonly>
           </div>
@@ -909,7 +909,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
 
         <div class="rate-bar" id="rateBar">
           <div class="spin-sm"></div>
-          <span style="font-size:0.82rem;color:var(--muted);margin-left:8px;">환율 로딩 중...</span>
+          <span style="font-size:0.82rem;color:var(--muted);margin-left:8px;">Loading FX...</span>
         </div>
       </div>
 
@@ -918,10 +918,10 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <!-- ══════════════════════════════════════════════════════════ -->
       <div class="card" id="step2Card">
         <div class="card-head">
-          <div class="card-label"><span class="step-no">STEP 2</span> 제품 유형 · Dosage &amp; Packaging</div>
+          <div class="card-label"><span class="step-no">STEP 2</span> Product type · Dosage &amp; Packaging</div>
         </div>
 
-        <div class="stage-label"><span class="stage-no">1</span> 제형 · Dosage Form</div>
+        <div class="stage-label"><span class="stage-no">1</span> Dosage form</div>
         <div class="type-grid">
           <button class="type-btn" onclick="selectType('SGC')">SGC</button>
           <button class="type-btn" onclick="selectType('Hard Cap')">Hard Cap</button>
@@ -931,7 +931,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         </div>
         <div class="subtype-row" id="subtypeRow" style="display:none;"></div>
 
-        <div class="stage-label" style="margin-top:18px;"><span class="stage-no">2</span> 포장 형태 · Packaging Form</div>
+        <div class="stage-label" style="margin-top:18px;"><span class="stage-no">2</span> Packaging form</div>
         <div class="type-grid" id="pkgFormGrid">
           <button class="pkgform-btn" onclick="selectPackaging('Bottle')">Bottle</button>
           <button class="pkgform-btn" onclick="selectPackaging('Blister')">Blister</button>
@@ -945,29 +945,29 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <!-- ══════════════════════════════════════════════════════════ -->
       <div class="card" id="step3Card">
         <div class="card-head">
-          <div class="card-label"><span class="step-no">STEP 3</span> Raw Material · 원료</div>
+          <div class="card-label"><span class="step-no">STEP 3</span> Raw materials</div>
         </div>
         <div class="loss-row">
           <label for="lossRate">Loss Rate</label>
           <input type="number" class="input" id="lossRate" value="8" min="0" max="100" step="0.1" style="width:84px;" oninput="onLossRateChange()">
           <span style="font-family:var(--mono);color:var(--muted);">%</span>
-          <span class="hint">기본 8% — 공정 손실 여유분</span>
+          <span class="hint">Default 8% — allowance for process loss</span>
         </div>
         <div class="dtable-wrap">
           <table class="dtable">
             <thead>
               <tr>
-                <th class="col-code">OR코드 / 검색</th>
-                <th class="col-name">원료명</th>
+                <th class="col-code">OR code / search</th>
+                <th class="col-name">Ingredient</th>
                 <th class="col-mg">mg/ea</th>
-                <th class="col-mult">×배수</th>
-                <th class="col-curr">통화</th>
-                <th class="col-uprice">단가</th>
+                <th class="col-mult">×Multiplier</th>
+                <th class="col-curr">Currency</th>
+                <th class="col-uprice">Price</th>
                 <th class="col-inc">Incoterms</th>
-                <th class="col-ship">운송</th>
+                <th class="col-ship">Freight</th>
                 <th class="col-fp">Final Price<br>(NZD/kg)</th>
-                <th class="col-sub">소계 (NZD)</th>
-                <th class="col-act" title="🔎 단가 찾기 · 🤖 AI 추정 · 삭제"></th>
+                <th class="col-sub">Subtotal (NZD)</th>
+                <th class="col-act" title="🔎 Price finder · 🤖 AI estimate · delete"></th>
               </tr>
             </thead>
             <tbody id="rawMaterialBody"></tbody>
@@ -975,13 +975,13 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         </div>
         <button class="btn-add-row" onclick="addRawRow()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          원료 추가
+          Add ingredient
         </button>
         <div class="subtotal-row" style="margin-top:14px;">
           <span class="raw-warn-chip" id="rawWarnChip" style="display:none;"></span>
-          <button class="btn btn-ghost ai-batch" id="aiBatchBtn" style="display:none;" onclick="aiBatchMissing()" title="단가 없는 원료를 한 번에 AI 추정 — 3개씩 동시에, 끝나는 대로 추천안 자동 입력"></button>
+          <button class="btn btn-ghost ai-batch" id="aiBatchBtn" style="display:none;" onclick="aiBatchMissing()" title="AI-estimate every ingredient with no price — 3 at a time, recommended values filled in as each finishes"></button>
           <span style="margin-right:auto;"></span>
-          <span class="stl">원료 mg/ea 합계 <span style="color:var(--faint);font-weight:400;">(캡슐 제외)</span></span><span class="stv" id="rawMgSum">—</span>
+          <span class="stl">Ingredient mg/ea total <span style="color:var(--faint);font-weight:400;">(excl. capsule)</span></span><span class="stv" id="rawMgSum">—</span>
           <span class="stl">Sub-total</span><span class="stv" id="rawSubTotal">—</span>
           <span class="stl" id="lossRateLabel">+ Loss (8%)</span><span class="stv" id="rawLossAdd">—</span>
           <span class="stl">Raw Material Total</span><span class="stv total" id="rawLossTotal">—</span>
@@ -996,32 +996,32 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
           <div class="card-label"><span class="step-no">STEP 4</span> Packages + Processing</div>
         </div>
 
-        <div class="sub-label">🔍 OP코드로 패키징 자동완성</div>
+        <div class="sub-label">🔍 Packaging autocomplete by OP code</div>
         <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:14px;">
           <div class="field" style="flex:1;margin-bottom:0;">
-            <label>OP코드 <span class="hint">예: OP0131</span></label>
+            <label>OP code <span class="hint">e.g. OP0131</span></label>
             <input type="text" class="input" id="opAutoCode" placeholder="OP0131"
               oninput="this.value=this.value.toUpperCase()"
               onkeydown="if(event.key==='Enter')loadPkgByOp()">
           </div>
-          <button class="btn btn-primary" id="opAutoBtn" onclick="loadPkgByOp()" style="padding:12px 20px;flex-shrink:0;">패키징 조회</button>
+          <button class="btn btn-primary" id="opAutoBtn" onclick="loadPkgByOp()" style="padding:12px 20px;flex-shrink:0;">Look up packaging</button>
         </div>
         <div id="opAutoStatus" style="display:none;margin-bottom:14px;font-size:0.84rem;line-height:1.55;border-radius:var(--radius-xs);padding:10px 13px;"></div>
 
         <hr class="card-divider" style="margin-bottom:16px;">
 
-        <div class="sub-label">A — Packages · 부자재</div>
+        <div class="sub-label">A — Packaging</div>
         <div class="dtable-wrap">
           <table class="dtable">
             <thead>
               <tr>
-                <th class="col-code">OP코드 / 검색</th>
-                <th class="col-name">부자재명</th>
+                <th class="col-code">OP code / search</th>
+                <th class="col-name">Packaging name</th>
                 <th class="col-type">Type</th>
-                <th class="col-qty">수량 (ea)</th>
+                <th class="col-qty">Quantity (ea)</th>
                 <th class="col-fp">Final Price<br>(NZD/ea)</th>
-                <th class="col-sub">소계 (NZD)</th>
-                <th class="col-find" title="단가 찾기 — 구매 회신 · DB 유사 · AI 추정">🔎</th>
+                <th class="col-sub">Subtotal (NZD)</th>
+                <th class="col-find" title="Price finder — procurement reply · similar in DB · AI estimate">🔎</th>
                 <th class="col-del"></th>
               </tr>
             </thead>
@@ -1030,7 +1030,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         </div>
         <button class="btn-add-row" onclick="addPkgRow()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          부자재 추가
+          Add packaging
         </button>
         <div class="subtotal-row" style="margin-top:12px;">
           <span class="stl">Packages Total</span>
@@ -1040,18 +1040,18 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         <hr class="card-divider">
 
         <div class="sub-label">
-          B — Processing · 가공비
-          <span class="flex-tail" style="font-family:var(--mono);font-size:0.62rem;color:var(--faint);">STEP 2 제형 × 포장 형태 조합으로 자동 구성</span>
+          B — Processing
+          <span class="flex-tail" style="font-family:var(--mono);font-size:0.62rem;color:var(--faint);">Set up automatically from the STEP 2 dosage form × packaging form</span>
         </div>
-        <div id="procEmpty" class="proc-empty">STEP 2에서 제형·포장 형태를 먼저 선택해주세요.</div>
+        <div id="procEmpty" class="proc-empty">Choose the dosage form and packaging form in STEP 2 first.</div>
         <table class="dtable" id="procTable" style="display:none;">
           <thead>
             <tr>
-              <th>항목</th>
-              <th>자동 단가</th>
+              <th>Item</th>
+              <th>Auto price</th>
               <th>Override</th>
-              <th>수량</th>
-              <th style="text-align:right;">소계 (NZD)</th>
+              <th>Quantity</th>
+              <th style="text-align:right;">Subtotal (NZD)</th>
             </tr>
           </thead>
           <tbody id="procBody"></tbody>
@@ -1059,7 +1059,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         <div id="procCustomBody" style="display:flex;flex-direction:column;gap:8px;margin-top:10px;"></div>
         <button class="btn-add-row" onclick="addProcCustomRow()" style="margin-top:8px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          가공비 항목 추가
+          Add processing item
         </button>
         <div class="subtotal-row" id="procSubtotalRow" style="display:none;margin-top:12px;">
           <span class="stl">Processing Total</span>
@@ -1076,11 +1076,11 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
         </div>
         <div class="grid-2" style="margin-bottom:16px;">
           <div class="field">
-            <label>Admin &amp; Management <span class="hint">고정</span></label>
+            <label>Admin &amp; Management <span class="hint">Fixed</span></label>
             <input type="text" class="ro-field" id="adminCostDisplay" value="NZD 300.00" readonly style="border:1.5px solid var(--border);">
           </div>
           <div class="field">
-            <label>Test 비용 <span class="hint">NZD</span></label>
+            <label>Test cost <span class="hint">NZD</span></label>
             <div class="input-suffix-wrap">
               <input type="number" class="input" id="testCost" placeholder="0" min="0" step="0.01"
                 style="text-align:right;padding-right:46px;" oninput="onTestCostChange()">
@@ -1089,11 +1089,11 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
           </div>
         </div>
         <hr class="card-divider">
-        <div class="sub-label">Others · 기타 비용</div>
+        <div class="sub-label">Others · other costs</div>
         <div id="othersBody" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;"></div>
         <button class="btn-add-row" onclick="addOtherRow()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-          항목 추가
+          Add item
         </button>
         <div class="subtotal-row" id="othersTotalRow" style="display:none;margin-top:12px;">
           <span class="stl">Others Total</span>
@@ -1106,7 +1106,7 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
       <!-- ══════════════════════════════════════════════════════════ -->
       <div class="card" id="step6Card">
         <div class="card-head">
-          <div class="card-label"><span class="step-no">STEP 6</span> 결과 &amp; Margin 시뮬레이션</div>
+          <div class="card-label"><span class="step-no">STEP 6</span> Results &amp; margin simulation</div>
           <div class="cur-toggle">
             <span class="cur-rate-note" id="step6RateNote"></span>
             <div class="cur-seg">
@@ -1129,59 +1129,59 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
               <div class="cost-line"><span class="cl-label">Test</span><span class="cl-value" id="res-test">—</span></div>
               <div class="cost-line" id="res-others-line" style="display:none;"><span class="cl-label">Others</span><span class="cl-value" id="res-others">—</span></div>
               <div class="cost-line total"><span class="cl-label">Total Cost</span><span class="cl-value" id="res-total">—</span></div>
-              <div class="cost-line unit"><span class="cl-label">완제품 Unit Cost<span class="cl-sub">= Total ÷ Units</span><span class="cl-sub" id="res-unit-alt"></span></span><span class="cl-value" id="res-unit">—</span></div>
+              <div class="cost-line unit"><span class="cl-label">Finished goods Unit Cost<span class="cl-sub">= Total ÷ Units</span><span class="cl-sub" id="res-unit-alt"></span></span><span class="cl-value" id="res-unit">—</span></div>
               <div class="cost-line fc-line" id="res-fc-line" style="display:none;">
-                <span class="cl-label">공장원가 <span class="cl-sub" id="res-fc-note">원가DB</span></span>
+                <span class="cl-label">Factory cost <span class="cl-sub" id="res-fc-note">Cost DB</span></span>
                 <span class="cl-value" id="res-fc">—</span>
               </div>
               <div class="cost-line fc-line" id="res-fc-diff-line" style="display:none;">
-                <span class="cl-label">차이 <span class="cl-sub">내 계산 − 공장원가</span></span>
+                <span class="cl-label">Difference <span class="cl-sub">your calculation − factory cost</span></span>
                 <span class="cl-value" id="res-fc-diff">—</span>
               </div>
             </div>
 
             <!-- Bulk (제형만) 원가 — 캡슐/벌크 납품용 -->
-            <div class="sub-label" style="margin-top:20px;">Bulk 원가 <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--faint);">· 제형만 (포장·Admin·Test 제외)</span></div>
+            <div class="sub-label" style="margin-top:20px;">Bulk cost <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--faint);">· dosage form only (packaging, Admin, Test excluded)</span></div>
             <div class="cost-list">
               <div class="cost-line"><span class="cl-label">Raw Material Total<span class="cl-sub">+ Loss</span></span><span class="cl-value" id="res-bulk-raw">—</span></div>
-              <div class="cost-line"><span class="cl-label">제형 가공비<span class="cl-sub">Encap · Fill · Blending</span></span><span class="cl-value" id="res-bulk-proc">—</span></div>
+              <div class="cost-line"><span class="cl-label">Dosage-form processing<span class="cl-sub">Encap · Fill · Blending</span></span><span class="cl-value" id="res-bulk-proc">—</span></div>
               <div class="cost-line total"><span class="cl-label">Bulk Total</span><span class="cl-value" id="res-bulk-total">—</span></div>
-              <div class="cost-line unit"><span class="cl-label">Bulk Cost<span class="cl-sub" id="res-bulk-unit-note">/ 1,000캡</span></span><span class="cl-value" id="res-bulk-unit">—</span></div>
+              <div class="cost-line unit"><span class="cl-label">Bulk Cost<span class="cl-sub" id="res-bulk-unit-note">/ 1,000 caps</span></span><span class="cl-value" id="res-bulk-unit">—</span></div>
             </div>
           </div>
           <!-- Right: Margin simulation -->
           <div>
-            <div class="sub-label">Margin 시뮬레이션</div>
+            <div class="sub-label">Margin simulation</div>
             <table class="margin-table">
-              <thead><tr><th>마진율</th><th>Selling (<span id="marginCurHead">NZD</span>/pk)</th><th>Markup</th></tr></thead>
+              <thead><tr><th>Margin</th><th>Selling (<span id="marginCurHead">NZD</span>/pk)</th><th>Markup</th></tr></thead>
               <tbody id="marginBody">
-                <tr><td colspan="3" class="margin-empty">비용을 입력하면 자동 계산됩니다.</td></tr>
+                <tr><td colspan="3" class="margin-empty">Calculated automatically once costs are entered.</td></tr>
               </tbody>
             </table>
-            <div class="formula-note">Selling = Unit Cost ÷ (1 − 마진율)</div>
+            <div class="formula-note">Selling = Unit Cost ÷ (1 − margin)</div>
           </div>
         </div>
 
         <hr class="card-divider">
-        <div class="sub-label">이전 공급가 비교</div>
+        <div class="sub-label">Previous supply price comparison</div>
         <div class="prev-box">
           <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
             <div class="field" style="flex:1;min-width:180px;">
-              <label>제품 코드 (OF/OB/OC)</label>
-              <input type="text" class="input" id="prevPriceCode" placeholder="예: OF0001"
+              <label>Product code (OF/OB/OC)</label>
+              <input type="text" class="input" id="prevPriceCode" placeholder="e.g. OF0001"
                 oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')fetchPrevPrice()">
             </div>
-            <button class="btn btn-ghost" id="prevFetchBtn" onclick="fetchPrevPrice()" style="padding:11px 18px;">조회</button>
+            <button class="btn btn-ghost" id="prevFetchBtn" onclick="fetchPrevPrice()" style="padding:11px 18px;">Look up</button>
           </div>
           <div id="prevStatusMsg" style="display:none;margin-top:8px;font-size:0.8rem;padding:8px 12px;border-radius:var(--radius-xs);"></div>
           <div id="prevHistDropWrap" style="display:none;margin-top:10px;">
             <select class="input" id="prevHistSelect" onchange="onPrevHistSelect()">
-              <option value="">— 이력 선택 —</option>
+              <option value="">— choose from history —</option>
             </select>
           </div>
           <div class="grid-2" style="margin-top:12px;">
             <div class="field">
-              <label>이전 공급가 <span class="hint">NZD/pk</span></label>
+              <label>Previous supply price <span class="hint">NZD/pk</span></label>
               <div class="input-suffix-wrap">
                 <input type="number" class="input" id="prevPriceVal" placeholder="0.00" step="0.01" min="0"
                   style="text-align:right;padding-right:46px;" oninput="calcPrevDiff()">
@@ -1189,35 +1189,35 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
               </div>
             </div>
             <div class="field">
-              <label>기준일</label>
-              <input type="text" class="input" id="prevPriceDate" placeholder="예: 2024-08-15">
+              <label>Reference date</label>
+              <input type="text" class="input" id="prevPriceDate" placeholder="e.g. 2024-08-15">
             </div>
           </div>
           <div class="prev-compare" id="prevCompare" style="display:none;">
-            <div class="prev-line"><span class="pl-label">현재 계산가</span><span class="pl-value" id="prevCurrVal">—</span></div>
-            <div class="prev-line"><span class="pl-label">이전 공급가</span><span class="pl-value" id="prevOldVal">—</span></div>
+            <div class="prev-line"><span class="pl-label">Current calculated price</span><span class="pl-value" id="prevCurrVal">—</span></div>
+            <div class="prev-line"><span class="pl-label">Previous supply price</span><span class="pl-value" id="prevOldVal">—</span></div>
             <div class="prev-line" style="border-top:1px solid var(--border);padding-top:8px;margin-top:2px;">
-              <span class="pl-label">차이</span>
+              <span class="pl-label">Difference</span>
               <span class="pl-value diff-same" id="prevDiffVal">—</span>
             </div>
           </div>
         </div>
 
         <hr class="card-divider">
-        <div class="sub-label">견적 저장</div>
+        <div class="sub-label">Save quote</div>
         <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
           <div class="field" style="flex:1;min-width:180px;">
-            <label>메모 <span class="hint">선택</span></label>
-            <input type="text" class="input" id="saveMemo" placeholder="예: 클라이언트명, 버전 등">
+            <label>Memo <span class="hint">Optional</span></label>
+            <input type="text" class="input" id="saveMemo" placeholder="e.g. client name, version">
           </div>
           <button class="btn btn-primary" onclick="doSaveEstimate(false)" style="padding:12px 22px;flex-shrink:0;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
-            견적 저장
+            Save quote
           </button>
-          <button class="btn btn-ghost" onclick="saveAsNew()" style="padding:12px 20px;flex-shrink:0;">📑 다른 이름으로 저장</button>
-          <button class="btn btn-ghost" onclick="downloadPricingCsv()" style="padding:12px 20px;flex-shrink:0;">📊 엑셀 다운로드</button>
+          <button class="btn btn-ghost" onclick="saveAsNew()" style="padding:12px 20px;flex-shrink:0;">📑 Save as</button>
+          <button class="btn btn-ghost" onclick="downloadPricingCsv()" style="padding:12px 20px;flex-shrink:0;">📊 Download Excel</button>
           <button class="btn btn-ghost" onclick="printEstimate()" style="padding:12px 22px;flex-shrink:0;">
-            📄 견적서 저장 (PDF)
+            📄 Save quote (PDF)
           </button>
         </div>
       </div>
@@ -1246,12 +1246,12 @@ input.fp-cell::placeholder{color:var(--faint);font-weight:400;font-size:0.72rem;
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px 36px;width:min(360px,92vw);box-shadow:var(--shadow-lg);text-align:center;">
     <div style="width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:0.82rem;margin:0 auto 20px;">DL</div>
     <div style="font-family:var(--display);font-size:1.15rem;font-weight:600;margin-bottom:6px;">Pricing Calculator</div>
-    <div style="color:var(--muted);font-size:0.82rem;margin-bottom:24px;">비밀번호를 입력하세요.</div>
-    <input type="password" class="input" id="pwInput" placeholder="비밀번호"
+    <div style="color:var(--muted);font-size:0.82rem;margin-bottom:24px;">Enter the password.</div>
+    <input type="password" class="input" id="pwInput" placeholder="Password"
       onkeydown="if(event.key==='Enter')submitPassword()"
       style="text-align:center;letter-spacing:3px;margin-bottom:10px;">
     <div id="pwError" style="color:var(--drop);font-size:0.78rem;min-height:20px;margin-bottom:10px;"></div>
-    <button class="btn btn-primary btn-block" id="pwSubmitBtn" onclick="submitPassword()">확인</button>
+    <button class="btn btn-primary btn-block" id="pwSubmitBtn" onclick="submitPassword()">OK</button>
   </div>
 </div>
 
@@ -1295,7 +1295,7 @@ var STATE = {
 
 // ── Password Gate ─────────────────────────────────────────────────
 
-// Library → '계산기로 열기' 로 넘어온 견적 ID (없으면 빈 문자열)
+// Library → 'Open in calculator' 로 넘어온 견적 ID (없으면 빈 문자열)
 var LOAD_ID = '';
 
 // 원가DB(공장원가) 벤치마크 — OF/OB코드 → unit_cost
@@ -1424,9 +1424,9 @@ function renderTestRules() {
   if (!body) return;
   body.innerHTML = (TEST_COST_RULES || []).map(function(r, i) {
     return '<tr>' +
-      '<td><input type="text" class="input" id="trule-kw-' + i + '" value="' + (r.keyword || '').replace(/"/g,'&quot;') + '" placeholder="예: Kauri Wellness" style="width:220px;"></td>' +
+      '<td><input type="text" class="input" id="trule-kw-' + i + '" value="' + (r.keyword || '').replace(/"/g,'&quot;') + '" placeholder="e.g. Kauri Wellness" style="width:220px;"></td>' +
       '<td><input type="number" class="input" id="trule-cost-' + i + '" value="' + (r.cost != null ? r.cost : '') + '" min="0" step="1" style="width:120px;text-align:right;"></td>' +
-      '<td><button class="btn btn-ghost" onclick="removeTestRuleRow(' + i + ')" style="padding:5px 10px;font-size:0.78rem;">삭제</button></td>' +
+      '<td><button class="btn btn-ghost" onclick="removeTestRuleRow(' + i + ')" style="padding:5px 10px;font-size:0.78rem;">Delete</button></td>' +
     '</tr>';
   }).join('');
 }
@@ -1462,9 +1462,9 @@ function doSaveTestRules() {
       TEST_COST_RULES = rules;
       STATE.testCostManual = false;   // 규칙 바뀌었으니 자동값 재적용 허용
       applyTestCostDefault();
-      showToast('Test 비용 규칙이 저장되었습니다.');
+      showToast('Test cost rules saved.');
     })
-    .withFailureHandler(function(err){ showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err){ showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .saveTestCostRules(rules);
 }
 
@@ -1491,9 +1491,9 @@ function refreshClassHint() {
   var of  = STATE.bomCode || '';
   var hit = resolveByOf(of);
   if (hit) {
-    el.textContent = '자동분류: ' + (hit.company || '—') + (hit.brand ? ' · ' + hit.brand : '') + (hit.inHouse ? ' · 자사' : '');
+    el.textContent = 'Auto category: ' + (hit.company || '—') + (hit.brand ? ' · ' + hit.brand : '') + (hit.inHouse ? ' · in-house' : '');
   } else if (/^OF/i.test(of)) {
-    el.textContent = '신규 OF — 저장 시 마스터에 등록됩니다';
+    el.textContent = 'New OF — will be added to the master on save';
   } else {
     el.textContent = '';
   }
@@ -1516,27 +1516,27 @@ function submitPassword() {
   var err = document.getElementById('pwError');
   var btn = document.getElementById('pwSubmitBtn');
   err.textContent = '';
-  if (!pw) { err.textContent = '비밀번호를 입력하세요.'; return; }
+  if (!pw) { err.textContent = 'Enter the password.'; return; }
 
-  btn.disabled = true; btn.textContent = '확인 중...';
+  btn.disabled = true; btn.textContent = 'Checking...';
 
   google.script.run
     .withSuccessHandler(function(res) {
-      btn.disabled = false; btn.textContent = '확인';
+      btn.disabled = false; btn.textContent = 'OK';
       if (res && res.ok) {
         sessionStorage.setItem('pricingAuth', '1');
         document.getElementById('pwGate').style.display = 'none';
         if (res.warn) showToast('ℹ ' + res.warn);
         initPage();
       } else {
-        err.textContent = '비밀번호가 틀렸습니다.';
+        err.textContent = 'Wrong password.';
         document.getElementById('pwInput').value = '';
         document.getElementById('pwInput').focus();
       }
     })
     .withFailureHandler(function(e) {
-      btn.disabled = false; btn.textContent = '확인';
-      err.textContent = '서버 오류: ' + (e && e.message || '');
+      btn.disabled = false; btn.textContent = 'OK';
+      err.textContent = 'Server error: ' + (e && e.message || '');
     })
     .checkPricingPassword(pw);
 }
@@ -1551,12 +1551,12 @@ window.onload = function() {
 // ── 계산 설정 로드/저장 ───────────────────────────────────────────
 
 var SETTINGS_META = [
-  { key:'freight_air_usd',            label:'항공 운송비',              desc:'Incoterms EXW/FCA/FAS/FOB 적용 (USD)',     default:5.5 },
-  { key:'freight_sea_usd',            label:'선박 운송비',              desc:'Incoterms EXW/FCA/FAS/FOB 적용 (USD)',     default:0.4 },
-  { key:'custom_general_usd',         label:'통관비 — 일반',            desc:'해외 원료 기본 통관비 (USD)',               default:2.5525 },
-  { key:'custom_fishoil_gelatin_usd', label:'통관비 — Fish oil/Gelatin',desc:'Fish oil·Gelatin 원료 통관비 (USD)',       default:0.5 },
-  { key:'loss_rate_default',          label:'기본 Loss Rate',           desc:'STEP 3 Loss Rate 초기값 (%)',              default:7 },
-  { key:'admin_cost_nzd',             label:'Admin & Management',       desc:'STEP 5 고정비 (NZD)',                      default:310 },
+  { key:'freight_air_usd',            label:'Air freight',              desc:'applies to Incoterms EXW/FCA/FAS/FOB (USD)',     default:5.5 },
+  { key:'freight_sea_usd',            label:'Sea freight',              desc:'applies to Incoterms EXW/FCA/FAS/FOB (USD)',     default:0.4 },
+  { key:'custom_general_usd',         label:'Customs — general',            desc:'default customs for imported ingredients (USD)',               default:2.5525 },
+  { key:'custom_fishoil_gelatin_usd', label:'Customs — fish oil/gelatin',desc:'customs for fish oil and gelatin ingredients (USD)',       default:0.5 },
+  { key:'loss_rate_default',          label:'Default loss rate',           desc:'STEP 3 starting loss rate (%)',              default:7 },
+  { key:'admin_cost_nzd',             label:'Admin & Management',       desc:'STEP 5 fixed cost (NZD)',                      default:310 },
 ];
 
 function loadPricingSettings() {
@@ -1617,14 +1617,14 @@ function switchProcSub(sub) {
 // ── Processing 설정 탭 ───────────────────────────────────────────
 
 var PROC_TIER_TYPES = [
-  { key:'sgc_3oval',     label:'SGC 3 Oval',        unit:'per 1,000캡' },
-  { key:'sgc_5oval',     label:'SGC 5 Oval',        unit:'per 1,000캡' },
-  { key:'sgc_12oval',    label:'SGC 12 Oval',       unit:'per 1,000캡' },
-  { key:'sgc_20oblong',  label:'SGC 20 Oblong',      unit:'per 1,000캡' },
-  { key:'sgc_24oblong',  label:'SGC 24 Oblong',      unit:'per 1,000캡' },
-  { key:'hardCap',       label:'Hard Cap',            unit:'per 1,000캡' },
-  { key:'tablet_500mg',  label:'Tablet ~500mg',       unit:'per 1,000캡' },
-  { key:'tablet_2000mg', label:'Tablet ~2,000mg',     unit:'per 1,000캡' },
+  { key:'sgc_3oval',     label:'SGC 3 Oval',        unit:'per 1,000 caps' },
+  { key:'sgc_5oval',     label:'SGC 5 Oval',        unit:'per 1,000 caps' },
+  { key:'sgc_12oval',    label:'SGC 12 Oval',       unit:'per 1,000 caps' },
+  { key:'sgc_20oblong',  label:'SGC 20 Oblong',      unit:'per 1,000 caps' },
+  { key:'sgc_24oblong',  label:'SGC 24 Oblong',      unit:'per 1,000 caps' },
+  { key:'hardCap',       label:'Hard Cap',            unit:'per 1,000 caps' },
+  { key:'tablet_500mg',  label:'Tablet ~500mg',       unit:'per 1,000 caps' },
+  { key:'tablet_2000mg', label:'Tablet ~2,000mg',     unit:'per 1,000 caps' },
   { key:'powderFill',    label:'Powder Fill',         unit:'/pk' },
   { key:'liquid',        label:'Liquid Fill',         unit:'/pk' },
   { key:'bottling',      label:'Bottling',            unit:'/pk' },
@@ -1712,12 +1712,12 @@ function renderProcTierTableInner(key) {
 
   wrap.innerHTML =
     '<table class="tier-table">' +
-    '<thead><tr><th>구간 (pk)</th><th>단가 (NZD, ' + (def.unit||'') + ')</th></tr></thead>' +
+    '<thead><tr><th>Tier (pk)</th><th>Price (NZD, ' + (def.unit||'') + ')</th></tr></thead>' +
     '<tbody>' + rows + '</tbody></table>';
 }
 
 function resetCurrentProcTier() {
-  if (!confirm('현재 항목을 기본값으로 초기화하시겠습니까?')) return;
+  if (!confirm('Reset this item to its defaults?')) return;
   var key = currentProcTierType;
   if (!STATE.procTiers) STATE.procTiers = {};
   delete STATE.procTiers[key];
@@ -1741,9 +1741,9 @@ function doSaveProcSettings() {
       STATE._procType = null; // force rebuild
       recalcProcessing();
       var lbl = (PROC_TIER_TYPES.find(function(t) { return t.key === key; }) || {}).label || key;
-      showToast(lbl + ' 단가가 저장되었습니다.');
+      showToast(lbl + ' Prices saved.');
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .saveProcessingSettings(STATE.procTiers);
 }
 
@@ -1791,17 +1791,17 @@ function renderEncapEditor(){
   }).join('');
   wrap.innerHTML =
     '<div class="encap-batchbar">'+
-      '<label>하루 batch당 임가공비 (NZD)</label>'+
+      '<label>Processing fee per daily batch (NZD)</label>'+
       '<input type="number" class="input" id="enc-batchcost" value="'+m.batchCost+'" min="0" step="100" oninput="recomputeEncapPreview()" style="width:120px;text-align:right;">'+
       '<span class="encap-presets">'+chips+'</span>'+
     '</div>'+
-    '<div class="encap-help">기준단가(per 1,000캡) = 임가공비 ÷ 생산정수(기준캡슐수 우선) × 1,000. 주문량이 기준보다 적으면 단가↑(최대 +30%), 많으면 할인(최대 −15%).</div>'+
+    '<div class="encap-help">Base price (per 1,000 caps) = processing fee ÷ output per day (reference capsule count first) × 1,000. Orders below the base cost more (up to +30%), larger orders get a discount (up to −15%).</div>'+
     '<table class="tier-table encap-table"><thead><tr>'+
-      '<th>사이즈</th><th>생산정수/day</th><th>기준캡슐수(선택)</th><th>기준 per-1,000 (NZD)</th>'+
+      '<th>Size</th><th>output per day</th><th>Reference capsules (optional)</th><th>Base per-1,000 (NZD)</th>'+
     '</tr></thead><tbody>'+rows+'</tbody></table>'+
     '<div id="encapLivePreview" class="encap-live"></div>'+
     '<div class="encap-tier-head">'+
-      '<label>구간표 (정 기준) · 시뮬레이션 사이즈</label>'+
+      '<label>Tier table (by tablet) · simulation size</label>'+
       '<select id="encapPreviewSize" class="input" onchange="renderEncapTierPreview()" style="width:auto;">'+
         ENCAP_SIZES.map(function(s){ return '<option value="'+s.key+'"'+(s.key===(currentEncapSizeKey()||'sgc_12oval')?' selected':'')+'>'+s.label+'</option>'; }).join('')+
       '</select>'+
@@ -1819,7 +1819,7 @@ function renderEncapTierPreview(){
   var daily=parseFloat((document.getElementById('enc-daily-'+sizeKey)||{}).value)||0;
   var refv=parseFloat((document.getElementById('enc-ref-'+sizeKey)||{}).value)||0;
   var cap=refv>0?refv:daily;
-  if(!(bc>0&&cap>0)){ box.innerHTML='<div class="encap-tier-title">생산정수/day 값을 입력하면 구간표가 표시됩니다.</div>'; return; }
+  if(!(bc>0&&cap>0)){ box.innerHTML='<div class="encap-tier-title">Enter output per day to see the tier table.</div>'; return; }
   var base=bc/cap*1000, curve=(currentEncapModel().curve)||[];
   var curCaps=(currentEncapSizeKey()===sizeKey)?(STATE.totalCaps||0):0;
   var prev=0;
@@ -1833,14 +1833,14 @@ function renderEncapTierPreview(){
     var isCur=curCaps>0 && curCaps>lower && (capUpper===null || curCaps<=capUpper);
     if(capUpper!==null) prev=capUpper;
     return '<tr class="'+(isCur?'encap-cur':'')+'">'+
-      '<td>'+label+(isCur?' <span class="encap-curtag">● 현재</span>':'')+'</td>'+
+      '<td>'+label+(isCur?' <span class="encap-curtag">● Current</span>':'')+'</td>'+
       '<td style="text-align:center;color:var(--muted);">×'+mult+'</td>'+
       '<td class="encap-base">'+rate.toFixed(2)+'</td></tr>';
   }).join('');
   box.innerHTML=
-    '<div class="encap-tier-title">'+encapSizeLabel(sizeKey)+' · 기준 per-1,000 = <b>NZD '+base.toFixed(2)+'</b> (생산정수 '+cap.toLocaleString()+')</div>'+
+    '<div class="encap-tier-title">'+encapSizeLabel(sizeKey)+' · base per-1,000 = <b>NZD '+base.toFixed(2)+'</b> (output '+cap.toLocaleString()+')</div>'+
     '<table class="tier-table encap-band"><thead><tr>'+
-      '<th>구간 (캡슐수)</th><th>배율</th><th>per-1,000 (NZD)</th>'+
+      '<th>Tier (capsules)</th><th>Factor</th><th>per-1,000 (NZD)</th>'+
     '</tr></thead><tbody>'+rows+'</tbody></table>';
 }
 
@@ -1871,12 +1871,12 @@ function recomputeEncapPreview(){
   var base=bc/cap*1000, r=STATE.totalCaps/cap, m=currentEncapModel(), mult=1.0, curve=m.curve||[];
   for(var i=0;i<curve.length;i++){ if(curve[i][0]===null||r<=curve[i][0]){mult=curve[i][1];break;} }
   var rate=base*mult, sub=rate*STATE.totalCaps/1000;
-  pv.innerHTML='<b>현재 견적 적용</b> — '+STATE.totalCaps.toLocaleString()+'캡 · '+encapSizeLabel(sizeKey)+
-    ' → per-1,000 <b>NZD '+rate.toFixed(2)+'</b> (배율 ×'+mult+') · Encapsulation 소계 <b>NZD '+sub.toFixed(2)+'</b>';
+  pv.innerHTML='<b>Current quote</b> — '+STATE.totalCaps.toLocaleString()+'caps · '+encapSizeLabel(sizeKey)+
+    ' → per-1,000 <b>NZD '+rate.toFixed(2)+'</b> (factor ×'+mult+') · Encapsulation subtotal <b>NZD '+sub.toFixed(2)+'</b>';
 }
 
 function resetEncapModel(){
-  if(!confirm('Encapsulation 역산 설정을 기본값으로 되돌리시겠습니까? (저장 시 반영)')) return;
+  if(!confirm('Reset Encapsulation back-calculation settings to defaults? (applied on save)')) return;
   STATE.encapLabor=JSON.parse(JSON.stringify(ENCAP_LABOR_DEFAULT));
   renderEncapEditor();
 }
@@ -1896,9 +1896,9 @@ function doSaveEncapModel(){
       STATE.encapLabor=model;
       STATE._procType=null;
       recalcProcessing();
-      showToast('Encapsulation 역산 단가가 저장되었습니다.');
+      showToast('Encapsulation back-calculated prices saved.');
     })
-    .withFailureHandler(function(err){ showToast('⚠ '+(err&&err.message||'오류'),'err'); })
+    .withFailureHandler(function(err){ showToast('⚠ '+(err&&err.message||'Error'),'err'); })
     .saveEncapLaborModel(model);
 }
 
@@ -1920,9 +1920,9 @@ function doSaveSettings() {
       closeSettings();
       recalcRawMaterials();
       updateSummary();
-      showToast('설정이 저장되었습니다.');
+      showToast('Settings saved.');
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .savePricingSettings(updated);
 }
 
@@ -1930,7 +1930,7 @@ function doSaveSettings() {
 function loadExchangeRates() {
   var bar = document.getElementById('rateBar');
   bar.innerHTML = '<div class="spinner" style="width:16px;height:16px;border-width:2px;"></div>' +
-                  '<span style="font-size:0.82rem;color:var(--muted);margin-left:8px;">환율 로딩 중...</span>';
+                  '<span style="font-size:0.82rem;color:var(--muted);margin-left:8px;">Loading FX...</span>';
   google.script.run
     .withSuccessHandler(function(rates) {
       if (rates && rates.error) { renderRateError(bar, rates.error); return; }
@@ -1941,7 +1941,7 @@ function loadExchangeRates() {
       updateSummary();
     })
     .withFailureHandler(function(err) {
-      renderRateError(bar, err ? err.message : '환율 로드 실패');
+      renderRateError(bar, err ? err.message : 'FX failed to load');
     })
     .getExchangeRates();
 }
@@ -1955,18 +1955,18 @@ function renderRateBar(r) {
     '<span class="rate-chip">1 NZD = <b>' + usd + ' USD</b></span>' +
     '<span class="rate-chip">1 NZD = <b>' + krw + ' KRW</b></span>' +
     '<span class="rate-chip">1 NZD = <b>' + aud + ' AUD</b></span>' +
-    '<span class="rate-updated">업데이트: ' + updated + '</span>' +
-    '<button class="btn btn-ghost" id="refreshBtn" onclick="refreshRates(this)" style="padding:5px 12px;font-size:0.73rem;">↻ 새로고침</button>';
+    '<span class="rate-updated">Updated: ' + updated + '</span>' +
+    '<button class="btn btn-ghost" id="refreshBtn" onclick="refreshRates(this)" style="padding:5px 12px;font-size:0.73rem;">↻ Refresh</button>';
 }
 
 function renderRateError(bar, msg) {
   bar.innerHTML = '<span style="color:#be123c;font-size:0.8rem;">⚠ ' + msg + '</span>' +
-                  '<button class="btn btn-ghost" style="margin-left:10px;padding:5px 12px;font-size:0.73rem;" onclick="loadExchangeRates()">↻ 재시도</button>';
+                  '<button class="btn btn-ghost" style="margin-left:10px;padding:5px 12px;font-size:0.73rem;" onclick="loadExchangeRates()">↻ Retry</button>';
 }
 
 function refreshRates(btn) {
   btn.disabled = true;
-  btn.textContent = '업데이트 중...';
+  btn.textContent = 'Updating...';
   loadExchangeRates();
 }
 
@@ -1987,13 +1987,13 @@ function calcTotalCaps() {
 }
 
 function onTotalUnitsChange() {
-  if (STATE.totalUnits > 0) showToast('Packaging 수량이 업데이트됐습니다.');
+  if (STATE.totalUnits > 0) showToast('Packaging quantity updated.');
 }
 
 // ── STEP 2: Product Type ──────────────────────────────────────────
 var SUBTYPES = {
-  'SGC':    { label: '기계 사이즈', options: ['3 Oval', '5 Oval', '12 Oval', '20 Oblong', '24 Oblong'] },
-  'Tablet': { label: '정제 무게',   options: ['~500mg', '~2,000mg'] },
+  'SGC':    { label: 'Machine size', options: ['3 Oval', '5 Oval', '12 Oval', '20 Oblong', '24 Oblong'] },
+  'Tablet': { label: 'Tablet weight',   options: ['~500mg', '~2,000mg'] },
 };
 
 function selectType(type) {
@@ -2123,17 +2123,17 @@ function addRawRow() {
   tr.id = 'raw-row-' + idx;
   tr.innerHTML =
     '<td class="col-code"><div class="search-wrap">' +
-      '<input type="text" class="cell" id="raw-code-' + idx + '" placeholder="코드 / 이름" autocomplete="off"' +
+      '<input type="text" class="cell" id="raw-code-' + idx + '" placeholder="Code / name" autocomplete="off"' +
         ' oninput="onRawCodeInput(' + idx + ')"' +
         ' onblur="delayHide(\'raw-drop-' + idx + '\')">' +
       '<div class="search-dropdown" id="raw-drop-' + idx + '" style="display:none;"></div>' +
     '</div></td>' +
-    '<td class="col-name"><input type="text" class="cell" id="raw-name-' + idx + '" placeholder="자동입력 / 직접입력"' +
+    '<td class="col-name"><input type="text" class="cell" id="raw-name-' + idx + '" placeholder="Auto / manual"' +
       ' oninput="onRawNameInput(' + idx + ')">' +
-      '<span class="cap-tag" id="raw-cap-' + idx + '" style="display:none;">캡슐 · 개당</span>' +
+      '<span class="cap-tag" id="raw-cap-' + idx + '" style="display:none;">Capsule · each</span>' +
       '<div class="raw-date" id="raw-date-' + idx + '" style="display:none;"></div>' +
       '<div class="raw-src" id="raw-src-' + idx + '" style="display:none;"></div>' +
-      '<div class="raw-warn" id="raw-warn-' + idx + '" style="display:none;" onclick="openPriceFinder(' + idx + ')" title="클릭 — 단가 찾기"></div>' +
+      '<div class="raw-warn" id="raw-warn-' + idx + '" style="display:none;" onclick="openPriceFinder(' + idx + ')" title="Click — price finder"></div>' +
       '<div class="raw-ai" id="raw-ai-' + idx + '" style="display:none;"></div></td>' +
     '<td class="col-mg"><input type="number" class="cell" id="raw-mg-' + idx + '" min="0" step="0.01" placeholder="0"' +
       ' oninput="onRawRowChange(' + idx + ')"></td>' +
@@ -2146,19 +2146,19 @@ function addRawRow() {
     '<td class="col-curr"><select class="cell" id="raw-curr-' + idx + '" onchange="onRawCurrChange(' + idx + ')" style="width:66px;">' +
       '<option value="">—</option><option value="NZD">NZD</option><option value="USD">USD</option><option value="KRW">KRW</option><option value="AUD">AUD</option>' +
     '</select></td>' +
-    '<td class="col-uprice"><input type="number" class="cell" id="raw-uprice-' + idx + '" min="0" step="0.0001" placeholder="통화단가"' +
-      ' oninput="onRawUpriceInput(' + idx + ')" style="width:78px;text-align:right;" title="통화 기준 원본 단가 — 환율·통관·운송비가 자동 반영되어 Final Price 계산"></td>' +
+    '<td class="col-uprice"><input type="number" class="cell" id="raw-uprice-' + idx + '" min="0" step="0.0001" placeholder="Price in currency"' +
+      ' oninput="onRawUpriceInput(' + idx + ')" style="width:78px;text-align:right;" title="Original price in its currency — FX, customs and freight are added to calculate Final Price"></td>' +
     '<td class="col-inc"><select class="cell" id="raw-inc-' + idx + '" onchange="onRawRowChange(' + idx + ')">' + incOpts + '</select></td>' +
     '<td class="col-ship"><select class="cell" id="raw-ship-' + idx + '" onchange="onRawRowChange(' + idx + ')">' +
-      '<option value="">—</option><option value="Air">항공</option><option value="Sea">선박</option>' +
+      '<option value="">—</option><option value="Air">Air</option><option value="Sea">Sea</option>' +
     '</select></td>' +
-    '<td class="col-fp"><input type="number" class="fp-cell" id="fp-' + idx + '" placeholder="자동계산"' +
-      ' step="0.0001" min="0" onblur="onFpBlur(\'raw\',' + idx + ')" title="클릭하여 수동 입력 · 비우면 자동계산 복원"></td>' +
+    '<td class="col-fp"><input type="number" class="fp-cell" id="fp-' + idx + '" placeholder="Auto-calculated"' +
+      ' step="0.0001" min="0" onblur="onFpBlur(\'raw\',' + idx + ')" title="Click to enter by hand · clear to go back to auto"></td>' +
     '<td class="col-sub"><div class="sub-cell" id="sub-' + idx + '">—</div></td>' +
     '<td class="col-act"><div class="find-btns">' +
-      '<button class="btn-find" id="raw-find-' + idx + '" style="visibility:hidden;" onclick="openPriceFinder(' + idx + ')" title="단가 찾기 — 구매 회신 · DB 유사 · AI 추정 (범위 조정)">🔎</button>' +
-      '<button class="btn-find btn-ai" id="raw-aibtn-' + idx + '" style="visibility:hidden;" onclick="onAiBtn(' + idx + ')" title="AI 추정 — 누르면 백그라운드로 추정해 추천안을 자동 입력 · 결과가 있으면 다음 안(A↔B)으로 전환">🤖</button>' +
-      '<button class="btn-del" onclick="deleteRawRow(' + idx + ')" title="삭제">' + TRASH_SVG + '</button>' +
+      '<button class="btn-find" id="raw-find-' + idx + '" style="visibility:hidden;" onclick="openPriceFinder(' + idx + ')" title="Price finder — procurement reply · similar in DB · AI estimate (adjust range)">🔎</button>' +
+      '<button class="btn-find btn-ai" id="raw-aibtn-' + idx + '" style="visibility:hidden;" onclick="onAiBtn(' + idx + ')" title="AI estimate — estimates in the background and fills in the recommended value · if there is a result, switches to the next option (A↔B)">🤖</button>' +
+      '<button class="btn-del" onclick="deleteRawRow(' + idx + ')" title="Delete">' + TRASH_SVG + '</button>' +
     '</div></td>';
 
   document.getElementById('rawMaterialBody').appendChild(tr);
@@ -2219,7 +2219,7 @@ function doRawSearch(idx) {
   if (!kw) { drop.style.display = 'none'; return; }
 
   positionDropdown(input, drop);
-  drop.innerHTML     = '<div class="search-empty">검색 중…</div>';
+  drop.innerHTML     = '<div class="search-empty">Searching…</div>';
   drop.style.display = 'block';
 
   google.script.run
@@ -2231,7 +2231,7 @@ function doRawSearch(idx) {
 function showRawDropdown(idx, results) {
   var drop = document.getElementById('raw-drop-' + idx);
   if (!results || results.error || results.length === 0) {
-    drop.innerHTML = '<div class="search-empty">결과 없음</div>';
+    drop.innerHTML = '<div class="search-empty">No results</div>';
     return;
   }
   RAW_SEARCH_CACHE[idx] = results.slice(0, 12);
@@ -2242,7 +2242,7 @@ function showRawDropdown(idx, results) {
       '<div class="d-meta">' + item.currency +
         (item.incoterms      ? ' · ' + item.incoterms      : '') +
         (item.shippingMethod ? ' · ' + item.shippingMethod  : '') +
-        (item.registerDate   ? ' · 소싱 ' + item.registerDate : '') +
+        (item.registerDate   ? ' · sourced ' + item.registerDate : '') +
       '</div></div>';
   }).join('');
 }
@@ -2289,7 +2289,7 @@ function selectRawItem(idx, cacheIdx) {
     r.multiplier = 2;
   }
 
-  // 캡슐(OP) 선택 시: mg/ea 칸을 '총 캡슐수'로 사용 → 비어 있으면 현재 총 캡슐수로 자동 채움
+  // 캡슐(OP) 선택 시: mg/ea 칸을 'total capsule count'로 사용 → 비어 있으면 현재 총 캡슐수로 자동 채움
   if (isCapsuleRow(r)) {
     var mgEl = document.getElementById('raw-mg-' + idx);
     if (mgEl && !mgEl.value && STATE.totalCaps > 0) {
@@ -2427,7 +2427,7 @@ function calcRawTotal() {
   el = document.getElementById('rawLossTotal'); if (el) el.textContent = fmt(tot);
   var miss = rawPriceSummary(STATE.rawMaterials).missing;
   el = document.getElementById('rawWarnChip');
-  if (el) { el.style.display = miss.length ? '' : 'none'; el.textContent = '⚠ 단가 미확정 ' + miss.length + '건'; el.title = miss.join(', '); }
+  if (el) { el.style.display = miss.length ? '' : 'none'; el.textContent = '⚠ Price not confirmed ' + miss.length + 'items'; el.title = miss.join(', '); }
   updateAiBatchBtn();
 
   STATE.rawTotal = tot;
@@ -2452,7 +2452,7 @@ function updateRawRow(idx, r) {
 function setRawDateDisplay(idx, dateStr) {
   var el = document.getElementById('raw-date-' + idx);
   if (!el) return;
-  if (dateStr) { el.textContent = '소싱: ' + dateStr; el.style.display = ''; }
+  if (dateStr) { el.textContent = 'Sourced: ' + dateStr; el.style.display = ''; }
   else { el.textContent = ''; el.style.display = 'none'; }
 }
 // 단가 출처 표시 (구매회신 / 추정) — 원료명 아래 작은 라벨
@@ -2462,7 +2462,7 @@ function setRawSourceDisplay(idx, r) {
   var src = r && r.priceSource;
   if (!src) { el.style.display = 'none'; el.textContent = ''; return; }
   el.className = 'raw-src src-' + src;
-  el.textContent = (src === 'procurement' ? '구매회신 · ' : '추정 · Indicative · ') + (r.priceNote || '');
+  el.textContent = (src === 'procurement' ? 'Procurement reply · ' : 'Estimate · Indicative · ') + (r.priceNote || '');
   el.title = el.textContent;
   el.style.display = '';
 }
@@ -2485,7 +2485,7 @@ function setPkgSourceDisplay(idx, p) {
   var src = p && p.priceSource;
   if (!src) { el.style.display = 'none'; el.textContent = ''; return; }
   el.className = 'raw-src src-' + src;
-  el.textContent = (src === 'procurement' ? '구매회신 · ' : '추정 · Indicative · ') + (p.priceNote || '');
+  el.textContent = (src === 'procurement' ? 'Procurement reply · ' : 'Estimate · Indicative · ') + (p.priceNote || '');
   el.title = el.textContent;
   el.style.display = '';
 }
@@ -2514,17 +2514,17 @@ function priceSummary(raws, pkgs) {
   return out;
 }
 function pkgSourceText(p) {
-  if (p.priceSource === 'procurement') return '구매회신: ' + (p.priceNote || '');
-  if (p.priceSource === 'estimate')    return '추정(Indicative): ' + (p.priceNote || '');
+  if (p.priceSource === 'procurement') return 'Procurement reply: ' + (p.priceNote || '');
+  if (p.priceSource === 'estimate')    return 'Estimate (Indicative): ' + (p.priceNote || '');
   return p.registerDate ? 'DB ' + p.registerDate : '';
 }
-// PDF 원료명 태그 · 엑셀 '단가 출처' 열
-var PRICE_TAG = { '': '', missing: ' [단가 없음]', procurement: ' [구매회신]', estimate: ' [추정]' };
+// PDF 원료명 태그 · 엑셀 'Price source' 열
+var PRICE_TAG = { '': '', missing: ' [No price]', procurement: ' [Procurement reply]', estimate: ' [Estimate]' };
 function priceSourceText(r) {
   var s = rawPriceState(r);
-  if (s === 'missing')     return '단가 없음(미확정)';
-  if (s === 'procurement') return '구매회신: ' + (r.priceNote || '');
-  if (s === 'estimate')    return '추정(Indicative): ' + (r.priceNote || '');
+  if (s === 'missing')     return 'No price (unconfirmed)';
+  if (s === 'procurement') return 'Procurement reply: ' + (r.priceNote || '');
+  if (s === 'estimate')    return 'Estimate (Indicative): ' + (r.priceNote || '');
   return r.registerDate ? 'DB ' + r.registerDate : '';
 }
 
@@ -2561,10 +2561,10 @@ function setRawWarnDisplay(idx, r) {
   if (rawPriceState(r) !== 'missing') { el.style.display = 'none'; return; }
   var k = rawStatusKey(r), ps = PROC_STATUS[k], tail = '';
   if (!(k in PROC_STATUS) && PROC_STATUS_READY !== false) scheduleProcStatus();
-  else if (ps === null) tail = ' · 구매 요청 기록 없음';
-  else if (ps) tail = ps.hasPrice ? ' · 구매 회신 가격 있음 → 🔎' : ' · ' + (ps.progress || '요청') + ' ' + (ps.date || '') + (ps.requestedBy ? ' ' + ps.requestedBy : '');
-  el.textContent = '⚠ 단가 없음' + tail;
-  el.title = '단가 0 — 통관비만 계산돼 원가가 낮게 나옵니다. 클릭하면 단가 찾기';
+  else if (ps === null) tail = ' · no procurement request';
+  else if (ps) tail = ps.hasPrice ? ' · procurement reply price available → 🔎' : ' · ' + (ps.progress || 'Request') + ' ' + (ps.date || '') + (ps.requestedBy ? ' ' + ps.requestedBy : '');
+  el.textContent = '⚠ No price' + tail;
+  el.title = 'Price 0 — only customs is counted, so cost comes out low. Click to find a price';
   el.style.display = '';
 }
 
@@ -2586,16 +2586,16 @@ function openFinder(target, idx) {
   var nameEl = document.getElementById((target === 'pkg' ? 'pkg-name-' : 'raw-name-') + idx);
   var name = (r.name || (nameEl && nameEl.value) || '').trim();
   var code = (r.code || '').trim();
-  if (!name && !code) { showToast('코드나 이름을 먼저 입력하세요.', 'err'); return; }
+  if (!name && !code) { showToast('Enter a code or name first.', 'err'); return; }
   PF.target = target; PF.idx = idx; PF.data = null; PF.db = null; PF.ai = null;
   PF.dbKind = (target === 'pkg' || isCapsuleRow(r)) ? 'pkg' : 'raw';
   var pkgType = target === 'pkg' ? (r.packagingType || '') : (isCapsuleRow(r) ? 'Shell (F)' : '');
   var cur = target === 'pkg'
-    ? ((r.finalPriceOverride != null ? r.finalPriceOverride : r.finalPrice) > 0 ? 'NZD ' + pfFmt(r.finalPriceOverride != null ? r.finalPriceOverride : r.finalPrice) + '/ea' : '단가 없음')
-    : (r.unitPrice > 0 ? (r.currency || '') + ' ' + r.unitPrice + (r.incoterms ? ' ' + r.incoterms : '') : '단가 없음');
+    ? ((r.finalPriceOverride != null ? r.finalPriceOverride : r.finalPrice) > 0 ? 'NZD ' + pfFmt(r.finalPriceOverride != null ? r.finalPriceOverride : r.finalPrice) + '/ea' : 'No price')
+    : (r.unitPrice > 0 ? (r.currency || '') + ' ' + r.unitPrice + (r.incoterms ? ' ' + r.incoterms : '') : 'No price');
   document.getElementById('pfTitle').textContent = name || code;
-  document.getElementById('pfSub').textContent = (target === 'pkg' ? 'STEP 4 부자재' : 'STEP 3 원료') + ' · ' + (code || '코드 없음') + ' · 현재 ' + cur;
-  document.getElementById('pfBody').innerHTML = '<div style="text-align:center;padding:28px;"><div class="spinner sm"></div><div class="pf-empty">구매 이력 · DB 조회 중…</div></div>';
+  document.getElementById('pfSub').textContent = (target === 'pkg' ? 'STEP 4 packaging' : 'STEP 3 ingredient') + ' · ' + (code || 'No code') + ' · current ' + cur;
+  document.getElementById('pfBody').innerHTML = '<div style="text-align:center;padding:28px;"><div class="spinner sm"></div><div class="pf-empty">Looking up purchase history and DB…</div></div>';
   document.getElementById('priceFinderOverlay').style.display = 'flex';
   google.script.run
     .withSuccessHandler(function(res) {
@@ -2604,7 +2604,7 @@ function openFinder(target, idx) {
       if (target === 'raw' && res && res.aiPrev && STATE.rawMaterials[idx]) { AI_RESULTS[rawStatusKey(STATE.rawMaterials[idx])] = res.aiPrev; refreshAiRow(idx); }
       renderPriceFinder();
     })
-    .withFailureHandler(function(err) { document.getElementById('pfBody').innerHTML = '<div class="pf-empty">⚠ ' + escHtml((err && err.message) || '조회 실패') + '</div>'; })
+    .withFailureHandler(function(err) { document.getElementById('pfBody').innerHTML = '<div class="pf-empty">⚠ ' + escHtml((err && err.message) || 'Lookup failed') + '</div>'; })
     .findPriceEvidence({ code: code, name: name, kind: PF.dbKind, packagingType: pkgType });
 }
 
@@ -2648,9 +2648,9 @@ function pfDeltaText(landed) {
 
 // 후보를 이 행에 적용할 수 있는지 — 계산기 지원 통화, 원료는 kg · 부자재·캡슐은 개당
 function pfCandIssue(cand) {
-  if (['NZD', 'USD', 'KRW', 'AUD'].indexOf(cand.currency) === -1) return cand.currency + ' 미지원 — USD/NZD로 환산해 직접 입력';
-  if (pfPerEa() && cand.unit !== 'ea') return '개당(ea) 단가가 필요 — kg 가격';
-  if (!pfPerEa() && cand.unit !== 'kg') return '개당(ea) 가격 — 원료 kg 단가가 아님';
+  if (['NZD', 'USD', 'KRW', 'AUD'].indexOf(cand.currency) === -1) return cand.currency + ' not supported — convert to USD/NZD and enter by hand';
+  if (pfPerEa() && cand.unit !== 'ea') return 'A price per unit (ea) is needed — price per kg';
+  if (!pfPerEa() && cand.unit !== 'kg') return 'Price per unit (ea) — not an ingredient price per kg';
   return '';
 }
 
@@ -2663,7 +2663,7 @@ function pfQuantiles(vals) {
 
 function renderPriceFinder() {
   var res = PF.data, body = document.getElementById('pfBody');
-  if (!res || res.error) { body.innerHTML = '<div class="pf-empty">⚠ ' + escHtml((res && res.error) || '조회 실패') + '</div>'; return; }
+  if (!res || res.error) { body.innerHTML = '<div class="pf-empty">⚠ ' + escHtml((res && res.error) || 'Lookup failed') + '</div>'; return; }
   var r = pfRow();
   PF.cands = [];
   var candHtml = function(cand, note) {
@@ -2676,25 +2676,25 @@ function renderPriceFinder() {
     var ship = pfShipping(cand);
     return '<div class="pf-cand">' +
       '<span class="pc-price">' + escHtml(cand.currency) + (cand.currencyGuessed ? '?' : '') + ' ' + cand.price + '/' + escHtml(cand.unit) + '</span>' +
-      (cand.incoterms ? '<span>' + escHtml(cand.incoterms) + (ship ? ' · ' + (ship === 'Air' ? '항공' : '선박') : '') + '</span>' : '') +
+      (cand.incoterms ? '<span>' + escHtml(cand.incoterms) + (ship ? ' · ' + (ship === 'Air' ? 'Air' : 'Sea') : '') + '</span>' : '') +
       (cand.supplier ? '<span class="pc-note">' + escHtml(cand.supplier) + '</span>' : '') +
       (cand.moq ? '<span class="pc-note">MOQ ' + escHtml(cand.moq) + '</span>' : '') +
-      (cand.currencyGuessed ? '<span class="pc-warn" title="회신에 통화가 없어 공급사 DB 통화로 추정">통화 추정</span>' : '') +
+      (cand.currencyGuessed ? '<span class="pc-warn" title="Reply has no currency, so the supplier DB currency is assumed">Currency assumed</span>' : '') +
       (issue ? '<span class="pc-warn">' + escHtml(issue) + '</span>'
-             : '<span class="pc-note">' + info + '</span><button class="btn btn-primary" onclick="applyProcCandidate(' + i + ')">적용</button>') +
+             : '<span class="pc-note">' + info + '</span><button class="btn btn-primary" onclick="applyProcCandidate(' + i + ')">Apply</button>') +
     '</div>';
   };
 
   // ① 구매 요청 · 회신
-  var html = '<div class="pf-sec"><div class="pf-sec-title">① 구매 요청 · 회신 (Procurement)</div>';
+  var html = '<div class="pf-sec"><div class="pf-sec-title">① Procurement requests and replies</div>';
   if (!res.meta) {
-    html += '<div class="pf-empty">Procurement 데이터가 아직 없습니다. <a href="procurement.html" target="_top">Procurement 페이지</a>에서 구매팀 Sourcing &amp; Updates 엑셀을 업로드하세요.</div>';
+    html += '<div class="pf-empty">No procurement data yet. <a href="procurement.html" target="_top">Procurement page</a>upload purchasing’s Sourcing &amp; Updates Excel there.</div>';
   } else if (!res.matches.length) {
-    html += '<div class="pf-empty">일치하는 구매 요청이 없습니다 — 구매팀에 견적 요청이 필요합니다.</div>';
+    html += '<div class="pf-empty">No matching procurement request — ask purchasing for a quote.</div>';
   } else {
     html += res.matches.map(function(m) {
-      var how = m.score >= 1 ? (normCodeJs(m.code) && normCodeJs(m.code) === normCodeJs(r.code) ? '코드 일치' : '이름 일치') : '이름 유사 ' + Math.round(m.score * 100) + '%';
-      var note = [m.date ? m.date + ' 요청' : '', m.requestedBy].filter(Boolean).join(' · ');
+      var how = m.score >= 1 ? (normCodeJs(m.code) && normCodeJs(m.code) === normCodeJs(r.code) ? 'Code match' : 'Name match') : 'Similar name ' + Math.round(m.score * 100) + '%';
+      var note = [m.date ? m.date + ' Request' : '', m.requestedBy].filter(Boolean).join(' · ');
       return '<div class="pf-item">' +
         '<div class="pf-item-head"><span class="pf-badge ' + pfBadgeCls(m.progress) + '">' + escHtml(m.progress || '—') + '</span>' +
           '<span class="pf-item-name">' + escHtml(m.name || '—') + '</span>' +
@@ -2702,33 +2702,33 @@ function renderPriceFinder() {
         (m.result ? '<div class="pf-result" onclick="this.classList.toggle(\'open\')">' + escHtml(m.result) + '</div>' : '') +
         (m.prices.length
           ? '<div class="pf-cands">' + m.prices.map(function(c) { return candHtml(c, (c.supplier ? c.supplier + ' · ' : '') + c.currency + ' ' + c.price + '/' + c.unit + (c.incoterms ? ' ' + c.incoterms : '') + ' · ' + note); }).join('') + '</div>'
-          : '<div class="pf-empty">' + (m.progress === 'In progress' || m.progress === 'Clarifying' ? '구매팀 회신 대기 중' : '회신에 가격 없음') + '</div>') +
+          : '<div class="pf-empty">' + (m.progress === 'In progress' || m.progress === 'Clarifying' ? 'Waiting for purchasing’s reply' : 'No price in reply') + '</div>') +
       '</div>';
     }).join('');
   }
   html += '</div>';
 
   if (res.priceUpdates && res.priceUpdates.length) {
-    html += '<div class="pf-sec"><div class="pf-sec-title">가격 변경 기록 (Price Update)</div>' +
+    html += '<div class="pf-sec"><div class="pf-sec-title">Price change record (Price Update)</div>' +
       res.priceUpdates.map(function(p) {
         var cand = { currency: String(p.currentCurr || '').toUpperCase(), price: parseFloat(p.currentPrice) || 0, unit: pfPerEa() ? 'ea' : 'kg',
                      incoterms: String(p.currentTerm || '').toUpperCase(), supplier: p.supplier || '', moq: '', currencyGuessed: false };
         var b = '<div class="pf-item"><div class="pf-item-head"><span class="pf-item-name">' + escHtml(p.description || p.code) + '</span>' +
           '<span class="pf-meta">' + escHtml([p.code, p.date, p.reason].filter(Boolean).join(' · ')) + '</span></div>';
-        if (cand.price > 0 && cand.currency) b += '<div class="pf-cands">' + candHtml(cand, (p.supplier ? p.supplier + ' · ' : '') + cand.currency + ' ' + cand.price + ' · ' + (p.date || '') + ' 가격변경') + '</div>';
-        else b += '<div class="pf-empty">' + escHtml([p.currentPrice, p.remark].filter(Boolean).join(' · ') || '가격 정보 없음') + '</div>';
+        if (cand.price > 0 && cand.currency) b += '<div class="pf-cands">' + candHtml(cand, (p.supplier ? p.supplier + ' · ' : '') + cand.currency + ' ' + cand.price + ' · ' + (p.date || '') + ' Price change') + '</div>';
+        else b += '<div class="pf-empty">' + escHtml([p.currentPrice, p.remark].filter(Boolean).join(' · ') || 'No price information') + '</div>';
         return b + '</div>';
       }).join('') + '</div>';
   }
 
   // ② 회사 DB 유사 품목
-  html += '<div class="pf-sec"><div class="pf-sec-title">② 회사 DB 유사 ' + (PF.dbKind === 'pkg' ? '부자재 (packaging_cost)' : '원료 (raw_cost)') + ' · 추정 근거</div>' + renderDbSection(res.db) + '</div>';
+  html += '<div class="pf-sec"><div class="pf-sec-title">② Similar in company DB ' + (PF.dbKind === 'pkg' ? 'Packaging (packaging_cost)' : 'Ingredients (raw_cost)') + ' · basis for the estimate</div>' + renderDbSection(res.db) + '</div>';
 
   // ③ AI 추정
-  html += '<div class="pf-sec"><div class="pf-sec-title">③ AI 추정 (웹 검색 · Indicative)</div><div id="pfAi">' + renderAiSection() + '</div></div>';
+  html += '<div class="pf-sec"><div class="pf-sec-title">③ AI estimate (web search · Indicative)</div><div id="pfAi">' + renderAiSection() + '</div></div>';
 
-  html += '<div class="pf-foot">적용하면 통화·단가·Incoterms·운송이 채워지고 환율·통관비·운송비가 자동 반영됩니다. FOB/EXW 견적은 운송을 공급사 DB 기준으로, 없으면 해외는 항공으로 둡니다. ' +
-    '"통화 추정"은 회신에 통화가 없어 공급사의 DB 통화로 추정한 값입니다.' + (res.meta ? ' · Procurement: ' + escHtml(res.meta.updatedAt) + ' 업로드' : '') + '</div>';
+  html += '<div class="pf-foot">Applying fills currency, price, Incoterms and freight, and FX, customs and freight are added automatically. FOB/EXW quotes use the supplier DB’s freight; if none, imports go by air. ' +
+    '"Currency assumed"means the reply had no currency, so the supplier’s DB currency was assumed.' + (res.meta ? ' · Procurement: ' + escHtml(res.meta.updatedAt) + ' Upload' : '') + '</div>';
   body.innerHTML = html;
 }
 
@@ -2745,31 +2745,31 @@ function computeDbInfo(db) {
 }
 
 function renderDbSection(db) {
-  if (!db || db.error) return '<div class="pf-empty">DB 조회 실패' + (db && db.error ? ' — ' + escHtml(db.error) : '') + '</div>';
+  if (!db || db.error) return '<div class="pf-empty">DB lookup failed' + (db && db.error ? ' — ' + escHtml(db.error) : '') + '</div>';
   PF.db = computeDbInfo(db);
   var dist = PF.db.dist, top = db.analogs.slice(0, 5);
-  var h = '<div class="pf-empty">분류 <b>' + escHtml(db.cls || '—') + '</b>' +
-    (dist ? ' · DB ' + dist.n + '종 · landed NZD' + pfUnitLabel() + ' p25 ' + pfFmt(dist.p25) + ' · 중앙값 ' + pfFmt(dist.median) + ' · p75 ' + pfFmt(dist.p75) : ' · 같은 분류 표본 없음') + '</div>';
+  var h = '<div class="pf-empty">category <b>' + escHtml(db.cls || '—') + '</b>' +
+    (dist ? ' · DB ' + dist.n + 'items · landed NZD' + pfUnitLabel() + ' p25 ' + pfFmt(dist.p25) + ' · median ' + pfFmt(dist.median) + ' · p75 ' + pfFmt(dist.p75) : ' · no samples in the same category') + '</div>';
   if (db.analogs.length) {
     h += '<div class="pf-cands">' + db.analogs.slice(0, 6).map(function(a, i) {
       return '<div class="pf-cand"><span class="pc-price">' + escHtml(a.currency) + ' ' + a.unitPrice + '</span>' +
         '<span class="pc-note" style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + escHtml(a.name) + '">' + escHtml(a.code + ' ' + a.name) + '</span>' +
         '<span class="pc-note">' + escHtml([a.incoterms, a.registerDate].filter(Boolean).join(' · ')) + '</span>' +
         '<span class="pc-note">→ NZD ' + pfFmt(a.landed) + pfUnitLabel() + '</span>' +
-        '<button class="btn btn-ghost" onclick="applyDbAnalog(' + i + ')">이 단가로</button></div>';
+        '<button class="btn btn-ghost" onclick="applyDbAnalog(' + i + ')">Use this price</button></div>';
     }).join('') + '</div>';
   } else {
-    h += '<div class="pf-empty">이름이 비슷한 품목이 없습니다 — 같은 분류 분포만 참고 (AI 추정에 분류 목록을 함께 넘깁니다).</div>';
+    h += '<div class="pf-empty">No items with a similar name — showing only the spread for the same category (the category list is passed to the AI estimate too).</div>';
   }
-  var basis = PF.db.topQ ? { q: PF.db.topQ, label: '유사 ' + top.length + '종 중앙값' } : (dist && dist.n >= 5 ? { q: dist, label: '분류 중앙값' } : null);
+  var basis = PF.db.topQ ? { q: PF.db.topQ, label: 'Similar ' + top.length + 'items, median' } : (dist && dist.n >= 5 ? { q: dist, label: 'Category median' } : null);
   if (basis) {
     h += '<div class="pf-cand" style="margin-top:6px;"><span class="pc-price">NZD ' + pfFmt(basis.q.median) + pfUnitLabel() + '</span>' +
-      '<span class="pc-note">' + basis.label + ' (범위 ' + pfFmt(basis.q.p25) + '–' + pfFmt(basis.q.p75) + ')' + (pfDeltaText(basis.q.median) ? ' · ' + pfDeltaText(basis.q.median) : '') + '</span>' +
-      '<button class="btn btn-primary" onclick="applyDbMedian()">추정 적용</button></div>';
+      '<span class="pc-note">' + basis.label + ' (range ' + pfFmt(basis.q.p25) + '–' + pfFmt(basis.q.p75) + ')' + (pfDeltaText(basis.q.median) ? ' · ' + pfDeltaText(basis.q.median) : '') + '</span>' +
+      '<button class="btn btn-primary" onclick="applyDbMedian()">Apply estimate</button></div>';
   }
   h += '<div class="pf-foot" style="margin-top:8px;">' + (PF.dbKind === 'pkg'
-    ? '부자재는 DB 유사 추정이 비교적 정확합니다 (백테스트: 79%가 실제의 2배 이내).'
-    : '원료는 DB 유사 추정의 약 40%가 실제와 2배 이상 차이 납니다 (백테스트) — 범위 참고용으로 쓰고, 가능하면 AI 추정·구매 견적과 함께 보세요.') + '</div>';
+    ? 'For packaging, DB similarity estimates are fairly accurate (backtest: 79% within 2× of actual).'
+    : 'For ingredients, about 40% of DB similarity estimates are off by 2× or more (backtest) — use them as a range and, if you can, check against an AI estimate or a purchasing quote.') + '</div>';
   return h;
 }
 
@@ -2789,7 +2789,7 @@ function pfRowContribution() {
 function pfBaseUnitCost() { return Math.max(0, currentUnitCost() - pfRowContribution()); }
 function pfUnitAfter(landed) { var d = pfUnitDelta(landed); return d == null ? null : pfBaseUnitCost() + d; }
 
-var CONF_KO = { low: '낮음', medium: '중간', high: '높음' };
+var CONF_KO = { low: 'Low', medium: 'Medium', high: 'High' };
 function confKo(c) { return String(c || '').split(/[-\s~]+/).map(function(x) { return CONF_KO[x] || x; }).join('~'); }
 
 // AI 추정은 신규 품목(코드 없음: ORXXXX·TBD 등)과 단가가 없는 품목만 — 이미 단가를 아는 품목은 DB·구매 단가 사용
@@ -2806,24 +2806,24 @@ function aiAllowedRow(r) {
 
 function renderAiSection() {
   var ai = PF.ai;
-  if (ai && ai.loading) return '<div style="padding:10px 0;"><div class="spinner sm"></div><div class="pf-empty">① 웹 리서치(브랜드 여부·소매가·B2B 리스팅) → ② 사내 DB와 함께 추론 중… (30~90초)</div></div>';
+  if (ai && ai.loading) return '<div style="padding:10px 0;"><div class="spinner sm"></div><div class="pf-empty">① Web research (branded or not, retail prices, B2B listings) → ② reasoning with the company DB… (30–90 s)</div></div>';
   if (!ai || (ai.error && !ai.result)) {
     var errLine = ai && ai.error ? '<div class="pf-empty">⚠ ' + escHtml(ai.error) + '</div>' : '';
-    if (!pfAiAllowed()) return errLine + '<div class="pf-empty">코드와 단가가 있는 품목입니다 — AI 추정은 신규 품목(ORXXXX·TBD 등 코드 없음)이나 단가가 없는 품목에만 씁니다.</div>';
-    return errLine + '<button class="btn btn-primary" onclick="runAiEstimate()">🤖 ' + (ai && ai.error ? 'AI 추정 다시 시도' : 'AI 추정 실행') + '</button> <span class="pf-meta">웹 리서치 → 사내 DB와 함께 추론 · 30~90초 · 결과는 저장되어 다시 열어도 유지</span>';
+    if (!pfAiAllowed()) return errLine + '<div class="pf-empty">This item has a code and a price — AI estimates are only for new items (no code: ORXXXX, TBD, etc.) or items with no price.</div>';
+    return errLine + '<button class="btn btn-primary" onclick="runAiEstimate()">🤖 ' + (ai && ai.error ? 'Retry AI estimate' : 'Run AI estimate') + '</button> <span class="pf-meta">Web research → reasoning with the company DB · 30–90 s · the result is saved and stays when reopened</span>';
   }
   var R = ai.result, perEa = pfPerEa(), u = pfUnitLabel();
   var rng = function(lo, mid, hi, f) { return f(mid) + ' <span class="pf-meta">(' + f(lo) + '~' + f(hi) + ')</span>'; };
   var num = function(v) { return String(+Number(v).toFixed(4)); };
   var h = '';
-  if (ai.stored) h += '<div class="pf-ai-saved">💾 저장된 AI 추정 · ' + escHtml(ai.savedAt || '') + (ai.savedBy ? ' · ' + escHtml(ai.savedBy) : '') +
-    (ai.product ? ' · 제품: ' + escHtml(ai.product) : '') + (ai.restoredFromLog ? ' · 요약 로그에서 복원' : '') + '</div>';
-  if (ai.lastError) h += '<div class="pf-empty">⚠ 다시 추정 실패 — ' + escHtml(ai.lastError) + ' (이전 결과를 표시합니다)</div>';
+  if (ai.stored) h += '<div class="pf-ai-saved">💾 Saved AI estimate · ' + escHtml(ai.savedAt || '') + (ai.savedBy ? ' · ' + escHtml(ai.savedBy) : '') +
+    (ai.product ? ' · product: ' + escHtml(ai.product) : '') + (ai.restoredFromLog ? ' · restored from summary log' : '') + '</div>';
+  if (ai.lastError) h += '<div class="pf-empty">⚠ Re-estimate failed — ' + escHtml(ai.lastError) + ' (showing the previous result)</div>';
   if (R.summary) h += '<div class="pf-ai-summary">' + escHtml(R.summary) + '</div>';
-  if ((R.brand_candidates || []).length || R.branded) h += '<div class="pf-meta" style="margin-bottom:6px;">브랜드 원료 여부: ' + escHtml({ yes: '브랜드', no: '제네릭', ambiguous: '모호 — 두 경우로 나눔' }[R.branded] || R.branded || '—') + ((R.brand_candidates || []).length ? ' · ' + escHtml(R.brand_candidates.join(', ')) : '') + '</div>';
+  if ((R.brand_candidates || []).length || R.branded) h += '<div class="pf-meta" style="margin-bottom:6px;">Branded ingredient: ' + escHtml({ yes: 'Branded', no: 'Generic', ambiguous: 'Unclear — split into two cases' }[R.branded] || R.branded || '—') + ((R.brand_candidates || []).length ? ' · ' + escHtml(R.brand_candidates.join(', ')) : '') + '</div>';
 
   // 케이스 표
-  h += '<div class="pf-tbl-wrap"><table class="pf-table"><thead><tr><th>경우</th><th>통화</th><th>단가 (' + (perEa ? '/ea' : '/kg') + ')</th><th>Incoterms</th><th>MOQ</th><th>Final (NZD' + u + ')</th><th>Unit Cost (NZD/pk)</th><th>신뢰도</th><th>적용 (누르면 바로 반영)</th></tr></thead><tbody>';
+  h += '<div class="pf-tbl-wrap"><table class="pf-table"><thead><tr><th>Case</th><th>Currency</th><th>Price (' + (perEa ? '/ea' : '/kg') + ')</th><th>Incoterms</th><th>MOQ</th><th>Final (NZD' + u + ')</th><th>Unit Cost (NZD/pk)</th><th>Confidence</th><th>Apply (applies immediately)</th></tr></thead><tbody>';
   h += R.cases.map(function(c, i) {
     var cand = { currency: c.currency, price: c.mid, incoterms: c.incoterms, unit: c.unit };
     var L = function(p) { return pfLanded({ currency: c.currency, price: p, incoterms: c.incoterms }); };
@@ -2831,51 +2831,51 @@ function renderAiSection() {
     var ua = pfUnitAfter(mid), ul = pfUnitAfter(lo), uh = pfUnitAfter(hi);
     var ship = pfShipping(cand), issue = pfCandIssue(cand);
     return '<tr' + (c.key === R.recommended ? ' class="rec"' : '') + '>' +
-      '<td><b>' + escHtml(c.key) + '.</b> ' + escHtml(c.label) + (c.key === R.recommended ? ' <span class="pf-badge done">추천</span>' : '') + '</td>' +
+      '<td><b>' + escHtml(c.key) + '.</b> ' + escHtml(c.label) + (c.key === R.recommended ? ' <span class="pf-badge done">Recommended</span>' : '') + '</td>' +
       '<td>' + escHtml(c.currency) + '</td>' +
       '<td>' + rng(c.low, c.mid, c.high, num) + '</td>' +
-      '<td>' + escHtml(c.incoterms || '—') + (ship ? ' · ' + (ship === 'Air' ? '항공' : '선박') : '') + '</td>' +
+      '<td>' + escHtml(c.incoterms || '—') + (ship ? ' · ' + (ship === 'Air' ? 'Air' : 'Sea') : '') + '</td>' +
       '<td>' + escHtml(c.moq || '—') + '</td>' +
-      '<td>약 ' + rng(lo, mid, hi, pfFmt) + '</td>' +
-      '<td>' + (ua != null ? rng(ul, ua, uh, function(v) { return v.toFixed(2); }) : '<span class="pf-meta">수량 입력 필요</span>') + '</td>' +
+      '<td>approx. ' + rng(lo, mid, hi, pfFmt) + '</td>' +
+      '<td>' + (ua != null ? rng(ul, ua, uh, function(v) { return v.toFixed(2); }) : '<span class="pf-meta">Quantity needed</span>') + '</td>' +
       '<td>' + escHtml(confKo(c.confidence)) + '</td>' +
       '<td>' + (issue ? '<span class="pc-warn">' + escHtml(issue) + '</span>' : pfPickButtons(c, i)) + '</td>' +
     '</tr>';
   }).join('') + '</tbody></table></div>';
   h += pfSliderHtml(R);
   var cu = currentUnitCost();
-  if (cu > 0) h += '<div class="pf-meta" style="margin:4px 0 10px;">현재 Unit Cost ' + cu.toFixed(2) + ' NZD/pk' +
-    (rawPriceState(pfRow()) === 'missing' ? ' — 이 원료 단가가 0이라 통관비만 반영된 값' : '') + ' · Final·Unit Cost는 이 툴 계산식(환율·통관·운임·Loss)으로 산출</div>';
+  if (cu > 0) h += '<div class="pf-meta" style="margin:4px 0 10px;">Current Unit Cost ' + cu.toFixed(2) + ' NZD/pk' +
+    (rawPriceState(pfRow()) === 'missing' ? ' — this ingredient’s price is 0, so only customs is counted' : '') + ' · Final and Unit Cost use this tool’s formula (FX, customs, freight, loss)</div>';
 
-  if (R.recommendation) h += '<div class="pf-ai-rec"><b>추천 ' + escHtml(R.recommended) + '</b> — ' + escHtml(R.recommendation) + '</div>';
+  if (R.recommendation) h += '<div class="pf-ai-rec"><b>Recommended ' + escHtml(R.recommended) + '</b> — ' + escHtml(R.recommendation) + '</div>';
 
   var sec = function(title, inner) { return inner ? '<div class="pf-ai-block"><div class="pf-ai-h">' + title + '</div>' + inner + '</div>' : ''; };
   var bullets = function(arr) { return arr && arr.length ? '<ul>' + arr.map(function(x) { return '<li>' + escHtml(x) + '</li>'; }).join('') + '</ul>' : ''; };
-  h += sec('추정 근거',
-    (R.db_evidence ? '<div><b>사내 DB</b> ' + escHtml(R.db_evidence) + '</div>' : '') +
+  h += sec('Basis for the estimate',
+    (R.db_evidence ? '<div><b>Company DB</b> ' + escHtml(R.db_evidence) + '</div>' : '') +
     R.cases.map(function(c) { return c.basis.length ? '<div style="margin-top:6px;"><b>' + escHtml(c.key + '. ' + c.label) + '</b>' + bullets(c.basis) + '</div>' : ''; }).join(''));
-  h += sec('신뢰도', R.cases.map(function(c) {
-    return '<div>' + escHtml(c.key) + '는 <b>' + escHtml(confKo(c.confidence)) + '</b>' + (c.confidence_note ? ' — ' + escHtml(c.confidence_note) : '') + (c.grade_note ? ' · 등급: ' + escHtml(c.grade_note) : '') + '</div>';
+  h += sec('Confidence', R.cases.map(function(c) {
+    return '<div>' + escHtml(c.key) + ': <b>' + escHtml(confKo(c.confidence)) + '</b>' + (c.confidence_note ? ' — ' + escHtml(c.confidence_note) : '') + (c.grade_note ? ' · grade: ' + escHtml(c.grade_note) : '') + '</div>';
   }).join(''));
-  h += sec('고객에게 확인할 것', R.client_questions.length ? '<ul>' + R.client_questions.map(function(x) { return '<li>' + escHtml(x.q) + (x.why ? ' <span class="pf-meta">— ' + escHtml(x.why) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '');
-  h += sec('구매팀 요청', bullets(R.procurement_requests));
+  h += sec('Check with the client', R.client_questions.length ? '<ul>' + R.client_questions.map(function(x) { return '<li>' + escHtml(x.q) + (x.why ? ' <span class="pf-meta">— ' + escHtml(x.why) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '');
+  h += sec('Request to purchasing', bullets(R.procurement_requests));
 
   var F = ai.facts || {};
   var facts = '';
-  if (F.dose_mg_per_day && F.dose_mg_per_day.value) facts += '<div>임상/권장 용량: ' + escHtml(F.dose_mg_per_day.value) + ' mg/day ' + escHtml(F.dose_mg_per_day.basis || '') + '</div>';
-  if ((F.retail_products || []).length) facts += '<div style="margin-top:4px;"><b>소매 제품</b>' + bullets(F.retail_products.map(function(p) {
-    return [p.product, p.ingredient_mg_per_serving != null ? p.ingredient_mg_per_serving + ' mg/서빙' : '', p.servings != null ? p.servings + '서빙' : '', p.price != null ? (p.currency || '') + ' ' + p.price : '', p.source].filter(Boolean).join(' · ');
+  if (F.dose_mg_per_day && F.dose_mg_per_day.value) facts += '<div>Clinical/recommended dose: ' + escHtml(F.dose_mg_per_day.value) + ' mg/day ' + escHtml(F.dose_mg_per_day.basis || '') + '</div>';
+  if ((F.retail_products || []).length) facts += '<div style="margin-top:4px;"><b>Retail products</b>' + bullets(F.retail_products.map(function(p) {
+    return [p.product, p.ingredient_mg_per_serving != null ? p.ingredient_mg_per_serving + ' mg/serving' : '', p.servings != null ? p.servings + 'servings' : '', p.price != null ? (p.currency || '') + ' ' + p.price : '', p.source].filter(Boolean).join(' · ');
   })) + '</div>';
-  if ((F.b2b_listings || []).length) facts += '<div style="margin-top:4px;"><b>B2B 리스팅</b>' + bullets(F.b2b_listings.map(function(b) {
+  if ((F.b2b_listings || []).length) facts += '<div style="margin-top:4px;"><b>B2B listings</b>' + bullets(F.b2b_listings.map(function(b) {
     return [b.source, b.grade, (b.price_low != null || b.price_high != null) ? (b.currency || '') + ' ' + (b.price_low != null ? b.price_low : '?') + '~' + (b.price_high != null ? b.price_high : '?') + '/' + (b.unit || 'kg') : '', b.incoterms, b.moq ? 'MOQ ' + b.moq : '', b.note].filter(Boolean).join(' · ');
   })) + '</div>';
-  if (facts) h += '<details class="pf-ai-block"><summary class="pf-ai-h" style="cursor:pointer;">리서치 원자료</summary>' + facts + '</details>';
+  if (facts) h += '<details class="pf-ai-block"><summary class="pf-ai-h" style="cursor:pointer;">Research source text</summary>' + facts + '</details>';
   if (ai.sources && ai.sources.length) {
-    h += sec('출처', '<ul>' + ai.sources.map(function(s) { return '<li><a href="' + escHtml(s.url) + '" target="_blank" rel="noopener">' + escHtml(s.title) + '</a></li>'; }).join('') + '</ul>');
+    h += sec('Sources', '<ul>' + ai.sources.map(function(s) { return '<li><a href="' + escHtml(s.url) + '" target="_blank" rel="noopener">' + escHtml(s.title) + '</a></li>'; }).join('') + '</ul>');
   }
-  h += '<div style="display:flex;gap:8px;margin-top:10px;"><button class="btn btn-ghost" onclick="copyAiReport()">📋 텍스트 복사</button>' +
-    (pfAiAllowed() ? '<button class="btn btn-ghost" onclick="runAiEstimate()">↻ 다시 추정</button>' : '') + '</div>';
-  h += '<div class="pf-foot">Indicative – pending procurement quote · ' + escHtml(ai.model || '') + ' · 고객에게 확정가로 전달하지 마세요.</div>';
+  h += '<div style="display:flex;gap:8px;margin-top:10px;"><button class="btn btn-ghost" onclick="copyAiReport()">📋 Copy text</button>' +
+    (pfAiAllowed() ? '<button class="btn btn-ghost" onclick="runAiEstimate()">↻ Re-estimate</button>' : '') + '</div>';
+  h += '<div class="pf-foot">Indicative – pending procurement quote · ' + escHtml(ai.model || '') + ' · do not give this to the client as a firm price.</div>';
   return h;
 }
 
@@ -2884,26 +2884,26 @@ function aiReportText() {
   var ai = PF.ai, R = ai && ai.result, r = pfRow();
   if (!R || !r) return '';
   var u = pfPerEa() ? '/ea' : '/kg', L = [];
-  L.push((r.name || r.code) + ' 단가 추정');
+  L.push((r.name || r.code) + ' Price estimate');
   if (R.summary) L.push(R.summary);
   L.push('');
-  L.push('경우 | 통화 | 단가 (' + u + ') | Incoterms | MOQ | Final (NZD' + u + ') | Unit Cost (NZD/pk) | 신뢰도');
+  L.push('Case | Currency | Price (' + u + ') | Incoterms | MOQ | Final (NZD' + u + ') | Unit Cost (NZD/pk) | Confidence');
   R.cases.forEach(function(c) {
     var lf = function(p) { return pfLanded({ currency: c.currency, price: p, incoterms: c.incoterms }); };
     var ua = pfUnitAfter(lf(c.mid)), ul = pfUnitAfter(lf(c.low)), uh = pfUnitAfter(lf(c.high));
-    L.push([c.key + '. ' + c.label + (c.key === R.recommended ? ' (추천)' : ''), c.currency, c.mid + ' (' + c.low + '~' + c.high + ')', c.incoterms || '—', c.moq || '—',
-            '약 ' + pfFmt(lf(c.mid)), ua != null ? ua.toFixed(2) + ' (' + ul.toFixed(2) + '~' + uh.toFixed(2) + ')' : '—', confKo(c.confidence)].join(' | '));
+    L.push([c.key + '. ' + c.label + (c.key === R.recommended ? ' (recommended)' : ''), c.currency, c.mid + ' (' + c.low + '~' + c.high + ')', c.incoterms || '—', c.moq || '—',
+            'approx. ' + pfFmt(lf(c.mid)), ua != null ? ua.toFixed(2) + ' (' + ul.toFixed(2) + '~' + uh.toFixed(2) + ')' : '—', confKo(c.confidence)].join(' | '));
   });
   var cu = currentUnitCost();
-  if (cu > 0) L.push('현재 Unit Cost ' + cu.toFixed(2) + ' NZD/pk' + (rawPriceState(r) === 'missing' ? ' (이 원료 단가 0 — 통관비만 반영)' : ''));
-  if (R.recommendation) { L.push(''); L.push('추천 ' + R.recommended + ': ' + R.recommendation); }
-  L.push(''); L.push('추정 근거');
-  if (R.db_evidence) L.push('사내 DB: ' + R.db_evidence);
+  if (cu > 0) L.push('Current Unit Cost ' + cu.toFixed(2) + ' NZD/pk' + (rawPriceState(r) === 'missing' ? ' (ingredient price 0 — customs only)' : ''));
+  if (R.recommendation) { L.push(''); L.push('Recommended ' + R.recommended + ': ' + R.recommendation); }
+  L.push(''); L.push('Basis for the estimate');
+  if (R.db_evidence) L.push('Company DB: ' + R.db_evidence);
   R.cases.forEach(function(c) { if (c.basis.length) { L.push(c.key + '. ' + c.label); c.basis.forEach(function(b) { L.push('- ' + b); }); } });
-  L.push(''); L.push('신뢰도');
-  R.cases.forEach(function(c) { L.push(c.key + '는 ' + confKo(c.confidence) + (c.confidence_note ? ' — ' + c.confidence_note : '') + (c.grade_note ? ' · 등급: ' + c.grade_note : '')); });
-  if (R.client_questions.length) { L.push(''); L.push('고객에게 확인할 것'); R.client_questions.forEach(function(x) { L.push('- ' + x.q + (x.why ? ' — ' + x.why : '')); }); }
-  if (R.procurement_requests.length) { L.push(''); L.push('구매팀 요청'); R.procurement_requests.forEach(function(x) { L.push('- ' + x); }); }
+  L.push(''); L.push('Confidence');
+  R.cases.forEach(function(c) { L.push(c.key + ': ' + confKo(c.confidence) + (c.confidence_note ? ' — ' + c.confidence_note : '') + (c.grade_note ? ' · grade: ' + c.grade_note : '')); });
+  if (R.client_questions.length) { L.push(''); L.push('Check with the client'); R.client_questions.forEach(function(x) { L.push('- ' + x.q + (x.why ? ' — ' + x.why : '')); }); }
+  if (R.procurement_requests.length) { L.push(''); L.push('Request to purchasing'); R.procurement_requests.forEach(function(x) { L.push('- ' + x); }); }
   if (ai.sources && ai.sources.length) { L.push(''); L.push('Sources:'); ai.sources.forEach(function(s) { L.push('- ' + s.title + ' ' + s.url); }); }
   L.push(''); L.push('Indicative – pending procurement quote');
   return L.join('\n');
@@ -2915,11 +2915,11 @@ function copyAiReport() {
     var ta = document.createElement('textarea');
     ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); showToast('추정 결과를 복사했습니다.'); } catch (e) { showToast('복사 실패 — 직접 선택해 복사하세요.', 'err'); }
+    try { document.execCommand('copy'); showToast('Estimate copied.'); } catch (e) { showToast('Copy failed — select and copy it by hand.', 'err'); }
     document.body.removeChild(ta);
   };
   try {
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function() { showToast('추정 결과를 복사했습니다.'); }, fallback);
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function() { showToast('Estimate copied.'); }, fallback);
     else fallback();
   } catch (e) { fallback(); }
 }
@@ -2927,12 +2927,12 @@ function copyAiReport() {
 function runAiEstimate() {
   var r = pfRow(), res = PF.data || {}, db = PF.db || {};
   if (!r) return;
-  if (!pfAiAllowed()) { showToast('AI 추정은 코드 없는 신규 품목이나 단가가 없는 품목만 가능합니다.', 'err'); return; }
+  if (!pfAiAllowed()) { showToast('AI estimates are only for new items with no code or items with no price.', 'err'); return; }
   var prev = (PF.ai && PF.ai.result) ? PF.ai : null;
-  if (prev && !confirm('이 품목은 ' + (prev.savedAt || '이전') + '에 이미 AI 추정을 했습니다' + (prev.savedBy ? ' (' + prev.savedBy + ')' : '') +
-                       '.\n다시 추정하면 AI 사용량(토큰)이 들고, 새 결과로 저장됩니다.\n\n다시 추정하시겠습니까?')) return;
+  if (prev && !confirm('AI estimate already done for this item: ' + (prev.savedAt || 'earlier') + '' + (prev.savedBy ? ' (' + prev.savedBy + ')' : '') +
+                       '.\nEstimating again uses AI (tokens) and saves the new result.\n\nEstimate again?')) return;
   var idx = PF.idx, target = PF.target, aiKey = target === 'raw' ? rawStatusKey(r) : '';
-  if (aiKey && (AI_JOB_STATE[aiKey] === 'queued' || AI_JOB_STATE[aiKey] === 'running')) { showToast('이 원료는 AI 추정이 이미 진행 중입니다.'); return; }
+  if (aiKey && (AI_JOB_STATE[aiKey] === 'queued' || AI_JOB_STATE[aiKey] === 'running')) { showToast('An AI estimate for this ingredient is already running.'); return; }
   PF.ai = { loading: true };
   document.getElementById('pfAi').innerHTML = renderAiSection();
   var q = buildAiQuery(res, db);
@@ -2946,10 +2946,10 @@ function runAiEstimate() {
   };
   google.script.run
     .withSuccessHandler(function(out) {
-      if (!out || out.error) done(null, (out && out.error) || 'AI 추정 실패');
+      if (!out || out.error) done(null, (out && out.error) || 'AI estimate failed');
       else { out.stored = true; done(out, null); }
     })
-    .withFailureHandler(function(err) { done(null, (err && err.message) || 'AI 추정 실패'); })
+    .withFailureHandler(function(err) { done(null, (err && err.message) || 'AI estimate failed'); })
     .estimatePriceAI(q);
 }
 
@@ -3029,14 +3029,14 @@ function applyProcCandidate(i) {
   var c = item.cand;
   applyPriceToRow({ currency: c.currency, price: c.price, incoterms: c.incoterms,
                     shipping: pfShipping({ incoterms: c.incoterms, shipping: c.shipping, currency: c.currency }) },
-                  'procurement', item.note, '구매팀 회신 단가를 적용했습니다.');
+                  'procurement', item.note, 'Purchasing’s reply price applied.');
 }
 
 function applyDbAnalog(i) {
   var a = PF.db && PF.db.analogs[i];
   if (!a) return;
   applyPriceToRow({ currency: a.currency, price: a.unitPrice, incoterms: a.incoterms, shipping: a.shipping || '', custom: a.custom, overseaFreight: a.overseaFreight },
-                  'estimate', 'DB 유사: ' + a.code + ' ' + a.name + ' (' + a.currency + ' ' + a.unitPrice + ')', 'DB 유사 품목 단가를 추정값으로 적용했습니다.');
+                  'estimate', 'Similar in DB: ' + a.code + ' ' + a.name + ' (' + a.currency + ' ' + a.unitPrice + ')', 'Similar DB item price applied as an estimate.');
 }
 
 function applyDbMedian() {
@@ -3046,8 +3046,8 @@ function applyDbMedian() {
   if (!q) return;
   var med = +pfFmt(q.median);
   applyPriceToRow({ currency: 'NZD', price: med, incoterms: '', shipping: '' }, 'estimate',
-                  'DB ' + (useTop ? '유사 ' + Math.min(5, db.analogs.length) + '종' : db.cls + ' ' + q.n + '종') + ' 중앙값 NZD ' + med + pfUnitLabel() + ' (범위 ' + pfFmt(q.p25) + '–' + pfFmt(q.p75) + ')',
-                  'DB 중앙값을 추정 단가로 적용했습니다 (landed NZD).');
+                  'DB ' + (useTop ? 'Similar ' + Math.min(5, db.analogs.length) + 'items' : db.cls + ' ' + q.n + 'items') + ' median NZD ' + med + pfUnitLabel() + ' (range ' + pfFmt(q.p25) + '–' + pfFmt(q.p75) + ')',
+                  'DB median applied as the estimated price (landed NZD).');
 }
 
 // which: 'low' | 'mid' | 'high' — value 를 주면 슬라이더 선택값
@@ -3055,21 +3055,21 @@ function applyAiCase(i, which, value) {
   var c = PF.ai && PF.ai.result && PF.ai.result.cases[i];
   if (!c) return;
   var a = aiApplyArgs(c, which, value);
-  applyPriceToRow(a.cand, 'estimate', a.note, 'AI 추정 ' + a.tag + ' 단가를 적용했습니다 — Indicative');
+  applyPriceToRow(a.cand, 'estimate', a.note, 'AI estimate ' + a.tag + ' price applied — Indicative');
 }
 function aiApplyArgs(c, which, value) {
   which = which || 'mid';
   var price = value != null ? value : c[which];
-  var tag = value != null ? '선택' : PICK_KO[which];
+  var tag = value != null ? 'Optional' : PICK_KO[which];
   return {
     cand: { currency: c.currency, price: price, incoterms: c.incoterms, aiCase: c.key },
     note: 'AI ' + c.key + '. ' + c.label + ' · ' + tag + ' ' + c.currency + ' ' + price + '/' + c.unit + (c.incoterms ? ' ' + c.incoterms : '') +
-          ' (범위 ' + c.low + '–' + c.high + ') · 신뢰도 ' + confKo(c.confidence),
+          ' (range ' + c.low + '–' + c.high + ') · confidence ' + confKo(c.confidence),
     tag: tag,
   };
 }
 
-var PICK_KO = { low: '최소', mid: '중간', high: '최대' };
+var PICK_KO = { low: 'Min', mid: 'Medium', high: 'Max' };
 function pfNum(v) { return String(+Number(v).toFixed(4)); }
 function pfPickButtons(c, i) {
   return '<div class="pf-pick">' + ['low', 'mid', 'high'].map(function(w) {
@@ -3101,14 +3101,14 @@ function pfSliderHtml(R) {
   PF.slCase = cur.i;
   var c = cur.c, step = pfSliderStep(c);
   return '<div class="pf-slider">' +
-    '<div class="pf-ai-h">범위에서 직접 선택</div>' +
+    '<div class="pf-ai-h">Pick from the range</div>' +
     '<div class="pf-slider-row">' +
       (usable.length > 1 ? '<select class="cell" id="pfSlCase" onchange="pfSliderCase()" style="width:auto;">' + usable.map(function(x) {
         return '<option value="' + x.i + '"' + (x.i === cur.i ? ' selected' : '') + '>' + escHtml(x.c.key + '. ' + x.c.label) + '</option>'; }).join('') + '</select>'
         : '<span class="pf-meta">' + escHtml(c.key + '. ' + c.label) + '</span>') +
       '<div class="pf-slider-track"><input type="range" id="pfSlRange" min="' + c.low + '" max="' + c.high + '" step="' + step + '" value="' + c.mid + '" oninput="pfSliderMove()">' +
-        '<div class="pf-slider-ticks"><span>최소 ' + pfNum(c.low) + '</span><span>중간 ' + pfNum(c.mid) + '</span><span>최대 ' + pfNum(c.high) + '</span></div></div>' +
-      '<button class="btn btn-primary" onclick="applyAiSlider()">이 값으로 적용</button>' +
+        '<div class="pf-slider-ticks"><span>Min ' + pfNum(c.low) + '</span><span>Medium ' + pfNum(c.mid) + '</span><span>Max ' + pfNum(c.high) + '</span></div></div>' +
+      '<button class="btn btn-primary" onclick="applyAiSlider()">Apply this value</button>' +
     '</div>' +
     '<div class="pf-slider-read" id="pfSlRead">' + pfSliderText(c, c.mid) + '</div>' +
   '</div>';
@@ -3153,13 +3153,13 @@ function onAiBtn(idx) {
   var r = STATE.rawMaterials[idx];
   if (!r) return;
   var key = rawStatusKey(r), st = AI_JOB_STATE[key], res = AI_RESULTS[key];
-  if (st === 'queued' || st === 'running') { showToast('AI 추정 진행 중입니다 — 끝나면 자동으로 입력됩니다.'); return; }
+  if (st === 'queued' || st === 'running') { showToast('AI estimate in progress — it will be filled in when done.'); return; }
   if (res && res.result) {   // 결과 있음 → 추천안, 이미 AI 안이 들어가 있으면 다음 안으로
     var cs = res.result.cases, cur = r.priceSource === 'estimate' ? cs.map(function(c) { return c.key; }).indexOf(r.aiCase) : -1;
     applyAiChip(idx, cur === -1 ? recIndex(res.result) : (cur + 1) % cs.length);
     return;
   }
-  if (!aiAllowedRow(r)) { showToast('AI 추정은 코드 없는 신규 원료나 단가가 없는 원료만 가능합니다.', 'err'); return; }
+  if (!aiAllowedRow(r)) { showToast('AI estimates are only for new ingredients with no code or ingredients with no price.', 'err'); return; }
   enqueueAi(idx);
 }
 
@@ -3170,7 +3170,7 @@ function applyAiChip(idx, i, silent) {
   var a = aiApplyArgs(c, 'mid');
   setRowPrice('raw', idx, a.cand, 'estimate', a.note);
   refreshAiRow(idx);
-  if (!silent) showToast('🤖 ' + (r.name || r.code) + ' — ' + c.key + '안 ' + c.currency + ' ' + pfNum(c.mid) + '/' + c.unit + ' 적용');
+  if (!silent) showToast('🤖 ' + (r.name || r.code) + ' — ' + c.key + 'option ' + c.currency + ' ' + pfNum(c.mid) + '/' + c.unit + ' Apply');
 }
 
 function enqueueAi(idx) {
@@ -3198,24 +3198,24 @@ function pumpAi() {
 // ① 근거 조회(저장된 추정이 있으면 AI 호출 없이 그대로 사용) → ② AI 추정
 function runAiJob(job) {
   var idx = aiRowForKey(job.key, job.idx);
-  if (idx === -1) { finishAiJob(job, null, '행이 삭제됨'); return; }
+  if (idx === -1) { finishAiJob(job, null, 'row deleted'); return; }
   var r = STATE.rawMaterials[idx], kind = isCapsuleRow(r) ? 'pkg' : 'raw';
   google.script.run
     .withSuccessHandler(function(res) {
-      if (!res || res.error) { finishAiJob(job, null, (res && res.error) || '조회 실패'); return; }
+      if (!res || res.error) { finishAiJob(job, null, (res && res.error) || 'Lookup failed'); return; }
       if (res.aiPrev && res.aiPrev.result) { finishAiJob(job, res.aiPrev, null, true); return; }
       var i2 = aiRowForKey(job.key, job.idx);
-      if (i2 === -1) { finishAiJob(job, null, '행이 삭제됨'); return; }
+      if (i2 === -1) { finishAiJob(job, null, 'row deleted'); return; }
       var q = withRowCtx('raw', i2, function() { return buildAiQuery(res, computeDbInfo(res.db)); });
       google.script.run
         .withSuccessHandler(function(out) {
-          if (!out || out.error) finishAiJob(job, null, (out && out.error) || 'AI 추정 실패');
+          if (!out || out.error) finishAiJob(job, null, (out && out.error) || 'AI estimate failed');
           else { out.stored = true; finishAiJob(job, out, null, false); }
         })
-        .withFailureHandler(function(err) { finishAiJob(job, null, (err && err.message) || 'AI 추정 실패'); })
+        .withFailureHandler(function(err) { finishAiJob(job, null, (err && err.message) || 'AI estimate failed'); })
         .estimatePriceAI(q);
     })
-    .withFailureHandler(function(err) { finishAiJob(job, null, (err && err.message) || '조회 실패'); })
+    .withFailureHandler(function(err) { finishAiJob(job, null, (err && err.message) || 'Lookup failed'); })
     .findPriceEvidence({ code: r.code, name: r.name, kind: kind, packagingType: kind === 'pkg' ? 'Shell (F)' : '' });
 }
 
@@ -3231,7 +3231,7 @@ function finishAiJob(job, out, err, fromStore) {
     if (r && rawPriceState(r) === 'missing') {
       var ri = recIndex(out.result), c = out.result.cases[ri];
       applyAiChip(idx, ri, true);
-      showToast('🤖 ' + (r.name || r.code) + ' — ' + c.key + '안 ' + c.currency + ' ' + pfNum(c.mid) + '/' + c.unit + ' 자동 입력' + (fromStore ? ' (저장된 추정)' : ''));
+      showToast('🤖 ' + (r.name || r.code) + ' — ' + c.key + 'option ' + c.currency + ' ' + pfNum(c.mid) + '/' + c.unit + ' filled in automatically' + (fromStore ? ' (saved estimate)' : ''));
     }
     if (idx !== -1 && PF.target === 'raw' && PF.idx === idx && PF.data) {   // 같은 원료 팝업이 열려 있으면 갱신
       PF.ai = out;
@@ -3258,23 +3258,23 @@ function refreshAiRow(idx) {
   el.className = 'raw-ai';
   if (st === 'queued') {
     var pos = AI_QUEUE.map(function(j) { return j.key; }).indexOf(key) + 1;
-    el.innerHTML = '🤖 AI 추정 대기' + (pos ? ' · ' + pos + '번째' : ''); el.classList.add('busy'); el.style.display = ''; return;
+    el.innerHTML = '🤖 Waiting for AI estimate' + (pos ? ' · ' + pos + 'in queue' : ''); el.classList.add('busy'); el.style.display = ''; return;
   }
   if (st === 'running') {
-    el.innerHTML = '🤖 AI 추정 중… ' + aiElapsed(key) + ' (웹 리서치 → 추론)'; el.classList.add('busy'); el.style.display = ''; return;
+    el.innerHTML = '🤖 AI estimating… ' + aiElapsed(key) + ' (web research → reasoning)'; el.classList.add('busy'); el.style.display = ''; return;
   }
   if (st.indexOf('error:') === 0) {
-    el.innerHTML = '🤖 추정 실패 — ' + escHtml(st.slice(6).slice(0, 60)) + ' <button class="ai-chip" onclick="retryAi(' + idx + ')">다시</button>';
+    el.innerHTML = '🤖 Estimate failed — ' + escHtml(st.slice(6).slice(0, 60)) + ' <button class="ai-chip" onclick="retryAi(' + idx + ')">Retry</button>';
     el.classList.add('err'); el.style.display = ''; return;
   }
   if (res && res.result && (allowed || (r && r.priceSource === 'estimate'))) {
     var R = res.result;
-    el.innerHTML = '<span title="AI 추정' + (res.savedAt ? ' · ' + escHtml(res.savedAt) : '') + '">🤖</span>' + R.cases.map(function(c, i) {
+    el.innerHTML = '<span title="AI estimate' + (res.savedAt ? ' · ' + escHtml(res.savedAt) : '') + '">🤖</span>' + R.cases.map(function(c, i) {
       var on = r.priceSource === 'estimate' && r.aiCase === c.key;
       return '<button class="ai-chip' + (on ? ' on' : '') + '" onclick="applyAiChip(' + idx + ',' + i + ')" title="' +
-        escHtml(c.key + '. ' + c.label + ' · ' + c.currency + ' ' + c.low + '–' + c.high + '/' + c.unit + (c.incoterms ? ' ' + c.incoterms : '') + ' · 중간값 적용') + '">' +
+        escHtml(c.key + '. ' + c.label + ' · ' + c.currency + ' ' + c.low + '–' + c.high + '/' + c.unit + (c.incoterms ? ' ' + c.incoterms : '') + ' · mid value applied') + '">' +
         escHtml(c.key) + ' ' + pfNum(c.mid) + (c.key === R.recommended ? '★' : '') + (on ? ' ✓' : '') + '</button>';
-    }).join('') + '<button class="ai-chip more" onclick="openPriceFinder(' + idx + ')" title="최소·최대·슬라이더로 조정">조정</button>';
+    }).join('') + '<button class="ai-chip more" onclick="openPriceFinder(' + idx + ')" title="Adjust with min · max · slider">Adjust</button>';
     el.style.display = ''; return;
   }
   el.style.display = 'none';
@@ -3282,7 +3282,7 @@ function refreshAiRow(idx) {
 var AI_T0 = {};
 function aiElapsed(key) {
   if (!AI_T0[key]) AI_T0[key] = Date.now();
-  return Math.round((Date.now() - AI_T0[key]) / 1000) + '초';
+  return Math.round((Date.now() - AI_T0[key]) / 1000) + 's';
 }
 function refreshAllAiRows() {
   Object.keys(AI_T0).forEach(function(k) { if (AI_JOB_STATE[k] !== 'running') delete AI_T0[k]; });
@@ -3307,22 +3307,22 @@ function updateAiBatchBtn() {
   var n = aiBatchCandidates().length, busy = AI_RUNNING + AI_QUEUE.length;
   btn.style.display = (n || busy) ? '' : 'none';
   btn.disabled = !n;
-  btn.textContent = busy ? '🤖 AI 추정 중 ' + AI_RUNNING + (AI_QUEUE.length ? ' · 대기 ' + AI_QUEUE.length : '') + (n ? ' · 추가 ' + n : '')
-                         : '🤖 단가 없는 원료 AI 추정 (' + n + ')';
+  btn.textContent = busy ? '🤖 AI estimating ' + AI_RUNNING + (AI_QUEUE.length ? ' · waiting ' + AI_QUEUE.length : '') + (n ? ' · added ' + n : '')
+                         : '🤖 AI-estimate ingredients with no price (' + n + ')';
 }
 function aiBatchMissing() {
   var list = aiBatchCandidates();
   if (!list.length) return;
   var names = list.map(function(i) { return STATE.rawMaterials[i].name || STATE.rawMaterials[i].code; });
-  if (!confirm('단가 없는 원료 ' + list.length + '개를 AI로 추정합니다.\n' + names.map(function(n) { return '· ' + n; }).join('\n') +
-               '\n\n저장된 추정이 있는 원료는 AI를 다시 부르지 않고 그 값을 씁니다.\n나머지는 ' + AI_MAX + '개씩 동시에 추정하고(개당 30~90초), 끝나는 대로 추천안이 자동 입력됩니다.\n\n계속할까요?')) return;
+  if (!confirm('ingredients with no price: ' + list.length + 'will be estimated by AI.\n' + names.map(function(n) { return '· ' + n; }).join('\n') +
+               '\n\nIngredients with a saved estimate reuse it without calling the AI again.\nThe rest are estimated ' + AI_MAX + 'at a time (30–90 s each), and recommended values are filled in as each finishes.\n\nContinue?')) return;
   list.forEach(function(i) {
     var k = rawStatusKey(STATE.rawMaterials[i]);
     if (AI_RESULTS[k] && AI_RESULTS[k].result) applyAiChip(i, recIndex(AI_RESULTS[k].result), true);
     else enqueueAi(i);
   });
   refreshAllAiRows();
-  showToast('🤖 AI 추정을 걸어 두었습니다 — 다른 작업을 계속하셔도 됩니다.');
+  showToast('🤖 AI estimates queued — you can keep working.');
 }
 
 // 저장된 추정 일괄 조회 → 행 칩 (불러온 견적에서도 이전 추정을 바로 고를 수 있게)
@@ -3353,7 +3353,7 @@ function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, funct
 function setPkgDateDisplay(idx, dateStr) {
   var el = document.getElementById('pkg-date-' + idx);
   if (!el) return;
-  if (dateStr) { el.textContent = '소싱: ' + dateStr; el.style.display = ''; }
+  if (dateStr) { el.textContent = 'Sourced: ' + dateStr; el.style.display = ''; }
   else { el.textContent = ''; el.style.display = 'none'; }
 }
 // 예외 부자재(vege capsule 등): 수량 = 총 유닛수가 아니라 총 캡슐수
@@ -3374,7 +3374,7 @@ function hpmcCapPrice(finalPrice, name){
   return isHpmcCapPkg(name) ? Math.max(Number(finalPrice) || 0, HPMC_CAP_MIN_PRICE) : finalPrice;
 }
 
-// 캡슐 행이면 UI 표시 전환: 배지 노출 + mg/ea 칸을 '총 캡슐수'로 안내
+// 캡슐 행이면 UI 표시 전환: 배지 노출 + mg/ea 칸을 'total capsule count'로 안내
 function applyCapsuleRowUi(idx, r) {
   var isCap = isCapsuleRow(r);
   var badge = document.getElementById('raw-cap-' + idx);
@@ -3383,12 +3383,12 @@ function applyCapsuleRowUi(idx, r) {
   var multCell = document.getElementById('raw-mult-cell-' + idx);
   if (badge) badge.style.display = isCap ? '' : 'none';
   if (mgEl) {
-    mgEl.placeholder = isCap ? '총 캡슐수' : '0';
-    mgEl.title       = isCap ? '캡슐 행: 총 캡슐수를 입력하세요 (소계 = 캡슐수 × 개당단가)' : '';
+    mgEl.placeholder = isCap ? 'total capsule count' : '0';
+    mgEl.title       = isCap ? 'Capsule row: enter the total capsule count (subtotal = capsules × price each)' : '';
   }
   if (fpEl) fpEl.title = isCap
-    ? '개당 단가 (NZD/ea, 백데이터) · 클릭하여 수동 입력'
-    : '클릭하여 수동 입력 · 비우면 자동계산 복원';
+    ? 'Price each (NZD/ea, back data) · click to enter by hand'
+    : 'Click to enter by hand · clear to go back to auto';
   // 캡슐은 ×배수 미적용 → 배수 칸 숨김
   if (isCap && multCell) multCell.style.visibility = 'hidden';
 }
@@ -3413,25 +3413,25 @@ function loadPkgByOp() {
   if (!code) return;
 
   var hasPkg = STATE.packages.some(function(p) { return p; });
-  if (hasPkg && !confirm('이미 입력된 부자재 데이터가 있습니다. 덮어쓰시겠습니까?')) return;
+  if (hasPkg && !confirm('Packaging data is already entered. Overwrite it?')) return;
 
   var btn = document.getElementById('opAutoBtn');
-  btn.disabled = true; btn.textContent = '조회 중...';
-  showOpAutoStatus('info', '⏳ BOM에서 패키징 조회 중...');
+  btn.disabled = true; btn.textContent = 'Looking up...';
+  showOpAutoStatus('info', '⏳ Looking up packaging in the BOM...');
 
   google.script.run
     .withSuccessHandler(function(res) {
-      btn.disabled = false; btn.textContent = '패키징 조회';
+      btn.disabled = false; btn.textContent = 'Look up packaging';
       if (res && res.error) { showOpAutoStatus('err', '⚠ ' + res.error); return; }
       if (!res || !res.packages || !res.packages.length) {
-        showOpAutoStatus('warn', 'BOM에 등록되지 않은 OP입니다. 수동으로 추가해주세요.');
+        showOpAutoStatus('warn', 'This OP is not in the BOM. Add it by hand.');
         return;
       }
       applyOpPackaging(res, code);
     })
     .withFailureHandler(function(err) {
-      btn.disabled = false; btn.textContent = '패키징 조회';
-      showOpAutoStatus('err', '⚠ ' + (err && err.message ? err.message : '오류'));
+      btn.disabled = false; btn.textContent = 'Look up packaging';
+      showOpAutoStatus('err', '⚠ ' + (err && err.message ? err.message : 'Error'));
     })
     .getPackagingByOp(code);
 }
@@ -3449,10 +3449,10 @@ function applyOpPackaging(res, inputCode) {
   checkPkgTriggers();
   updateSummary();
 
-  var ofLabel = res.ofCode ? 'OF' + res.ofCode.replace(/^OF/i, '') + ' 기준 — ' : '';
-  var msg = '✓ ' + ofLabel + '패키징 ' + res.packages.length + '개를 불러왔습니다.';
-  if (res.multipleOf) msg += ' (여러 OF 중 최신: ' + res.ofCode + ')';
-  if (missing > 0)    msg += '\n⚠ DB 미등록 ' + missing + '개는 단가를 직접 입력하세요.';
+  var ofLabel = res.ofCode ? 'OF' + res.ofCode.replace(/^OF/i, '') + ' based on — ' : '';
+  var msg = '✓ ' + ofLabel + 'packaging ' + res.packages.length + 'items loaded.';
+  if (res.multipleOf) msg += ' (latest of several OFs: ' + res.ofCode + ')';
+  if (missing > 0)    msg += '\n⚠ Not in DB: ' + missing + 'items — enter their price by hand.';
 
   showOpAutoStatus(missing > 0 ? 'warn' : 'ok', msg);
 }
@@ -3473,11 +3473,11 @@ function addPkgRow() {
   tr.id  = 'pkg-row-' + idx;
   tr.innerHTML =
     '<td class="col-code"><div class="search-wrap">' +
-      '<input type="text" class="cell" id="pkg-code-' + idx + '" placeholder="OP코드 / 이름" autocomplete="off"' +
+      '<input type="text" class="cell" id="pkg-code-' + idx + '" placeholder="OP code / name" autocomplete="off"' +
         ' oninput="onPkgCodeInput(' + idx + ')" onblur="delayHide(\'pkg-drop-' + idx + '\')">' +
       '<div class="search-dropdown" id="pkg-drop-' + idx + '" style="display:none;"></div>' +
     '</div></td>' +
-    '<td class="col-name"><input type="text" class="cell" id="pkg-name-' + idx + '" placeholder="자동입력 / 직접입력"' +
+    '<td class="col-name"><input type="text" class="cell" id="pkg-name-' + idx + '" placeholder="Auto / manual"' +
       ' oninput="onPkgNameInput(' + idx + ')" style="max-width:220px;">' +
       '<div class="raw-date" id="pkg-date-' + idx + '" style="display:none;"></div>' +
       '<div class="raw-src" id="pkg-src-' + idx + '" style="display:none;"></div></td>' +
@@ -3485,16 +3485,16 @@ function addPkgRow() {
       ' oninput="onPkgTypeInput(' + idx + ')" style="width:104px;font-size:0.78rem;"></td>' +
     '<td class="col-qty">' +
       '<div id="pkg-sb-' + idx + '" style="display:none;margin-bottom:4px;">' +
-        '<div class="sb-note">입수량/박스</div>' +
+        '<div class="sb-note">Units per box</div>' +
         '<input type="number" class="cell" id="pkg-upsw-' + idx + '" value="50" min="1" step="1" style="width:90px;"' +
           ' oninput="onShipperUpsChange(' + idx + ')">' +
       '</div>' +
       '<input type="number" class="cell" id="pkg-qty-' + idx + '" min="0" value="' + (STATE.totalUnits || 0) + '"' +
         ' oninput="onPkgQtyChange(' + idx + ')"></td>' +
-    '<td class="col-fp"><input type="number" class="fp-cell" id="pkg-fp-' + idx + '" placeholder="자동" style="width:110px;"' +
-      ' step="0.0001" min="0" onblur="onFpBlur(\'pkg\',' + idx + ')" title="클릭하여 수동 입력 · 비우면 자동으로 복원"></td>' +
+    '<td class="col-fp"><input type="number" class="fp-cell" id="pkg-fp-' + idx + '" placeholder="Auto" style="width:110px;"' +
+      ' step="0.0001" min="0" onblur="onFpBlur(\'pkg\',' + idx + ')" title="Click to enter by hand · clear to go back to auto"></td>' +
     '<td class="col-sub"><div class="sub-cell" id="pkg-sub-' + idx + '">—</div></td>' +
-    '<td class="col-find"><button class="btn-find" id="pkg-find-' + idx + '" style="visibility:hidden;" onclick="openPkgPriceFinder(' + idx + ')" title="단가 찾기 — 구매 회신 · DB 유사 · AI 추정">🔎</button></td>' +
+    '<td class="col-find"><button class="btn-find" id="pkg-find-' + idx + '" style="visibility:hidden;" onclick="openPkgPriceFinder(' + idx + ')" title="Price finder — procurement reply · similar in DB · AI estimate">🔎</button></td>' +
     '<td class="col-del"><button class="btn-del" onclick="deletePkgRow(' + idx + ')">' + TRASH_SVG + '</button></td>';
 
   document.getElementById('pkgBody').appendChild(tr);
@@ -3540,7 +3540,7 @@ function doSearchPkg(idx) {
   var kw    = input ? input.value.trim() : '';
   if (!kw) { drop.style.display = 'none'; return; }
   positionDropdown(input, drop);
-  drop.innerHTML     = '<div class="search-empty">검색 중…</div>';
+  drop.innerHTML     = '<div class="search-empty">Searching…</div>';
   drop.style.display = 'block';
   google.script.run
     .withSuccessHandler(function(r) { showPkgDropdown(idx, r); })
@@ -3551,7 +3551,7 @@ function doSearchPkg(idx) {
 function showPkgDropdown(idx, results) {
   var drop = document.getElementById('pkg-drop-' + idx);
   if (!results || results.error || results.length === 0) {
-    drop.innerHTML = '<div class="search-empty">결과 없음</div>';
+    drop.innerHTML = '<div class="search-empty">No results</div>';
     return;
   }
   PKG_SEARCH_CACHE[idx] = results.slice(0, 12);
@@ -3561,7 +3561,7 @@ function showPkgDropdown(idx, results) {
       '<span class="d-name">' + item.name + '</span>' +
       '<div class="d-meta">' + item.packagingType + ' · ' + item.currency +
         (item.finalPrice ? ' · NZD ' + item.finalPrice.toFixed(4) : '') +
-        (item.registerDate ? ' · 소싱 ' + item.registerDate : '') +
+        (item.registerDate ? ' · sourced ' + item.registerDate : '') +
       '</div></div>';
   }).join('');
 }
@@ -3844,14 +3844,14 @@ function buildProcRows() {
     };
 
     var tag = '';
-    if (def.optional) tag = '<span class="proc-tag opt">선택</span>';
+    if (def.optional) tag = '<span class="proc-tag opt">Optional</span>';
 
     var labelText = (def.key === 'encap')
       ? def.label + (STATE.productSubType ? ' (' + STATE.productSubType + ')' : '')
       : def.label;
 
     var cpbField = (def.formula === 'blistering')
-      ? '<span style="font-size:0.68rem;color:var(--faint);margin-left:6px;">캡슐/blister</span>' +
+      ? '<span style="font-size:0.68rem;color:var(--faint);margin-left:6px;">Capsule/blister</span>' +
         '<input type="number" class="cell" id="proc-cpb-' + def.key + '" value="10" min="1" step="1"' +
           ' style="width:52px;padding:3px 5px;font-size:0.78rem;margin-left:4px;"' +
           ' onclick="event.stopPropagation()" oninput="onProcCapsPerBlisterChange(\'' + def.key + '\')">'
@@ -3957,7 +3957,7 @@ function getProcQtyLabel(key, item) {
 }
 
 function getProcUnitSuffix(item) {
-  if (item.formula === 'encap')      return '/1,000캡';
+  if (item.formula === 'encap')      return '/1,000 caps';
   if (item.formula === 'blending')   return '/batch';
   if (item.formula === 'blistering') return '/blister';
   return '/pk';
@@ -4025,11 +4025,11 @@ function addProcCustomRow(saved) {
   row.id  = 'proc-custom-row-' + idx;
   row.style.cssText = 'display:flex;gap:10px;align-items:center;';
   row.innerHTML =
-    '<input type="text" class="input" id="proc-custom-name-' + idx + '" placeholder="항목명" style="flex:1;" value="' + escapeHtmlAttr(c.name) + '"' +
+    '<input type="text" class="input" id="proc-custom-name-' + idx + '" placeholder="Item" style="flex:1;" value="' + escapeHtmlAttr(c.name) + '"' +
       ' oninput="onProcCustomChange(' + idx + ')">' +
-    '<input type="number" class="input" id="proc-custom-up-' + idx + '" placeholder="단가 (NZD)" min="0" step="0.01" style="width:130px;" value="' + (c.unitPrice || '') + '"' +
+    '<input type="number" class="input" id="proc-custom-up-' + idx + '" placeholder="Price (NZD)" min="0" step="0.01" style="width:130px;" value="' + (c.unitPrice || '') + '"' +
       ' oninput="onProcCustomChange(' + idx + ')">' +
-    '<input type="number" class="input" id="proc-custom-qty-' + idx + '" placeholder="수량" min="0" step="1" style="width:100px;" value="' + (c.qty || '') + '"' +
+    '<input type="number" class="input" id="proc-custom-qty-' + idx + '" placeholder="Quantity" min="0" step="1" style="width:100px;" value="' + (c.qty || '') + '"' +
       ' oninput="onProcCustomChange(' + idx + ')">' +
     '<div class="sub-cell" id="proc-custom-sub-' + idx + '" style="min-width:100px;text-align:right;">' +
       (c.subtotal > 0 ? 'NZD ' + c.subtotal.toFixed(2) : '—') + '</div>' +
@@ -4135,7 +4135,7 @@ function addOtherRow() {
   row.id  = 'other-row-' + idx;
   row.style.cssText = 'display:flex;gap:10px;align-items:center;';
   row.innerHTML =
-    '<input type="text" class="input" id="other-name-' + idx + '" placeholder="항목명" style="flex:1;"' +
+    '<input type="text" class="input" id="other-name-' + idx + '" placeholder="Item" style="flex:1;"' +
       ' oninput="onOtherChange(' + idx + ')">' +
     '<input type="number" class="input" id="other-amt-' + idx + '" placeholder="0" min="0" step="0.01" style="width:130px;"' +
       ' oninput="onOtherChange(' + idx + ')">' +
@@ -4207,7 +4207,7 @@ function updateStep6() {
   var el;
   el = document.getElementById('curBtnNZD');  if (el) el.classList.toggle('selected', cur === 'NZD');
   el = document.getElementById('curBtnUSD');  if (el) { el.classList.toggle('selected', cur === 'USD'); el.disabled = !(usdRate > 0); }
-  el = document.getElementById('step6RateNote'); if (el) el.textContent = usdRate > 0 ? '1 NZD = ' + usdRate.toFixed(4) + ' USD' : '환율 로딩 전';
+  el = document.getElementById('step6RateNote'); if (el) el.textContent = usdRate > 0 ? '1 NZD = ' + usdRate.toFixed(4) + ' USD' : 'FX not loaded yet';
   el = document.getElementById('marginCurHead'); if (el) el.textContent = cur;
 
   el = document.getElementById('res-raw');    if (el) el.textContent = nzd(raw);
@@ -4222,9 +4222,9 @@ function updateStep6() {
   el = document.getElementById('res-price-warn');
   if (el) {
     el.innerHTML =
-      (ps.missing.length ? '<div class="price-warn miss">⚠ 단가 미확정 원료 <b>' + ps.missing.length + '건</b> — ' + escHtml(ps.missing.join(', ')) +
-        '<br>단가 0이면 통관비만 계산돼 Unit Cost가 실제보다 낮게 나옵니다. STEP 3 🔎 단가 찾기로 채우세요.</div>' : '') +
-      (ps.estimate.length ? '<div class="price-warn info">추정 단가 항목 <b>' + ps.estimate.length + '건</b> (Indicative – pending procurement quote) — ' + escHtml(ps.estimate.join(', ')) + '</div>' : '');
+      (ps.missing.length ? '<div class="price-warn miss">⚠ Ingredients with no confirmed price <b>' + ps.missing.length + 'items</b> — ' + escHtml(ps.missing.join(', ')) +
+        '<br>A price of 0 counts only customs, so Unit Cost comes out lower than it should. Fill it with 🔎 Price finder in STEP 3.</div>' : '') +
+      (ps.estimate.length ? '<div class="price-warn info">Items with estimated prices <b>' + ps.estimate.length + 'items</b> (Indicative – pending procurement quote) — ' + escHtml(ps.estimate.join(', ')) + '</div>' : '');
   }
   // Unit Cost 옆에 반대 통화 환산값 병기
   el = document.getElementById('res-unit-alt');
@@ -4242,7 +4242,7 @@ function updateStep6() {
     var fcEl = document.getElementById('res-fc');
     if (fcEl) fcEl.textContent = money(Number(fc.unitCost));
     var noteEl = document.getElementById('res-fc-note');
-    if (noteEl) noteEl.textContent = '원가DB · ' + (fc.ofCode || STATE.bomCode);
+    if (noteEl) noteEl.textContent = 'Cost DB · ' + (fc.ofCode || STATE.bomCode);
     if (fcLine) fcLine.style.display = '';
     if (unit > 0) {
       var diff = unit - fc.unitCost;
@@ -4270,9 +4270,9 @@ function updateStep6() {
   var bulkTotal = raw + bulkProc;              // raw 는 Loss·캡슐 shell 포함
   var caps      = STATE.totalCaps || 0;
   var bulkUnit, bulkUnitNote;
-  if (caps > 0) { bulkUnit = bulkTotal / caps * 1000; bulkUnitNote = '/ 1,000캡'; }
+  if (caps > 0) { bulkUnit = bulkTotal / caps * 1000; bulkUnitNote = '/ 1,000 caps'; }
   else if (units > 0) { bulkUnit = bulkTotal / units; bulkUnitNote = '/ pk'; }
-  else { bulkUnit = 0; bulkUnitNote = '/ 1,000캡'; }
+  else { bulkUnit = 0; bulkUnitNote = '/ 1,000 caps'; }
 
   el = document.getElementById('res-bulk-raw');   if (el) el.textContent = nzd(raw);
   el = document.getElementById('res-bulk-proc');  if (el) el.textContent = nzd(bulkProc);
@@ -4297,7 +4297,7 @@ function updateStep6() {
   if (!body) return;
 
   if (unit <= 0) {
-    body.innerHTML = '<tr><td colspan="3" style="color:var(--muted);font-size:0.83rem;text-align:center;padding:16px;">비용을 입력하면 자동 계산됩니다.</td></tr>';
+    body.innerHTML = '<tr><td colspan="3" style="color:var(--muted);font-size:0.83rem;text-align:center;padding:16px;">Calculated automatically once costs are entered.</td></tr>';
     return;
   }
 
@@ -4330,23 +4330,23 @@ function setPrevStatus(msg, type) {
 
 function fetchPrevPrice() {
   var code = (document.getElementById('prevPriceCode').value || '').trim();
-  if (!code) { setPrevStatus('코드를 입력하세요.', ''); return; }
+  if (!code) { setPrevStatus('Enter a code.', ''); return; }
   STATE.prevPriceCode = code;
 
   var btn = document.getElementById('prevFetchBtn');
-  if (btn) { btn.disabled = true; btn.textContent = '조회 중...'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Looking up...'; }
   setPrevStatus('');
 
   // 버튼 stuck 방지: 15초 후 강제 복원
   var btnResetTimer = setTimeout(function() {
-    if (btn) { btn.disabled = false; btn.textContent = '재조회'; }
-    setPrevStatus('⚠ 응답 시간 초과. 다시 시도하세요.', 'err');
+    if (btn) { btn.disabled = false; btn.textContent = 'Look up again'; }
+    setPrevStatus('⚠ Timed out. Try again.', 'err');
   }, 15000);
 
   google.script.run
     .withSuccessHandler(function(res) {
       clearTimeout(btnResetTimer);
-      if (btn) { btn.disabled = false; btn.textContent = '재조회'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Look up again'; }
       if (res && res.error) {
         setPrevStatus('⚠ ' + res.error, 'err');
         return;
@@ -4355,12 +4355,12 @@ function fetchPrevPrice() {
       var wrap = document.getElementById('prevHistDropWrap');
       var sel  = document.getElementById('prevHistSelect');
       if (!PREV_PRICE_HISTORY.length) {
-        setPrevStatus('조회 결과 없음 — ' + code + ' (confirm/finished 상태 기준)', '');
+        setPrevStatus('No results — ' + code + ' (confirm/finished status only)', '');
         wrap.style.display = 'none';
         return;
       }
-      setPrevStatus(PREV_PRICE_HISTORY.length + '건 조회됨', 'ok');
-      sel.innerHTML = '<option value="">— 이력 선택 —</option>' +
+      setPrevStatus(PREV_PRICE_HISTORY.length + 'found', 'ok');
+      sel.innerHTML = '<option value="">— choose from history —</option>' +
         PREV_PRICE_HISTORY.map(function(x, i) {
           var warn = x.warn ? ' ⚠' : '';
           return '<option value="' + i + '">' + x.registerDate + ' · NZD ' + x.unitPrice.toFixed(2) + ' · ' + x.status + warn + '</option>';
@@ -4371,8 +4371,8 @@ function fetchPrevPrice() {
     })
     .withFailureHandler(function(err) {
       clearTimeout(btnResetTimer);
-      if (btn) { btn.disabled = false; btn.textContent = '재조회'; }
-      setPrevStatus('⚠ ' + (err && err.message || '서버 오류'), 'err');
+      if (btn) { btn.disabled = false; btn.textContent = 'Look up again'; }
+      setPrevStatus('⚠ ' + (err && err.message || 'Server error'), 'err');
     })
     .getPreviousPrice(code, STATE.capPerBottle || 60);
 }
@@ -4388,10 +4388,10 @@ function onPrevHistSelect() {
   document.getElementById('prevPriceDate').value = item.registerDate;
 
   if (item.prefix === 'OB' && item.unitPriceRaw) {
-    showToast('OB: NZD ' + item.unitPriceRaw.toFixed(4) + '/캡 × ' + (STATE.capPerBottle || 60) + ' = NZD ' + item.unitPrice.toFixed(2) + '/pk');
+    showToast('OB: NZD ' + item.unitPriceRaw.toFixed(4) + '/cap × ' + (STATE.capPerBottle || 60) + ' = NZD ' + item.unitPrice.toFixed(2) + '/pk');
   }
   if (item.warn) {
-    setPrevStatus('⚠ status가 "' + item.status + '" 입니다 (confirm/finished 아님) — 참고용으로만 사용하세요.', 'warn');
+    setPrevStatus('⚠ Status is "' + item.status + '" (not confirm/finished) — use for reference only.', 'warn');
   } else {
     setPrevStatus('');
   }
@@ -4449,7 +4449,7 @@ function toggleEstPanel() {
 
 function loadEstList() {
   var listEl = document.getElementById('estList');
-  listEl.innerHTML = '<div class="est-empty">불러오는 중...</div>';
+  listEl.innerHTML = '<div class="est-empty">Loading...</div>';
   google.script.run
     .withSuccessHandler(function(res) {
       if (res && res.error) { listEl.innerHTML = '<div class="est-empty">⚠ ' + res.error + '</div>'; return; }
@@ -4462,7 +4462,7 @@ function loadEstList() {
       renderEstList();
     })
     .withFailureHandler(function(err) {
-      listEl.innerHTML = '<div class="est-empty">⚠ ' + (err && err.message || '오류') + '</div>';
+      listEl.innerHTML = '<div class="est-empty">⚠ ' + (err && err.message || 'Error') + '</div>';
     })
     .getEstimateList();
 }
@@ -4504,7 +4504,7 @@ function renderEstList() {
   });
 
   if (!items.length) {
-    listEl.innerHTML = '<div class="est-empty">' + (q ? '검색 결과가 없습니다.' : '저장된 견적이 없습니다.') + '</div>';
+    listEl.innerHTML = '<div class="est-empty">' + (q ? 'No search results.' : 'No saved quotes.') + '</div>';
     pageEl.style.display = 'none';
     return;
   }
@@ -4538,7 +4538,7 @@ function renderEstList() {
     return '<div class="est-item">' +
       '<div class="est-id">' + x.id + '</div>' +
       '<div class="est-info">' +
-        '<div class="est-name" title="' + x.productName + '">' + bomPart + (x.productName || '(이름 없음)') + '</div>' +
+        '<div class="est-name" title="' + x.productName + '">' + bomPart + (x.productName || '(no name)') + '</div>' +
         '<div class="est-meta" style="flex-direction:column;align-items:flex-start;gap:2px;">' +
           '<span>' + (x.savedBy || '—') + '</span>' +
           '<span>' + x.savedAt + ' NZT</span>' +
@@ -4548,9 +4548,9 @@ function renderEstList() {
       '</div>' +
       '<span class="badge ' + badgeCls + '"><span class="bdot" style="background:' + dotColor + '"></span>' + badgeLbl + '</span>' +
       '<div class="est-actions">' +
-        '<button class="btn btn-ghost" onclick="doLoadEstimate(\'' + x.id + '\')">불러오기</button>' +
+        '<button class="btn btn-ghost" onclick="doLoadEstimate(\'' + x.id + '\')">Load</button>' +
         '<button class="btn btn-ghost" onclick="printEstimate(\'' + x.id + '\')">📄 PDF</button>' +
-        '<button class="btn btn-ghost" onclick="doDeleteEstimate(\'' + x.id + '\')">삭제</button>' +
+        '<button class="btn btn-ghost" onclick="doDeleteEstimate(\'' + x.id + '\')">Delete</button>' +
       '</div>' +
     '</div>';
   }).join('');
@@ -4563,14 +4563,14 @@ function renderEstList() {
   var endIdx      = pageSize > 0 ? Math.min(startIdx + pageSize, totalItems) : totalItems;
   var html = '';
   html += '<button style="' + (page <= 1 ? btnDisStyle : btnStyle) + '" ' +
-    (page <= 1 ? 'disabled' : 'onclick="goEstPage(' + (page - 1) + ')"') + '>‹ 이전</button>';
+    (page <= 1 ? 'disabled' : 'onclick="goEstPage(' + (page - 1) + ')"') + '>‹ Previous</button>';
   for (var p = 1; p <= totalPages; p++) {
     html += '<button style="' + (p === page ? btnActStyle : btnStyle) + '" onclick="goEstPage(' + p + ')">' + p + '</button>';
   }
   html += '<button style="' + (page >= totalPages ? btnDisStyle : btnStyle) + '" ' +
-    (page >= totalPages ? 'disabled' : 'onclick="goEstPage(' + (page + 1) + ')"') + '>다음 ›</button>';
+    (page >= totalPages ? 'disabled' : 'onclick="goEstPage(' + (page + 1) + ')"') + '>Next ›</button>';
   html += '<span style="font-size:0.74rem;color:var(--faint);font-family:var(--mono);margin-left:6px;">' +
-    (startIdx + 1) + '–' + endIdx + ' / 총 ' + totalItems + '개</span>';
+    (startIdx + 1) + '–' + endIdx + ' / total ' + totalItems + '</span>';
   pageEl.innerHTML = html;
 }
 
@@ -4584,7 +4584,7 @@ function goEstPage(p) {
 function doLoadEstimate(id) {
   var hasData = STATE.rawMaterials.some(function(r) { return r; }) ||
                 STATE.packages.some(function(p) { return p; });
-  if (hasData && !confirm('현재 입력 데이터를 지우고 견적을 불러오시겠습니까?')) return;
+  if (hasData && !confirm('Clear the current data and load the quote?')) return;
 
   google.script.run
     .withSuccessHandler(function(res) {
@@ -4593,12 +4593,12 @@ function doLoadEstimate(id) {
         applyEstimateData(JSON.parse(res.data), res);
         showEstBanner(res.id, res.status, res.memo);
         if (EST_PANEL_OPEN) toggleEstPanel();
-        showToast('견적을 불러왔습니다.');
+        showToast('Quote loaded.');
       } catch(e) {
-        showToast('⚠ 불러오기 오류: ' + e.message, 'err');
+        showToast('⚠ Load error: ' + e.message, 'err');
       }
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .getEstimateById(id);
 }
 
@@ -4735,7 +4735,7 @@ function applyEstimateData(s, meta) {
 
   // 환율 스냅샷 안내
   showBomStatus('warn',
-    '저장 시점 환율 기준입니다. 현재 환율로 재계산하려면 STEP 1의 [↻ 새로고침] 버튼을 누르세요.');
+    'Based on the FX rate when saved. To recalculate at the current rate, press [↻ Refresh] in STEP 1.');
 }
 
 // ── 배너 ─────────────────────────────────────────────────────────
@@ -4776,9 +4776,9 @@ function doBannerStatus(newStatus) {
       if (res && res.error) { showToast('⚠ ' + res.error, 'err'); return; }
       EST_LOADED_STATUS = newStatus;
       showEstBanner(EST_LOADED_ID, newStatus, document.getElementById('bannerMemo').value);
-      showToast('상태가 ' + newStatus + '으로 변경되었습니다.');
+      showToast('Status changed to ' + newStatus + '.');
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .updateEstimateStatus(EST_LOADED_ID, newStatus, null);
 }
 
@@ -4788,9 +4788,9 @@ function doBannerMemoSave() {
   google.script.run
     .withSuccessHandler(function(res) {
       if (res && res.error) { showToast('⚠ ' + res.error, 'err'); return; }
-      showToast('메모가 저장되었습니다.');
+      showToast('Memo saved.');
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .updateEstimateStatus(EST_LOADED_ID, null, memo);
 }
 
@@ -4846,7 +4846,7 @@ function serializeState() {
 }
 
 function doSaveEstimate(isUpdate) {
-  if (isUpdate && !EST_LOADED_ID) { showToast('불러온 견적이 없습니다.', 'err'); return; }
+  if (isUpdate && !EST_LOADED_ID) { showToast('No quote loaded.', 'err'); return; }
   var memo    = (document.getElementById('saveMemo')   || {}).value || '';
   var banMemo = (document.getElementById('bannerMemo') || {}).value || '';
   var finalMemo = memo || banMemo;
@@ -4861,7 +4861,7 @@ function doSaveEstimate(isUpdate) {
         showSaveSuccess(EST_LOADED_ID, true);
         growMasterIfNew();
       })
-      .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+      .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
       .updateEstimate(EST_LOADED_ID, {
         company:     STATE.company || '',
         brand:       STATE.brand   || '',
@@ -4883,7 +4883,7 @@ function doSaveEstimate(isUpdate) {
         if (document.getElementById('saveMemo')) document.getElementById('saveMemo').value = '';
         growMasterIfNew();
       })
-      .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+      .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
       .saveEstimate({
         company:     STATE.company || '',
         brand:       STATE.brand   || '',
@@ -4898,16 +4898,16 @@ function doSaveEstimate(isUpdate) {
 }
 
 function doDeleteEstimate(id) {
-  if (!confirm('이 견적을 삭제하시겠습니까?')) return;
+  if (!confirm('Delete this quote?')) return;
   google.script.run
     .withSuccessHandler(function(res) {
       if (res && res.error) { showToast('⚠ ' + res.error, 'err'); return; }
       EST_ALL_ITEMS = EST_ALL_ITEMS.filter(function(x) { return x.id !== id; });
       renderEstList();
       if (EST_LOADED_ID === id) hideEstBanner();
-      showToast('견적이 삭제되었습니다.');
+      showToast('Quote deleted.');
     })
-    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || '오류'), 'err'); })
+    .withFailureHandler(function(err) { showToast('⚠ ' + (err && err.message || 'Error'), 'err'); })
     .updateEstimateStatus(id, 'deleted', null);
 }
 
@@ -4923,7 +4923,7 @@ function startNewEstimate() {
   var hasData = STATE.rawMaterials.some(function(r) { return r; }) ||
                 STATE.packages.some(function(p) { return p; }) ||
                 !!EST_LOADED_ID;
-  if (hasData && !confirm('현재 데이터를 지우고 새 견적을 시작하시겠습니까?')) return;
+  if (hasData && !confirm('Clear the current data and start a new quote?')) return;
 
   // 원료 / 부자재 초기화
   clearRawRows();
@@ -5023,12 +5023,12 @@ function showSaveSuccess(id, isUpdate) {
         '<div class="save-success-check">✓</div>' +
         '<div class="save-success-title" id="saveSuccessTitle"></div>' +
         '<div class="save-success-id" id="saveSuccessId"></div>' +
-        '<button class="btn btn-primary" onclick="hideSaveSuccess()" style="margin-top:18px;padding:9px 30px;">확인</button>' +
+        '<button class="btn btn-primary" onclick="hideSaveSuccess()" style="margin-top:18px;padding:9px 30px;">OK</button>' +
       '</div>';
     document.body.appendChild(ov);
     ov.addEventListener('click', function(e) { if (e.target === ov) hideSaveSuccess(); });
   }
-  document.getElementById('saveSuccessTitle').textContent = isUpdate ? '견적이 업데이트되었습니다' : '견적이 저장되었습니다';
+  document.getElementById('saveSuccessTitle').textContent = isUpdate ? 'Quote updated' : 'Quote saved';
   document.getElementById('saveSuccessId').textContent = 'ID  ' + id;
   ov.style.display = 'flex';
   requestAnimationFrame(function() { ov.classList.add('show'); });
@@ -5046,7 +5046,7 @@ function hideSaveSuccess() {
 function saveAsNew() {
   var pnEl = document.getElementById('productName');
   var cur  = (pnEl && pnEl.value) || STATE.productName || '';
-  var nm   = prompt('다른 이름으로 저장 — 새 제품명을 입력하세요.', cur ? cur + ' (수정본)' : '');
+  var nm   = prompt('Save as — enter a new product name.', cur ? cur + ' (revised)' : '');
   if (nm === null) return;                       // 취소
   nm = nm.trim();
   if (nm && pnEl) { pnEl.value = nm; STATE.productName = nm; updateSummary(); }
@@ -5065,20 +5065,20 @@ function downloadPricingCsv() {
     : 0;
 
   add(['Demo Labs Pricing Export']);
-  add(['회사', STATE.company || '']);
-  add(['브랜드', STATE.brand || '']);
-  add(['제품명', STATE.productName || '']);
-  add(['코드', STATE.bomCode || '']);
-  add(['제형', (STATE.productType || '') + (STATE.productSubType ? ' / ' + STATE.productSubType : '')]);
-  add(['포장', STATE.packagingForm || '']);
-  add(['총 Unit(pk)', STATE.totalUnits || 0]);
-  add(['정/캡슐 per bottle', STATE.capPerBottle || 0]);
-  add(['총 캡슐수', STATE.totalCaps || 0]);
+  add(['Company', STATE.company || '']);
+  add(['Branded', STATE.brand || '']);
+  add(['Product name', STATE.productName || '']);
+  add(['Code', STATE.bomCode || '']);
+  add(['Dosage form', (STATE.productType || '') + (STATE.productSubType ? ' / ' + STATE.productSubType : '')]);
+  add(['Pack', STATE.packagingForm || '']);
+  add(['Total units (pk)', STATE.totalUnits || 0]);
+  add(['Tablets/capsules per bottle', STATE.capPerBottle || 0]);
+  add(['total capsule count', STATE.totalCaps || 0]);
   add(['Loss Rate(%)', ((STATE.lossRate || 0) * 100)]);
   add([]);
 
-  add(['[원료 Raw Material]']);
-  add(['코드', '원료명', 'mg/ea', '배수', '통화', '단가', 'Incoterms', '운송', 'Final Price(NZD/kg)', '소계(NZD)', '단가 출처']);
+  add(['[Raw materials]']);
+  add(['Code', 'Ingredient', 'mg/ea', 'Multiplier', 'Currency', 'Price', 'Incoterms', 'Freight', 'Final Price(NZD/kg)', 'Subtotal (NZD)', 'Price source']);
   var mgSum = 0;
   (STATE.rawMaterials || []).forEach(function(r) {
     if (!r) return;
@@ -5088,12 +5088,12 @@ function downloadPricingCsv() {
     add([r.code || '', r.name || '', r.mgPerEa || 0, r.multiplier || 1, r.currency || '',
          r.unitPrice || 0, r.incoterms || '', r.shipping || '', (fp || 0).toFixed(4), (r.subtotal || 0).toFixed(2), priceSourceText(r)]);
   });
-  add(['원료 mg/ea 합계(캡슐 제외)', mgSum]);
+  add(['Ingredient mg/ea total (excl. capsule)', mgSum]);
   add(['Raw Material Total(NZD)', (STATE.rawTotal || 0).toFixed(2)]);
   add([]);
 
-  add(['[부자재 Packaging]']);
-  add(['코드', '이름', '유형', '수량', 'Final Price(NZD/ea)', '소계(NZD)', '단가 출처']);
+  add(['[Packaging]']);
+  add(['Code', 'Name', 'Type', 'Quantity', 'Final Price(NZD/ea)', 'Subtotal (NZD)', 'Price source']);
   (STATE.packages || []).forEach(function(p) {
     if (!p) return;
     var fp = (p.finalPriceOverride != null) ? p.finalPriceOverride : p.finalPrice;
@@ -5102,47 +5102,47 @@ function downloadPricingCsv() {
   add(['Packaging Total(NZD)', (STATE.pkgTotal || 0).toFixed(2)]);
   add([]);
 
-  add(['[가공 Processing]']);
-  add(['항목', '단가', '수량', '소계(NZD)']);
+  add(['[Processing]']);
+  add(['Item', 'Price', 'Quantity', 'Subtotal (NZD)']);
   if (STATE.procItems) {
     Object.keys(STATE.procItems).forEach(function(k) {
       var it = STATE.procItems[k];
       if (it && it.active) add([it.label || k, it.unitPrice || 0, getProcQtyLabel ? getProcQtyLabel(k, it) : '', (it.subtotal || 0).toFixed(2)]);
     });
   }
-  (STATE.procCustomItems || []).forEach(function(c) { if (c) add([c.name || '기타 가공', c.unitPrice || 0, c.qty || 0, (c.subtotal || 0).toFixed(2)]); });
+  (STATE.procCustomItems || []).forEach(function(c) { if (c) add([c.name || 'Other processing', c.unitPrice || 0, c.qty || 0, (c.subtotal || 0).toFixed(2)]); });
   add(['Processing Total(NZD)', (STATE.procTotal || 0).toFixed(2)]);
   add([]);
 
-  add(['[기타]']);
+  add(['[Others]']);
   add(['Admin & Management', (STATE.adminCost || 300).toFixed(2)]);
   add(['Test', (STATE.testCost || 0).toFixed(2)]);
   (STATE.otherCosts || []).forEach(function(o) { if (o) add([o.name || 'Others', (o.amount || 0).toFixed(2)]); });
   add([]);
 
-  add(['[결과]']);
+  add(['[Result]']);
   var totalCost = (STATE.rawTotal || 0) + (STATE.pkgTotal || 0) + (STATE.procTotal || 0) + (STATE.adminCost || 300) + (STATE.testCost || 0) + (STATE.othersTotal || 0);
-  add(['총 원가(NZD)', totalCost.toFixed(2)]);
+  add(['Total cost (NZD)', totalCost.toFixed(2)]);
   add(['Unit Cost(NZD/pk)', unitCost.toFixed(4)]);
   var psum = priceSummary(STATE.rawMaterials, STATE.packages);
-  if (psum.missing.length)  add(['⚠ 단가 미확정 원료(원가 과소)', psum.missing.length, psum.missing.join('; ')]);
-  if (psum.estimate.length) add(['추정 단가 항목(Indicative)', psum.estimate.length, psum.estimate.join('; ')]);
+  if (psum.missing.length)  add(['⚠ Ingredients with no confirmed price (cost understated)', psum.missing.length, psum.missing.join('; ')]);
+  if (psum.estimate.length) add(['Items with estimated prices (Indicative)', psum.estimate.length, psum.estimate.join('; ')]);
 
   // STEP 6 토글이 USD면 결과·Margin을 USD로도 출력 (환율은 STEP1 기준)
   var disp = resolveDisplayCurrency(STATE.step6Currency, STATE.exchangeRates);
   if (disp.cur === 'USD') {
     add([]);
-    add(['[결과 USD]', '1 NZD = ' + disp.usdRate.toFixed(4) + ' USD']);
+    add(['[Result USD]', '1 NZD = ' + disp.usdRate.toFixed(4) + ' USD']);
     [['Raw Material Total', STATE.rawTotal], ['Processing Total', STATE.procTotal], ['Packaging Total', STATE.pkgTotal],
      ['Admin & Management', STATE.adminCost || 300], ['Test', STATE.testCost], ['Others', STATE.othersTotal]
     ].forEach(function(l) { add([l[0] + '(USD)', ((l[1] || 0) * disp.fx).toFixed(2)]); });
-    add(['총 원가(USD)', (totalCost * disp.fx).toFixed(2)]);
+    add(['Total cost (USD)', (totalCost * disp.fx).toFixed(2)]);
     add(['Unit Cost(USD/pk)', (unitCost * disp.fx).toFixed(4)]);
   }
   if (unitCost > 0) {
     add([]);
-    add(['[Margin 시뮬레이션]']);
-    add(['마진율', 'Selling(' + disp.cur + '/pk)', 'Markup(' + disp.cur + ')']);
+    add(['[Margin simulation]']);
+    add(['Margin', 'Selling(' + disp.cur + '/pk)', 'Markup(' + disp.cur + ')']);
     MARGIN_RATES.forEach(function(m) {
       var selling = unitCost / (1 - m);
       add([(m * 100).toFixed(0) + '%', (selling * disp.fx).toFixed(2), ((selling - unitCost) * disp.fx).toFixed(2)]);
@@ -5157,7 +5157,7 @@ function downloadPricingCsv() {
   a.href = url; a.download = 'DemoLabs_pricing_' + base + (disp.cur === 'USD' ? '_USD' : '') + '.csv';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
-  showToast('엑셀(CSV) 다운로드를 시작합니다.');
+  showToast('Excel (CSV) download starting.');
 }
 
 // ── PFS 파일 업로드 + 파싱 ───────────────────────────────────────────
@@ -5172,32 +5172,32 @@ function handlePfsDrop(e) {
 function handlePfsFile(file) {
   if (!file) return;
   if (!file.name.toLowerCase().endsWith('.docx')) {
-    showPfsStatus('err', '⚠ .docx 파일만 지원합니다.');
+    showPfsStatus('err', '⚠ Only .docx files are supported.');
     return;
   }
-  showPfsStatus('info', '⏳ 파일 분석 중...');
+  showPfsStatus('info', '⏳ Reading file...');
 
   var reader = new FileReader();
   reader.onload = function(e) {
     var arrayBuffer = e.target.result;
     if (typeof mammoth === 'undefined') {
-      showPfsStatus('err', '⚠ mammoth.js 로드 실패. 인터넷 연결을 확인하세요.');
+      showPfsStatus('err', '⚠ mammoth.js failed to load. Check the internet connection.');
       return;
     }
     mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
       .then(function(result) {
         var parsed = parsePfsHtml(result.value);
         if (!parsed.rawMaterials.length && !parsed.obCode) {
-          showPfsStatus('err', '⚠ PFS 파일에서 원료 데이터를 찾을 수 없습니다. 파일 형식을 확인해주세요.');
+          showPfsStatus('err', '⚠ No ingredient data found in the PFS file. Check the file format.');
           return;
         }
         applyPfsData(parsed);
       })
       .catch(function(err) {
-        showPfsStatus('err', '⚠ 파일 파싱 오류: ' + (err.message || err));
+        showPfsStatus('err', '⚠ File parsing error: ' + (err.message || err));
       });
   };
-  reader.onerror = function() { showPfsStatus('err', '⚠ 파일 읽기 오류'); };
+  reader.onerror = function() { showPfsStatus('err', '⚠ File read error'); };
   reader.readAsArrayBuffer(file);
 }
 
@@ -5286,7 +5286,7 @@ function parsePfsHtml(html) {
 function applyPfsData(parsed) {
   var hasRaw = STATE.rawMaterials.some(function(r) { return r; });
   var hasPkg = STATE.packages.some(function(p) { return p; });
-  if ((hasRaw || hasPkg) && !confirm('이미 입력된 원료/부자재 데이터가 있습니다. 덮어쓰시겠습니까?')) return;
+  if ((hasRaw || hasPkg) && !confirm('Ingredient/packaging data is already entered. Overwrite it?')) return;
 
   // OB코드 → STEP 1 bomCode 자동 채움
   if (parsed.obCode) {
@@ -5305,15 +5305,15 @@ function applyPfsData(parsed) {
   }
 
   if (!parsed.rawMaterials.length) {
-    showPfsStatus('warn', '⚠ OB코드: ' + (parsed.obCode || '미발견') +
-      ' · 원료 테이블을 찾을 수 없습니다. 파일 구조를 확인해주세요.');
+    showPfsStatus('warn', '⚠ OB code: ' + (parsed.obCode || 'not found') +
+      ' · ingredient table not found. Check the file structure.');
     return;
   }
 
   // OR 코드 배열 추출 → 서버에서 단가 일괄 조회
   var orCodes = parsed.rawMaterials.map(function(r) { return r.code; });
 
-  showPfsStatus('info', '⏳ DB에서 단가 조회 중 (' + orCodes.length + '개)...');
+  showPfsStatus('info', '⏳ Looking up prices in the DB (' + orCodes.length + 'items)...');
 
   google.script.run
     .withSuccessHandler(function(priceMap) {
@@ -5346,9 +5346,9 @@ function applyPfsData(parsed) {
       updateSummary();
 
       var obLabel = parsed.obCode ? parsed.obCode + ' — ' : '';
-      var msg = '✓ ' + obLabel + '원료 ' + parsed.rawMaterials.length + '개를 불러왔습니다.';
+      var msg = '✓ ' + obLabel + 'Ingredients ' + parsed.rawMaterials.length + 'items loaded.';
       if (missing > 0) {
-        msg += '\n⚠ DB 미등록 항목 ' + missing + '개 (주황색) — 단가를 직접 입력하세요.';
+        msg += '\n⚠ Not in DB: ' + missing + 'items (orange) — enter their price by hand.';
         showPfsStatus('warn', msg);
       } else {
         showPfsStatus('ok', msg);
@@ -5361,7 +5361,7 @@ function applyPfsData(parsed) {
       }
     })
     .withFailureHandler(function(err) {
-      showPfsStatus('err', '⚠ DB 조회 오류: ' + (err && err.message ? err.message : '알 수 없는 오류'));
+      showPfsStatus('err', '⚠ DB lookup error: ' + (err && err.message ? err.message : 'Unknown error'));
     })
     .bulkMatchRawMaterials(orCodes);
 }
@@ -5395,24 +5395,24 @@ function loadBom() {
 
   var hasRaw = STATE.rawMaterials.some(function(r) { return r; });
   var hasPkg = STATE.packages.some(function(p) { return p; });
-  if ((hasRaw || hasPkg) && !confirm('이미 입력된 원료/부자재 데이터가 있습니다. 덮어쓰시겠습니까?')) return;
+  if ((hasRaw || hasPkg) && !confirm('Ingredient/packaging data is already entered. Overwrite it?')) return;
 
   var btn = document.getElementById('bomLoadBtn');
   btn.disabled = true;
-  btn.textContent = '로딩 중...';
+  btn.textContent = 'Loading...';
   showBomStatus('', '');
 
   google.script.run
     .withSuccessHandler(function(res) {
       btn.disabled = false;
-      btn.textContent = '불러오기';
+      btn.textContent = 'Load';
       if (res && res.error) { showBomStatus('err', '⚠ ' + res.error); return; }
       applyBomData(res, code);
     })
     .withFailureHandler(function(err) {
       btn.disabled = false;
-      btn.textContent = '불러오기';
-      showBomStatus('err', '⚠ ' + (err && err.message ? err.message : '오류'));
+      btn.textContent = 'Load';
+      showBomStatus('err', '⚠ ' + (err && err.message ? err.message : 'Error'));
     })
     .getBomData(code);
 }
@@ -5478,10 +5478,10 @@ function applyBomData(res, code) {
 
   // 4. 상태 메시지
   var name = res.productName || code;
-  var msg  = '✓ ' + name + ' — 원료 ' + (res.rawMaterials || []).length +
-             '개, 부자재 ' + (res.packages || []).length + '개를 불러왔습니다. 수동 수정 가능합니다.';
+  var msg  = '✓ ' + name + ' — ingredients ' + (res.rawMaterials || []).length +
+             ', packaging ' + (res.packages || []).length + 'loaded. You can edit them by hand.';
   if (missing > 0) {
-    msg += '\n⚠ 단가 미등록 항목 ' + missing + '개는 직접 입력이 필요합니다. (주황색 표시)';
+    msg += '\n⚠ No price for ' + missing + 'items — enter them by hand. (shown in orange)';
     showBomStatus('warn', msg);
   } else {
     showBomStatus('ok', msg);
@@ -5564,7 +5564,7 @@ function fillRawFromBom(idx, rm) {
 
   if (!rm.found && codeEl) {
     codeEl.classList.add('bom-missing');
-    codeEl.title = '단가 미등록 — 직접 입력 필요';
+    codeEl.title = 'No price — enter by hand';
   }
   onRawRowChange(idx);
 }
@@ -5601,7 +5601,7 @@ function fillPkgFromBom(idx, pkg) {
 
   if (!pkg.found && codeEl) {
     codeEl.classList.add('bom-missing');
-    codeEl.title = '단가 미등록 — 직접 입력 필요';
+    codeEl.title = 'No price — enter by hand';
   }
   activateShipperBox(idx, p.packagingType);
   onPkgQtyChange(idx);
@@ -5645,14 +5645,14 @@ function printEstimate(estimateId) {
     var listItem = EST_ALL_ITEMS.filter(function(x) { return x.id === estimateId; })[0] || {};
     google.script.run
       .withSuccessHandler(function(res) {
-        if (!res || res.error) { alert('견적 데이터 로드 실패: ' + ((res && res.error) || '알 수 없는 오류')); return; }
+        if (!res || res.error) { alert('Quote data failed to load: ' + ((res && res.error) || 'Unknown error')); return; }
         try {
           var data = JSON.parse(res.data);
           var prCur = populatePrintSection(data, res.id, listItem.savedAt || '—', res.memo, data.displayCurrency);
-          doPrint('DemoLabs_견적_' + res.id + '_' + (data.productName || '') + (prCur === 'USD' ? '_USD' : ''));
-        } catch(e) { alert('데이터 파싱 오류: ' + e.message); }
+          doPrint('DemoLabs_quote_' + res.id + '_' + (data.productName || '') + (prCur === 'USD' ? '_USD' : ''));
+        } catch(e) { alert('Data parsing error: ' + e.message); }
       })
-      .withFailureHandler(function(err) { alert('오류: ' + (err && err.message || err)); })
+      .withFailureHandler(function(err) { alert('Error: ' + (err && err.message || err)); })
       .getEstimateById(estimateId);
   } else {
     // STEP 6에서 호출: 현재 STATE 사용
@@ -5688,7 +5688,7 @@ function printEstimate(estimateId) {
     var estId = EST_LOADED_ID || '—';
     // STEP 6 토글 통화로 Cost Summary · Margin 출력
     var cur = populatePrintSection(data, estId, today, '', STATE.step6Currency);
-    doPrint('DemoLabs_견적_' + estId + '_' + (STATE.productName || '') + (cur === 'USD' ? '_USD' : ''));
+    doPrint('DemoLabs_quote_' + estId + '_' + (STATE.productName || '') + (cur === 'USD' ? '_USD' : ''));
   }
 }
 
@@ -5743,7 +5743,7 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
         '</tr>';
       }).join('');
     } else {
-      rawBody.innerHTML = '<tr><td colspan="8" style="color:#aaa;text-align:center;padding:6pt;">원료 없음</td></tr>';
+      rawBody.innerHTML = '<tr><td colspan="8" style="color:#aaa;text-align:center;padding:6pt;">No ingredients</td></tr>';
     }
   }
   var rawTotal = data.rawTotal || (data.results && data.results.rawTotal) || 0;
@@ -5751,8 +5751,8 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
   var psum = priceSummary(data.rawMaterials, data.packages);
   var noteEl = document.getElementById('pr-price-note');
   if (noteEl) noteEl.innerHTML =
-    (psum.missing.length ? '<div class="miss">⚠ 단가 미확정 원료 ' + psum.missing.length + '건 (' + escHtml(psum.missing.join(', ')) + ') — 원가가 실제보다 낮게 계산됨</div>' : '') +
-    (psum.estimate.length ? '<div class="est">추정 단가 항목 ' + psum.estimate.length + '건 (' + escHtml(psum.estimate.join(', ')) + ') — Indicative, pending procurement quote</div>' : '');
+    (psum.missing.length ? '<div class="miss">⚠ Ingredients with no confirmed price ' + psum.missing.length + 'items (' + escHtml(psum.missing.join(', ')) + ') — cost is calculated lower than it should be</div>' : '') +
+    (psum.estimate.length ? '<div class="est">Items with estimated prices ' + psum.estimate.length + 'items (' + escHtml(psum.estimate.join(', ')) + ') — Indicative, pending procurement quote</div>' : '');
   set('pr-raw-total', nzd(rawTotal));
 
   // STEP 4 Packages + Processing
@@ -5760,13 +5760,13 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
   (data.packages || []).filter(Boolean).filter(function(p) { return p.code || p.name; }).forEach(function(p) {
     var eff = (p.finalPriceOverride != null ? p.finalPriceOverride : p.finalPrice) || 0;
     var lbl = [p.code, p.name].filter(Boolean).join(' · ');
-    pkgRows.push({ label: escHtml(lbl || '—') + PRICE_TAG[p.priceSource === 'procurement' || p.priceSource === 'estimate' ? p.priceSource : ''], type: '포장재', qty: p.qty || 0, up: eff, sub: p.subtotal || 0 });
+    pkgRows.push({ label: escHtml(lbl || '—') + PRICE_TAG[p.priceSource === 'procurement' || p.priceSource === 'estimate' ? p.priceSource : ''], type: 'Packaging', qty: p.qty || 0, up: eff, sub: p.subtotal || 0 });
   });
   (data.processing || []).filter(Boolean).filter(function(p) { return p.enabled; }).forEach(function(p) {
-    pkgRows.push({ label: procLabelForKey(p.type), type: '가공', qty: data.totalUnits || 0, up: p.unitPrice || 0, sub: p.subtotal || 0 });
+    pkgRows.push({ label: procLabelForKey(p.type), type: 'Processing', qty: data.totalUnits || 0, up: p.unitPrice || 0, sub: p.subtotal || 0 });
   });
   (data.processingCustom || []).filter(Boolean).forEach(function(c) {
-    pkgRows.push({ label: c.name || '가공비 항목', type: '가공(수동)', qty: c.qty || 0, up: c.unitPrice || 0, sub: c.subtotal || 0 });
+    pkgRows.push({ label: c.name || 'Processing items', type: 'Processing (manual)', qty: c.qty || 0, up: c.unitPrice || 0, sub: c.subtotal || 0 });
   });
   var pkgBody = document.getElementById('pr-pkg-body');
   if (pkgBody) {
@@ -5781,7 +5781,7 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
         '</tr>';
       }).join('');
     } else {
-      pkgBody.innerHTML = '<tr><td colspan="5" style="color:#aaa;text-align:center;padding:6pt;">항목 없음</td></tr>';
+      pkgBody.innerHTML = '<tr><td colspan="5" style="color:#aaa;text-align:center;padding:6pt;">No items</td></tr>';
     }
   }
 
@@ -5825,7 +5825,7 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
       '<tr class="ct-divider"><td>Total Cost</td><td>' + (total > 0 ? money(total) : '—') + '</td></tr>' +
       '<tr class="ct-grand"><td>Unit Cost (÷ Units)</td><td>' + (unit > 0 ? money(unit, 4) : '—') + '</td></tr>' +
       (disp.cur === 'USD' && unit > 0
-        ? '<tr><td style="color:#777;">≈ NZD 기준 · 1 NZD = ' + disp.usdRate.toFixed(4) + ' USD</td><td style="color:#777;">NZD ' + unit.toFixed(4) + '</td></tr>'
+        ? '<tr><td style="color:#777;">≈ in NZD · 1 NZD = ' + disp.usdRate.toFixed(4) + ' USD</td><td style="color:#777;">NZD ' + unit.toFixed(4) + '</td></tr>'
         : '');
   }
 
@@ -5844,7 +5844,7 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
         '</tr>';
       }).join('');
     } else {
-      marginBody.innerHTML = '<tr><td colspan="3" style="color:#aaa;text-align:center;">비용 미입력</td></tr>';
+      marginBody.innerHTML = '<tr><td colspan="3" style="color:#aaa;text-align:center;">No costs entered</td></tr>';
     }
   }
 
@@ -5860,9 +5860,9 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
     var diffPct = prevVal > 0 ? (diff / prevVal * 100).toFixed(1) : '0.0';
     var sign    = diff >= 0 ? '+' : '';
     prevContent.innerHTML =
-      '<div class="pr-prev-line"><span>이전 공급가</span><span>NZD ' + prevVal.toFixed(2) + (prevDate ? '  (' + prevDate + ')' : '') + '</span></div>' +
-      '<div class="pr-prev-line"><span>현재 계산가</span><span>NZD ' + unit.toFixed(2) + '</span></div>' +
-      '<div class="pr-prev-line pr-diff"><span>차이</span><span>' + sign + 'NZD ' + Math.abs(diff).toFixed(2) + '  (' + sign + diffPct + '%)</span></div>';
+      '<div class="pr-prev-line"><span>Previous supply price</span><span>NZD ' + prevVal.toFixed(2) + (prevDate ? '  (' + prevDate + ')' : '') + '</span></div>' +
+      '<div class="pr-prev-line"><span>Current calculated price</span><span>NZD ' + unit.toFixed(2) + '</span></div>' +
+      '<div class="pr-prev-line pr-diff"><span>Difference</span><span>' + sign + 'NZD ' + Math.abs(diff).toFixed(2) + '  (' + sign + diffPct + '%)</span></div>';
     prevBox.style.display = '';
   } else if (prevBox) {
     prevBox.style.display = 'none';
@@ -5872,7 +5872,7 @@ function populatePrintSection(data, estId, savedAt, memo, displayCur) {
 
 function doPrint(titleHint) {
   var orig = document.title;
-  document.title = (titleHint || 'DemoLabs_견적').replace(/\s+/g, '_').replace(/[^\w가-힣_\-]/g, '');
+  document.title = (titleHint || 'DemoLabs_quote').replace(/\s+/g, '_').replace(/[^\w가-힣_\-]/g, '');
   window.print();
   document.title = orig;
 }
@@ -5887,27 +5887,27 @@ function doPrint(titleHint) {
       <div class="pr-header-sub">Estimate Quote</div>
     </div>
     <div class="pr-header-meta">
-      <div>견적번호:&nbsp; <strong id="pr-est-id">—</strong></div>
-      <div>작성일:&nbsp;&nbsp;&nbsp; <strong id="pr-est-date">—</strong></div>
-      <div id="pr-est-memo-row" style="display:none;">메모:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong id="pr-est-memo"></strong></div>
+      <div>Quote no.:&nbsp; <strong id="pr-est-id">—</strong></div>
+      <div>Date:&nbsp;&nbsp;&nbsp; <strong id="pr-est-date">—</strong></div>
+      <div id="pr-est-memo-row" style="display:none;">Memo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong id="pr-est-memo"></strong></div>
     </div>
   </div>
 
   <!-- STEP 1 기본 정보 -->
   <div class="pr-section">
-    <h3>기본 정보</h3>
+    <h3>Basics</h3>
     <div class="pr-kv-grid">
-      <div class="pr-kv-item"><span class="pr-kv-label">제품명</span><span class="pr-kv-value" id="pr-product-name">—</span></div>
-      <div class="pr-kv-item"><span class="pr-kv-label">BOM 코드</span><span class="pr-kv-value" id="pr-bom-code">—</span></div>
-      <div class="pr-kv-item"><span class="pr-kv-label">총 Unit</span><span class="pr-kv-value" id="pr-total-units">—</span></div>
-      <div class="pr-kv-item"><span class="pr-kv-label">정/캡슐 per bottle</span><span class="pr-kv-value" id="pr-cap-per-bottle">—</span></div>
-      <div class="pr-kv-item" style="grid-column:1/-1;"><span class="pr-kv-label">환율 (1 NZD =)</span><span class="pr-kv-value" id="pr-exchange-rates">—</span></div>
+      <div class="pr-kv-item"><span class="pr-kv-label">Product name</span><span class="pr-kv-value" id="pr-product-name">—</span></div>
+      <div class="pr-kv-item"><span class="pr-kv-label">BOM code</span><span class="pr-kv-value" id="pr-bom-code">—</span></div>
+      <div class="pr-kv-item"><span class="pr-kv-label">Total units</span><span class="pr-kv-value" id="pr-total-units">—</span></div>
+      <div class="pr-kv-item"><span class="pr-kv-label">Tablets/capsules per bottle</span><span class="pr-kv-value" id="pr-cap-per-bottle">—</span></div>
+      <div class="pr-kv-item" style="grid-column:1/-1;"><span class="pr-kv-label">FX (1 NZD =)</span><span class="pr-kv-value" id="pr-exchange-rates">—</span></div>
     </div>
   </div>
 
   <!-- STEP 2 제품 유형 -->
   <div class="pr-section">
-    <h3>제품 유형</h3>
+    <h3>Product type</h3>
     <span id="pr-product-type" style="font-weight:600;font-size:10pt;">—</span>
   </div>
 
@@ -5917,18 +5917,18 @@ function doPrint(titleHint) {
     <table class="pr-table">
       <thead>
         <tr>
-          <th>코드</th><th>원료명</th>
+          <th>Code</th><th>Ingredient</th>
           <th style="text-align:right;">mg/ea</th>
-          <th style="text-align:right;">배수</th>
-          <th>통화</th>
-          <th style="text-align:right;">단가</th>
+          <th style="text-align:right;">Multiplier</th>
+          <th>Currency</th>
+          <th style="text-align:right;">Price</th>
           <th style="text-align:right;">NZD/kg</th>
-          <th style="text-align:right;">소계 (NZD)</th>
+          <th style="text-align:right;">Subtotal (NZD)</th>
         </tr>
       </thead>
       <tbody id="pr-raw-body"></tbody>
     </table>
-    <div class="pr-subtotal">Raw Material 소계:&nbsp; <span id="pr-raw-total">—</span></div>
+    <div class="pr-subtotal">Raw Material subtotal:&nbsp; <span id="pr-raw-total">—</span></div>
   </div>
 
   <!-- STEP 4 Packages + Processing -->
@@ -5937,10 +5937,10 @@ function doPrint(titleHint) {
     <table class="pr-table">
       <thead>
         <tr>
-          <th>코드 / 항목</th><th>구분</th>
-          <th style="text-align:right;">수량</th>
-          <th style="text-align:right;">단가 (NZD)</th>
-          <th style="text-align:right;">소계 (NZD)</th>
+          <th>Code / item</th><th>Type</th>
+          <th style="text-align:right;">Quantity</th>
+          <th style="text-align:right;">Price (NZD)</th>
+          <th style="text-align:right;">Subtotal (NZD)</th>
         </tr>
       </thead>
       <tbody id="pr-pkg-body"></tbody>
@@ -5966,7 +5966,7 @@ function doPrint(titleHint) {
         <table class="pr-table">
           <thead>
             <tr>
-              <th>마진율</th>
+              <th>Margin</th>
               <th style="text-align:right;">Selling (<span id="pr-margin-cur">NZD</span>/pk)</th>
               <th style="text-align:right;">Markup</th>
             </tr>
@@ -5977,7 +5977,7 @@ function doPrint(titleHint) {
     </div>
     <div id="pr-price-note" class="pr-price-note"></div>
     <div id="pr-prev-box" class="pr-prev-box" style="display:none;">
-      <h4>이전 공급가 비교</h4>
+      <h4>Previous supply price comparison</h4>
       <div id="pr-prev-content"></div>
     </div>
   </div>

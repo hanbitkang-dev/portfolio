@@ -445,33 +445,33 @@ Discuss where deals are winning, losing, or getting stuck, what the recorded rea
 
         // Build context summary
         const dealSummary = (deals || []).map(d =>
-          `[${d.stage}] ${d.title} / ${d.customer} / 담당:${d.owner} / NZD${d.estValue||0} / 확률${d.probability||0}% / 시작:${d.startDate||d.created||'?'} / 종결예정:${d.closeDate||'?'}${d.closeReason?' / 종결사유:'+d.closeReason:''}${d.dwellNote?' / 체류메모:'+d.dwellNote:''}`
+          `[${d.stage}] ${d.title} / ${d.customer} / owner:${d.owner} / NZD${d.estValue||0} / probability${d.probability||0}% / start:${d.startDate||d.created||'?'} / expected close:${d.closeDate||'?'}${d.closeReason?' / close reason:'+d.closeReason:''}${d.dwellNote?' / stage note:'+d.dwellNote:''}`
         ).join('\n');
 
         const custSummary = (customers || []).slice(0, 80).map(c =>
-          `${c.name} (담당:${c.rep||'?'}, 매출NZD:${c.nzd||0}, 주문${c.orders||0}건)`
+          `${c.name} (owner:${c.rep||'?'}, revenue NZD:${c.nzd||0}, orders${c.orders||0})`
         ).join('\n');
 
         const actSummary = (activities || []).slice(-40).map(a =>
           `[${a.date||a.ts?.slice(0,10)}] ${a.dealId} / ${a.actType} / ${a.summary||a.note} (${a.owner||''})`
         ).join('\n');
 
-        const systemPrompt = `당신은 Demo Labs(Demo Labs) CRM 전용 AI 어시스턴트입니다.
-오늘 날짜: ${today}
-회사: Demo Labs NZ — 건강기능식품 B2B 영업팀 CRM
+        const systemPrompt = `You are the AI assistant for the Demo Labs CRM.
+Today: ${today}
+Company: Demo Labs NZ — CRM for a health supplement B2B sales team
 
-아래 데이터를 기반으로 질문에 답하세요. 데이터에 없는 내용은 "데이터에서 확인되지 않습니다"라고 답하세요.
-숫자는 NZD 기준이며, 딜 금액은 Est. Value 기준입니다.
-답변은 한국어로, 간결하고 실용적으로 해주세요. 마크다운 사용 가능.
+Answer the question from the data below. For anything not in the data, answer "not found in the data".
+Amounts are in NZD; deal amounts are Est. Value.
+Answer in English, briefly and practically. Markdown is fine.
 
-=== 딜 현황 (${(deals||[]).length}건) ===
-${dealSummary || '없음'}
+=== Deals (${(deals||[]).length}) ===
+${dealSummary || 'none'}
 
-=== 고객사 현황 (${(customers||[]).length}개사) ===
-${custSummary || '없음'}
+=== Clients (${(customers||[]).length}) ===
+${custSummary || 'none'}
 
-=== 최근 Activity (${(activities||[]).length}건) ===
-${actSummary || '없음'}`;
+=== Recent activity (${(activities||[]).length}) ===
+${actSummary || 'none'}`;
 
         // Build Gemini contents with conversation history
         const contents = [];
@@ -498,7 +498,7 @@ ${actSummary || '없음'}`;
           return new Response(JSON.stringify({ error: geminiData.error?.message || 'Gemini error' }), { status: 500, headers: cors });
         }
 
-        const answer = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '답변을 생성할 수 없었어요.';
+        const answer = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 'Could not generate an answer.';
         return new Response(JSON.stringify({ answer }), { headers: cors });
 
       } catch (e) {

@@ -50,7 +50,7 @@ function getStaleRawMaterials(months) {
   try {
     months = parseInt(months) || 18;
     var sheet = getRawCostSheet();
-    if (!sheet) return { error: 'raw_cost 시트를 찾을 수 없습니다.' };
+    if (!sheet) return { error: 'raw_cost sheet not found.' };
     var data = sheet.getDataRange().getValues();
     var h = data[0];
     var idx = {
@@ -58,7 +58,7 @@ function getStaleRawMaterials(months) {
       unitPrice: col(h,'unit_price'), status: col(h,'status'),
       registerDate: col(h,'register_date'), supplierName: col(h,'supplier_name'),
     };
-    if (idx.code === -1 || idx.registerDate === -1) return { error: 'raw_cost 에 code/register_date 컬럼이 없습니다.' };
+    if (idx.code === -1 || idx.registerDate === -1) return { error: 'raw_cost has no code/register_date column.' };
 
     var byCode = {};
     for (var i = 1; i < data.length; i++) {
@@ -89,14 +89,14 @@ function getStaleRawMaterials(months) {
       var monthsOld = r.ms ? Math.floor((now.getTime() - r.ms) / (1000*60*60*24*30.44)) : null;
       list.push({
         code: r.code, name: r.name, currency: r.currency, unitPrice: r.unitPrice,
-        registerDate: r.ms ? r.registerDate : '(날짜없음)',
+        registerDate: r.ms ? r.registerDate : '(no date)',
         supplierName: r.supplierName, monthsOld: monthsOld,
       });
     }
     // 오래된 순 (registerDate 오름차순, 날짜없음은 맨 위)
     list.sort(function(a, b){
-      if (a.registerDate === '(날짜없음)') return -1;
-      if (b.registerDate === '(날짜없음)') return 1;
+      if (a.registerDate === '(no date)') return -1;
+      if (b.registerDate === '(no date)') return 1;
       return a.registerDate < b.registerDate ? -1 : a.registerDate > b.registerDate ? 1 : 0;
     });
     return {
@@ -106,7 +106,7 @@ function getStaleRawMaterials(months) {
       staleCount: list.length,
       items: list,
     };
-  } catch(e) { return { error: '소싱 점검 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Sourcing check error: ' + e.message }; }
 }
 
 // 원료 단가 업로드 — 메인 스프레드시트 raw_cost 탭 전량 갱신 (CSV 업로드용)
@@ -127,7 +127,7 @@ function importRawCost(rows) {
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm')
     );
     return { ok: true, count: rows.length };
-  } catch(e) { return { error: 'raw_cost 업로드 오류: ' + e.message }; }
+  } catch(e) { return { error: 'raw_cost upload error: ' + e.message }; }
 }
 
 // ================================================================
@@ -161,7 +161,7 @@ function toYmd(value) {
     var d = new Date((Number(s) - 25569) * 86400 * 1000);
     return Utilities.formatDate(d, 'Asia/Seoul', 'yyyy-MM-dd');
   }
-  var d2 = new Date(s);                                  // "Fri Jan 14 2026 ... KST" 등
+  var d2 = new Date(s);                                  // "Fri Jan 14 2026 ... KST" etc.
   if (!isNaN(d2.getTime())) return Utilities.formatDate(d2, 'Asia/Seoul', 'yyyy-MM-dd');
   return s;
 }
@@ -194,16 +194,16 @@ function doGet(e) {
   try { visitor = Session.getActiveUser().getEmail(); } catch(ignored) {}
   if (!isAllowedUser_(visitor)) {
     return ContentService.createTextOutput(
-      'Demo Labs Pricing Tool — access denied / 접근 권한이 없습니다\n\n' +
+      'Demo Labs Pricing Tool — access denied\n\n' +
       (visitor
-        ? visitor + ' is not on the Pricing Tool access list. / 접근 명단에 없는 계정입니다.'
-        : 'Sign in with your @example.com Google account. / 회사 Google 계정으로 로그인해 주세요.') +
-      '\n\nAsk Jamie (demo.user@example.com) to be added. / 추가가 필요하면 Jamie 에게 요청하세요.');
+        ? visitor + ' is not on the Pricing Tool access list.'
+        : 'Sign in with your @example.com Google account.') +
+      '\n\nAsk Jamie (demo.user@example.com) to be added.');
   }
 
   var page    = (e && e.parameter && e.parameter.page) || 'pricing';
   // 회사 계정 전용 웹앱이라 페이지 간 링크도 /a/<도메인>/ 주소로 만든다. 일반 /macros/s/… 주소는
-  // 브라우저 기본 Google 계정으로 열려서, 그게 개인 계정이면 "파일을 열 수 없음" 오류가 난다 (v1.33).
+  // 브라우저 기본 Google 계정으로 열려서, 그게 개인 계정이면 "no more “cannot open file”" 오류가 난다 (v1.33).
   var baseUrl = String(ScriptApp.getService().getUrl())
     .replace('https://script.google.com/macros/s/', 'https://script.google.com/macros/s/');
 
@@ -241,7 +241,7 @@ function doGet(e) {
   };
 
   var tplName  = (page === 'gm') ? 'GM' : (page === 'guide') ? 'Guide' : (page === 'library') ? 'Library' : (page === 'changelog') ? 'Changelog' : (page === 'classify') ? 'Classify' : (page === 'upload') ? 'Upload' : (page === 'sourcing') ? 'Sourcing' : (page === 'procurement') ? 'Procurement' : 'Pricing';
-  var title    = (page === 'gm') ? 'GM Analysis · Demo Labs' : (page === 'guide') ? 'User Guide · Demo Labs' : (page === 'library') ? 'Pricing Library · Demo Labs' : (page === 'changelog') ? 'Changelog · Demo Labs' : (page === 'classify') ? '분류 관리 · Demo Labs' : (page === 'upload') ? '데이터 업로드 · Demo Labs' : (page === 'sourcing') ? '원료 점검 · Demo Labs' : (page === 'procurement') ? 'Procurement · Demo Labs' : 'Demo Labs Sales Pricing Tool';
+  var title    = (page === 'gm') ? 'GM Analysis · Demo Labs' : (page === 'guide') ? 'User Guide · Demo Labs' : (page === 'library') ? 'Pricing Library · Demo Labs' : (page === 'changelog') ? 'Changelog · Demo Labs' : (page === 'classify') ? 'Categories · Demo Labs' : (page === 'upload') ? 'Data upload · Demo Labs' : (page === 'sourcing') ? 'Ingredient check · Demo Labs' : (page === 'procurement') ? 'Procurement · Demo Labs' : 'Demo Labs Sales Pricing Tool';
   var html = HtmlService.createTemplateFromFile(tplName);
   for (var k in tplVars) html[k] = tplVars[k];
   return html.evaluate()
@@ -277,7 +277,7 @@ function doPost(e) {
 
 function checkPricingPassword(pw) {
   var stored = PropertiesService.getScriptProperties().getProperty('PRICING_PASSWORD');
-  if (!stored) return { ok: true, warn: 'PRICING_PASSWORD가 설정되지 않았습니다.' };
+  if (!stored) return { ok: true, warn: 'PRICING_PASSWORD is not set.' };
   return { ok: pw === stored };
 }
 
@@ -290,7 +290,7 @@ function getExchangeRates() {
       { muteHttpExceptions: true }
     );
     if (response.getResponseCode() !== 200) {
-      return { error: '환율 API 오류: ' + response.getResponseCode() };
+      return { error: 'FX API error: ' + response.getResponseCode() };
     }
     var rates = JSON.parse(response.getContentText()).rates;
     return {
@@ -300,7 +300,7 @@ function getExchangeRates() {
       updatedAt: Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm'),
     };
   } catch(e) {
-    return { error: '환율 조회 오류: ' + e.message };
+    return { error: 'FX lookup error: ' + e.message };
   }
 }
 
@@ -378,7 +378,7 @@ function bulkMatchRawMaterials(codes) {
     }
     return result;
   } catch(e) {
-    return { error: 'PFS 코드 매칭 오류: ' + e.message };
+    return { error: 'PFS code matching error: ' + e.message };
   }
 }
 
@@ -423,7 +423,7 @@ function fixPkgPrice(code, price) {
 function searchRawMaterial(keyword) {
   try {
     var sheet = getRawCostSheet();
-    if (!sheet) return { error: 'raw_cost 시트를 찾을 수 없습니다.' };
+    if (!sheet) return { error: 'raw_cost sheet not found.' };
 
     var data    = sheet.getDataRange().getValues();
     var headers = data[0];
@@ -476,7 +476,7 @@ function searchRawMaterial(keyword) {
 
     return Object.keys(byCode).map(function(k) { return byCode[k].item; });
   } catch(e) {
-    return { error: '원료 검색 오류: ' + e.message };
+    return { error: 'Ingredient search error: ' + e.message };
   }
 }
 
@@ -485,7 +485,7 @@ function searchPackaging(keyword) {
     var cfg   = getConfig();
     var ss    = SpreadsheetApp.openById(cfg.PKG_COST_SPREADSHEET_ID);
     var sheet = ss.getSheetByName('packaging_cost');
-    if (!sheet) return { error: 'packaging_cost 시트를 찾을 수 없습니다.' };
+    if (!sheet) return { error: 'packaging_cost sheet not found.' };
 
     var data    = sheet.getDataRange().getValues();
     var headers = data[0];
@@ -533,7 +533,7 @@ function searchPackaging(keyword) {
 
     return Object.keys(byCode).map(function(k) { return byCode[k].item; });
   } catch(e) {
-    return { error: '부자재 검색 오류: ' + e.message };
+    return { error: 'Packaging search error: ' + e.message };
   }
 }
 
@@ -603,12 +603,12 @@ function getPackagingByOp(opCode) {
   try {
     var cfg = getConfig();
     if (!cfg.BOM_SPREADSHEET_ID) {
-      return { error: 'BOM_SPREADSHEET_ID가 ScriptProperties에 등록되지 않았습니다.' };
+      return { error: 'BOM_SPREADSHEET_ID is not set in ScriptProperties.' };
     }
 
     var bomSS    = SpreadsheetApp.openById(cfg.BOM_SPREADSHEET_ID);
     var finishSh = bomSS.getSheetByName('finish_BOM');
-    if (!finishSh) return { error: 'finish_BOM 시트를 찾을 수 없습니다.' };
+    if (!finishSh) return { error: 'finish_BOM sheet not found.' };
 
     var data    = finishSh.getDataRange().getValues();
     var headers = data[0];
@@ -689,7 +689,7 @@ function getPackagingByOp(opCode) {
 
     return { packages: packages, ofCode: selectedOf, multipleOf: multipleOf };
   } catch(e) {
-    return { error: 'OP 패키징 조회 오류: ' + e.message };
+    return { error: 'OP packaging lookup error: ' + e.message };
   }
 }
 
@@ -701,7 +701,7 @@ function getBomData(code) {
   try {
     var cfg = getConfig();
     if (!cfg.BOM_SPREADSHEET_ID) {
-      return { error: 'BOM_SPREADSHEET_ID가 ScriptProperties에 등록되지 않았습니다.' };
+      return { error: 'BOM_SPREADSHEET_ID is not set in ScriptProperties.' };
     }
     var bomSS = SpreadsheetApp.openById(cfg.BOM_SPREADSHEET_ID);
     var bom = {
@@ -716,7 +716,7 @@ function getBomData(code) {
     if      (prefix === 'OF') result = resolveOF(bom, code.toUpperCase(), seen);
     else if (prefix === 'OB') result = resolveOB(bom, code.toUpperCase());
     else if (prefix === 'OC') result = resolveOC(bom, code.toUpperCase(), seen);
-    else return { error: 'OF/OB/OC 코드만 지원합니다.' };
+    else return { error: 'Only OF/OB/OC codes are supported.' };
 
     if (result.error) return result;
 
@@ -726,7 +726,7 @@ function getBomData(code) {
     enrichBomPricing(result, rawMap, pkgMap);
     return result;
   } catch(e) {
-    return { error: 'BOM 조회 오류: ' + e.message };
+    return { error: 'BOM lookup error: ' + e.message };
   }
 }
 
@@ -760,7 +760,7 @@ function getBomRows(sheet, code) {
 
 function resolveOF(bom, code, seen) {
   var rows = getBomRows(bom.finish, code);
-  if (!rows.length) return { error: 'finish_BOM에서 찾을 수 없습니다: ' + code };
+  if (!rows.length) return { error: 'Not found in finish_BOM: ' + code };
   var ix = bom.finish.idx;
   var productName = String(rows[0][ix.descr] || '');
   var itemType    = String(rows[0][ix.itemType] || '').toLowerCase().trim();
@@ -801,7 +801,7 @@ function resolveOF(bom, code, seen) {
 
 function resolveOB(bom, code) {
   var rows = getBomRows(bom.bulk, code);
-  if (!rows.length) return { error: 'bulk_BOM에서 찾을 수 없습니다: ' + code };
+  if (!rows.length) return { error: 'Not found in bulk_BOM: ' + code };
   var ix = bom.bulk.idx;
   var productName = String(rows[0][ix.descr] || '');
   var itemType    = String(rows[0][ix.itemType] || '').toLowerCase().trim();
@@ -824,7 +824,7 @@ function resolveOB(bom, code) {
 
 function resolveOC(bom, code, seen) {
   var rows = getBomRows(bom.indv, code);
-  if (!rows.length) return { error: 'indv_BOM에서 찾을 수 없습니다: ' + code };
+  if (!rows.length) return { error: 'Not found in indv_BOM: ' + code };
   var ix = bom.indv.idx;
   var productName = String(rows[0][ix.descr] || '');
   var itemType    = String(rows[0][ix.itemType] || '').toLowerCase().trim();
@@ -1030,7 +1030,7 @@ function saveEstimate(payload) {
     ]);
     return { id: id, savedAt: savedAt };
   } catch(e) {
-    return { error: '저장 오류: ' + e.message };
+    return { error: 'Save error: ' + e.message };
   }
 }
 
@@ -1038,7 +1038,7 @@ function saveEstimate(payload) {
 function updateEstimate(id, payload) {
   try {
     var sheet = getHistorySheetForId(id);
-    if (!sheet) return { error: '견적 시트를 찾을 수 없습니다: ' + id };
+    if (!sheet) return { error: 'Quote sheet not found: ' + id };
     ensureClassificationColumns(sheet);
     var data = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
@@ -1060,9 +1060,9 @@ function updateEstimate(id, payload) {
         return { id: id, savedAt: savedAt, status: String(data[i][4] || 'Draft') };
       }
     }
-    return { error: '견적을 찾을 수 없습니다: ' + id };
+    return { error: 'Quote not found: ' + id };
   } catch(e) {
-    return { error: '업데이트 오류: ' + e.message };
+    return { error: 'Update error: ' + e.message };
   }
 }
 
@@ -1070,7 +1070,7 @@ function updateEstimate(id, payload) {
 function updateEstimateMeta(id, meta) {
   try {
     var sheet = getHistorySheetForId(id);
-    if (!sheet) return { error: '견적 시트를 찾을 수 없습니다: ' + id };
+    if (!sheet) return { error: 'Quote sheet not found: ' + id };
     ensureClassificationColumns(sheet);
     var data = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
@@ -1082,9 +1082,9 @@ function updateEstimateMeta(id, meta) {
         return { ok: true };
       }
     }
-    return { error: '견적을 찾을 수 없습니다: ' + id };
+    return { error: 'Quote not found: ' + id };
   } catch(e) {
-    return { error: '분류 수정 오류: ' + e.message };
+    return { error: 'Category update error: ' + e.message };
   }
 }
 
@@ -1118,7 +1118,7 @@ function getEstimateList() {
     }
     return list;
   } catch(e) {
-    return { error: '목록 조회 오류: ' + e.message };
+    return { error: 'List error: ' + e.message };
   }
 }
 
@@ -1167,7 +1167,7 @@ function getAllEstimates() {
     list.sort(function(a, b){ return a.savedAt < b.savedAt ? 1 : a.savedAt > b.savedAt ? -1 : 0; });
     return list;
   } catch(e) {
-    return { error: 'Library 조회 오류: ' + e.message };
+    return { error: 'Library error: ' + e.message };
   }
 }
 
@@ -1215,7 +1215,7 @@ function getCostRecords() {
     }
     return out;
   } catch(e) {
-    return { error: '원가DB 조회 오류: ' + e.message };
+    return { error: 'Cost DB error: ' + e.message };
   }
 }
 
@@ -1302,7 +1302,7 @@ function getClassifications() {
     }
     return rows;
   } catch(e) {
-    return { error: '분류 마스터 조회 오류: ' + e.message };
+    return { error: 'Category master error: ' + e.message };
   }
 }
 
@@ -1325,7 +1325,7 @@ function isInHouse(company, brand) {
 function upsertClassification(ofCode, meta) {
   try {
     var of = String(ofCode || '').trim().toUpperCase();
-    if (!of) return { error: 'OF코드가 필요합니다.' };
+    if (!of) return { error: 'OF code required.' };
     var sheet = getClassificationSheet();
     var data  = sheet.getDataRange().getValues();
     var ix    = classHeaderIndex(data[0]);
@@ -1348,7 +1348,7 @@ function upsertClassification(ofCode, meta) {
     sheet.appendRow([of, meta.company || '', meta.brand || '', meta.market || '', inh]);
     return { ok: true, added: true, inHouse: inh === 'Y' };
   } catch(e) {
-    return { error: '분류 저장 오류: ' + e.message };
+    return { error: 'Category save error: ' + e.message };
   }
 }
 
@@ -1356,7 +1356,7 @@ function upsertClassification(ofCode, meta) {
 function deleteClassification(ofCode) {
   try {
     var of = String(ofCode || '').trim().toUpperCase();
-    if (!of) return { error: 'OF코드가 필요합니다.' };
+    if (!of) return { error: 'OF code required.' };
     var sheet = getClassificationSheet();
     var data  = sheet.getDataRange().getValues();
     var ix    = classHeaderIndex(data[0]);
@@ -1366,9 +1366,9 @@ function deleteClassification(ofCode) {
         return { ok: true };
       }
     }
-    return { error: '해당 OF코드를 찾을 수 없습니다: ' + of };
+    return { error: 'OF code not found: ' + of };
   } catch(e) {
-    return { error: '분류 삭제 오류: ' + e.message };
+    return { error: 'Category delete error: ' + e.message };
   }
 }
 
@@ -1392,14 +1392,14 @@ function importClassifications(rows) {
     }
     return { ok: true, count: (rows || []).length };
   } catch(e) {
-    return { error: '분류 마스터 저장 오류: ' + e.message };
+    return { error: 'Category master save error: ' + e.message };
   }
 }
 
 function getEstimateById(id) {
   try {
     var sheet = getHistorySheetForId(id);
-    if (!sheet) return { error: '견적 시트를 찾을 수 없습니다: ' + id };
+    if (!sheet) return { error: 'Quote sheet not found: ' + id };
     var data  = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
       if (String(data[i][0]).trim() === String(id).trim()) {
@@ -1411,16 +1411,16 @@ function getEstimateById(id) {
         };
       }
     }
-    return { error: '견적을 찾을 수 없습니다: ' + id };
+    return { error: 'Quote not found: ' + id };
   } catch(e) {
-    return { error: '조회 오류: ' + e.message };
+    return { error: 'Lookup error: ' + e.message };
   }
 }
 
 function updateEstimateStatus(id, status, memo) {
   try {
     var sheet = getHistorySheetForId(id);
-    if (!sheet) return { error: '견적 시트를 찾을 수 없습니다: ' + id };
+    if (!sheet) return { error: 'Quote sheet not found: ' + id };
     var data  = sheet.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
       if (String(data[i][0]).trim() === String(id).trim()) {
@@ -1429,9 +1429,9 @@ function updateEstimateStatus(id, status, memo) {
         return { success: true };
       }
     }
-    return { error: '견적을 찾을 수 없습니다: ' + id };
+    return { error: 'Quote not found: ' + id };
   } catch(e) {
-    return { error: '업데이트 오류: ' + e.message };
+    return { error: 'Update error: ' + e.message };
   }
 }
 
@@ -1449,12 +1449,12 @@ var PRICING_SETTINGS_DEFAULTS = {
 };
 
 var PRICING_SETTINGS_DESC = {
-  custom_general_usd:         '일반 해외 원료 통관비 (USD)',
-  custom_fishoil_gelatin_usd: 'Fish oil/Gelatin 통관비 (USD)',
-  freight_air_usd:            '항공 운송비 (USD)',
-  freight_sea_usd:            '선박 운송비 (USD)',
-  loss_rate_default:          '기본 Loss Rate (%)',
-  admin_cost_nzd:             'Admin & Management 고정비 (NZD)',
+  custom_general_usd:         'Customs, general imported ingredients (USD)',
+  custom_fishoil_gelatin_usd: 'Customs, fish oil/gelatin (USD)',
+  freight_air_usd:            'Air freight (USD)',
+  freight_sea_usd:            'Sea freight (USD)',
+  loss_rate_default:          'Default loss rate (%)',
+  admin_cost_nzd:             'Admin & Management fixed cost (NZD)',
 };
 
 function getPricingSettings() {
@@ -1474,7 +1474,7 @@ function getPricingSettings() {
     }
     return settings;
   } catch(e) {
-    return { error: '설정 조회 오류: ' + e.message };
+    return { error: 'Settings lookup error: ' + e.message };
   }
 }
 
@@ -1499,7 +1499,7 @@ function savePricingSettings(settings) {
 
     return { success: true };
   } catch(e) {
-    return { error: '설정 저장 오류: ' + e.message };
+    return { error: 'Settings save error: ' + e.message };
   }
 }
 
@@ -1509,29 +1509,29 @@ function savePricingSettings(settings) {
 
 function checkSupplyPriceSheet() {
   var cfg = getConfig();
-  Logger.log('=== Supply Price 진단 ===');
+  Logger.log('=== Supply Price diagnostics ===');
   Logger.log('SUPPLY_PRICE_SPREADSHEET_ID: ' + cfg.SUPPLY_PRICE_SPREADSHEET_ID);
-  if (!cfg.SUPPLY_PRICE_SPREADSHEET_ID) { Logger.log('❌ ScriptProperty 미등록'); return; }
+  if (!cfg.SUPPLY_PRICE_SPREADSHEET_ID) { Logger.log('❌ ScriptProperty not set'); return; }
 
   var ss;
   try {
     ss = SpreadsheetApp.openById(cfg.SUPPLY_PRICE_SPREADSHEET_ID);
-    Logger.log('스프레드시트명: ' + ss.getName());
-  } catch(e) { Logger.log('❌ 열기 실패: ' + e.message); return; }
+    Logger.log('Spreadsheet name: ' + ss.getName());
+  } catch(e) { Logger.log('❌ Failed to open: ' + e.message); return; }
 
   var sheetNames = ss.getSheets().map(function(s) { return s.getName(); });
-  Logger.log('시트 목록: ' + sheetNames.join(', '));
+  Logger.log('Sheets: ' + sheetNames.join(', '));
 
   var sheet = ss.getSheetByName('Sheet1');
-  if (!sheet) { Logger.log('❌ Sheet1 없음'); return; }
+  if (!sheet) { Logger.log('❌ No Sheet1'); return; }
 
   var data = sheet.getDataRange().getValues();
-  Logger.log('전체 행 수(헤더포함): ' + data.length);
-  Logger.log('헤더: ' + data[0].join(' | '));
+  Logger.log('Total rows (incl. header): ' + data.length);
+  Logger.log('Header: ' + data[0].join(' | '));
 
   var statusIdx = data[0].map(function(h){return String(h).trim();}).indexOf('status');
   var codeIdx   = data[0].map(function(h){return String(h).trim();}).indexOf('product_code');
-  Logger.log('product_code 칼럼 인덱스: ' + codeIdx + '  status 칼럼 인덱스: ' + statusIdx);
+  Logger.log('product_code column index: ' + codeIdx + '  status column index: ' + statusIdx);
 
   for (var i = 1; i <= Math.min(5, data.length - 1); i++) {
     Logger.log('row' + i + ': ' + data[i].join(' | '));
@@ -1542,9 +1542,9 @@ function checkSupplyPriceSheet() {
     var s = statusIdx !== -1 ? String(data[j][statusIdx] || '').trim().toLowerCase() : '(unknown)';
     statusCount[s] = (statusCount[s] || 0) + 1;
   }
-  Logger.log('status별 건수: ' + JSON.stringify(statusCount));
+  Logger.log('Count by status: ' + JSON.stringify(statusCount));
 
-  Logger.log('--- OF 코드 샘플 (status 포함) ---');
+  Logger.log('--- OF code sample (with status) ---');
   var ofCount = 0;
   for (var k = 1; k < data.length && ofCount < 3; k++) {
     var pc = codeIdx !== -1 ? String(data[k][codeIdx] || '').trim().toUpperCase() : '';
@@ -1555,7 +1555,7 @@ function checkSupplyPriceSheet() {
       ofCount++;
     }
   }
-  if (ofCount === 0) Logger.log('OF로 시작하는 product_code 없음');
+  if (ofCount === 0) Logger.log('No product_code starting with OF');
 }
 
 function normalizeCode(val) {
@@ -1584,7 +1584,7 @@ function getPreviousPrice(productCode, capPerBottle) {
   try {
     var sheet = getSupplyPriceSheet();
     if (!sheet) {
-      return { error: '이전 공급가 데이터가 없습니다. 데이터 업로드 페이지에서 Sales History CSV를 올려주세요.' };
+      return { error: 'No previous supply price data. Upload the Sales History CSV on the Data upload page.' };
     }
 
     var data = sheet.getDataRange().getValues();
@@ -1605,7 +1605,7 @@ function getPreviousPrice(productCode, capPerBottle) {
     if (idx.unitPrice    === -1) missing.push('unit_price');
     if (idx.status       === -1) missing.push('status');
     if (missing.length) {
-      return { error: '칼럼을 찾을 수 없습니다: ' + missing.join(', ') + ' | 실제 헤더: ' + data[0].join(', ') };
+      return { error: 'Column not found: ' + missing.join(', ') + ' | actual header: ' + data[0].join(', ') };
     }
 
     var target = normalizeCode(productCode);
@@ -1639,7 +1639,7 @@ function getPreviousPrice(productCode, capPerBottle) {
     results.sort(function(a, b) { return b.registerDate.localeCompare(a.registerDate); });
     return results.slice(0, 3);
   } catch(e) {
-    return { error: '이전 공급가 조회 오류: ' + e.message };
+    return { error: 'Previous supply price error: ' + e.message };
   }
 }
 
@@ -1652,7 +1652,7 @@ function supplyPriceKey(code, date, price) {
 // 필요한 5개 컬럼만 추출, unit_price>0 행만, 이미 있는 행은 건너뛰고 없는 행만 추가
 function importSupplyPrice(rows) {
   try {
-    if (!rows || !rows.length) return { ok: false, error: '데이터가 없습니다' };
+    if (!rows || !rows.length) return { ok: false, error: 'No data' };
 
     var ss = getOrCreateMainSpreadsheet();
     var sh = ss.getSheetByName('Supply_Price');
@@ -1709,7 +1709,7 @@ function importSupplyPrice(rows) {
       ]);
     }
 
-    if (!merged.length) return { ok: false, error: '가격(unit_price>0)이 있는 행이 없습니다' };
+    if (!merged.length) return { ok: false, error: 'No rows with a price (unit_price>0)' };
 
     if (!sh) sh = ss.insertSheet('Supply_Price');
     sh.clear();
@@ -1719,7 +1719,7 @@ function importSupplyPrice(rows) {
 
     return { ok: true, count: merged.length, added: merged.length - before };
   } catch(e) {
-    return { ok: false, error: '이전 공급가 적재 오류: ' + e.message };
+    return { ok: false, error: 'Previous supply price load error: ' + e.message };
   }
 }
 
@@ -1749,7 +1749,7 @@ function getProcessingSettings() {
     }
     return result;
   } catch(e) {
-    return { error: 'Processing 설정 조회 오류: ' + e.message };
+    return { error: 'Processing settings lookup error: ' + e.message };
   }
 }
 
@@ -1774,7 +1774,7 @@ function saveProcessingSettings(tiers) {
 
     return { success: true };
   } catch(e) {
-    return { error: 'Processing 설정 저장 오류: ' + e.message };
+    return { error: 'Processing settings save error: ' + e.message };
   }
 }
 
@@ -1823,12 +1823,12 @@ function getEncapLaborModel() {
 
 function saveEncapLaborModel(model) {
   try {
-    if (!model || typeof model !== 'object') return { error: '잘못된 데이터' };
+    if (!model || typeof model !== 'object') return { error: 'Invalid data' };
     // 최소 검증 후 그대로 저장 (getEncapLaborModel 에서 병합/보정)
     PropertiesService.getScriptProperties().setProperty('ENCAP_LABOR_MODEL', JSON.stringify(model));
     return { success: true };
   } catch(e) {
-    return { error: 'Encapsulation 역산 모델 저장 오류: ' + e.message };
+    return { error: 'Encapsulation back-calculation model save error: ' + e.message };
   }
 }
 
@@ -1855,13 +1855,13 @@ function getTestCostRules() {
 
 function saveTestCostRules(rules) {
   try {
-    if (!Array.isArray(rules)) return { error: '잘못된 데이터' };
+    if (!Array.isArray(rules)) return { error: 'Invalid data' };
     var clean = rules.filter(function(r){ return r && String(r.keyword || '').trim(); })
                      .map(function(r){ return { keyword: String(r.keyword).trim(), cost: Number(r.cost) || 0 }; });
     PropertiesService.getScriptProperties().setProperty('TEST_COST_RULES', JSON.stringify(clean));
     return { ok: true, count: clean.length };
   } catch(e) {
-    return { error: 'Test 비용 규칙 저장 오류: ' + e.message };
+    return { error: 'Test cost rules save error: ' + e.message };
   }
 }
 
@@ -1909,7 +1909,7 @@ function normalizeProcTable(values, spec) {
     var m = mapHeader(values[r] || []);
     if (m.n >= 4 && (m.map.name != null || m.map.code != null || m.map.description != null)) { hi = r; hm = m.map; break; }
   }
-  if (hi === -1) return { error: '헤더 행을 찾지 못했습니다 (Progress / Name / OR CODE 등).' };
+  if (hi === -1) return { error: 'Header row not found (Progress / Name / OR CODE, etc.).' };
   var rows = [];
   for (var i = hi + 1; i < values.length; i++) {
     var src = values[i] || [], o = {}, filled = false;
@@ -1951,8 +1951,8 @@ function parseFxStandard(values) {
 function importProcurement(payload) {
   try {
     var list = normalizeProcTable(payload && payload.list, PROC_LIST_COLS);
-    if (list.error) return { error: 'List 탭: ' + list.error };
-    if (!list.rows.length) return { error: 'List 탭에서 요청 행을 찾지 못했습니다.' };
+    if (list.error) return { error: 'List tab: ' + list.error };
+    if (!list.rows.length) return { error: 'No request rows found in the List tab.' };
     var pu = normalizeProcTable(payload.priceUpdate, PROC_PU_COLS);
     var ss = getOrCreateMainSpreadsheet();
     writeProcSheet(ss, 'Procurement_List', PROC_LIST_COLS, list.rows);
@@ -1966,7 +1966,7 @@ function importProcurement(payload) {
     };
     PropertiesService.getScriptProperties().setProperty('PROCUREMENT_META', JSON.stringify(meta));
     return { ok: true, count: meta.listCount, puCount: meta.puCount, meta: meta };
-  } catch(e) { return { error: 'Procurement 업로드 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Procurement upload error: ' + e.message }; }
 }
 
 function getProcurementMeta() {
@@ -2152,7 +2152,7 @@ function getProcurementData() {
       return o;
     });
     return { meta: meta, list: list, priceUpdate: readProcSheet('Procurement_PriceUpdate') };
-  } catch(e) { return { error: 'Procurement 조회 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Procurement lookup error: ' + e.message }; }
 }
 
 function procDefaultUnit(o) {
@@ -2160,7 +2160,7 @@ function procDefaultUnit(o) {
   return /packag|shell|bottle|lid|label|\bop\d/.test(t) ? 'ea' : 'kg';
 }
 
-// '단가 찾기' — 코드 일치 우선, 없으면 원료명 유사도로 구매 요청·회신·가격변경 기록 + 회사 DB 유사 품목
+// 'Price finder' — 코드 일치 우선, 없으면 원료명 유사도로 구매 요청·회신·가격변경 기록 + 회사 DB 유사 품목
 // q = { code, name, kind: 'raw'|'pkg', packagingType }
 function findPriceEvidence(q) {
   try {
@@ -2188,7 +2188,7 @@ function findPriceEvidence(q) {
       return score(o.code, o.description) >= 0.6;
     });
     return { meta: meta, matches: matches, priceUpdates: pus, db: db, aiPrev: aiPrev };
-  } catch(e) { return { error: '구매 이력 조회 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Purchase history error: ' + e.message }; }
 }
 
 // ── 단가 추정 근거: 회사 DB 유사 원료·부자재 (방법론 4장) ──────────────────
@@ -2327,13 +2327,13 @@ function estimatePriceAI(q) {
     q = q || {};
     var props = PropertiesService.getScriptProperties();
     var key = props.getProperty('GEMINI_API_KEY');
-    if (!key) return { error: 'GEMINI_API_KEY 가 설정되지 않았습니다 — Apps Script 프로젝트 설정 > 스크립트 속성에 추가하세요 (R&D Toolkit 과 같은 키 사용 가능).' };
+    if (!key) return { error: 'GEMINI_API_KEY is not set — add it in Apps Script project settings > under script properties (the same key as the R&D Toolkit works).' };
     var researchModel = props.getProperty('GEMINI_MODEL') || GEMINI_MODEL;
     var reasonModel   = props.getProperty('GEMINI_REASONING_MODEL') || GEMINI_REASONING_MODEL;
 
     // ① 리서치 — 브랜드 여부·소매 제품·B2B 리스팅 등 사실만 수집
     var r1 = geminiCall(key, researchModel, buildResearchPrompt(q), { search: true, maxTokens: 8192 });
-    if (r1.error) return { error: 'AI 리서치 오류: ' + r1.error };
+    if (r1.error) return { error: 'AI research error: ' + r1.error };
     var facts = extractJson(r1.text) || { notes: String(r1.text || '').slice(0, 4000) };
     var sources = groundingSources(r1.grounding);
 
@@ -2342,17 +2342,17 @@ function estimatePriceAI(q) {
     var r2 = geminiCall(key, reasonModel, p2, { maxTokens: 16384, thinkingBudget: 4096 });
     var usedModel = reasonModel;
     if (r2.error && reasonModel !== researchModel) { r2 = geminiCall(key, researchModel, p2, { maxTokens: 16384 }); usedModel = researchModel; }
-    if (r2.error) return { error: 'AI 추론 오류: ' + r2.error };
+    if (r2.error) return { error: 'AI reasoning error: ' + r2.error };
     var raw = extractJson(r2.text);
-    if (!raw) return { error: 'AI 추론 응답을 해석하지 못했습니다.', raw: String(r2.text || '').slice(0, 400) };
+    if (!raw) return { error: 'Could not read the AI reasoning response.', raw: String(r2.text || '').slice(0, 400) };
     var result = normalizeEstimate(raw, q);
     if (result.error) return result;
     var out = { ok: true, result: result, facts: facts, sources: sources, queries: (r1.grounding && r1.grounding.webSearchQueries) || [],
-                model: '리서치 ' + researchModel + ' · 추론 ' + usedModel + (usedModel !== reasonModel ? ' (' + reasonModel + ' 실패로 대체)' : '') };
+                model: 'research ' + researchModel + ' · reasoning ' + usedModel + (usedModel !== reasonModel ? ' (' + reasonModel + ' failed, fallback used)' : '') };
     logPriceEstimate(q, out);
     saveStoredEstimate(q, out);
     return out;
-  } catch(e) { return { error: 'AI 추정 오류: ' + e.message }; }
+  } catch(e) { return { error: 'AI estimate error: ' + e.message }; }
 }
 
 function geminiCall(key, model, prompt, opts) {
@@ -2374,7 +2374,7 @@ function geminiCall(key, model, prompt, opts) {
     }
     if (json.error) return { error: model + ': ' + json.error.message };
     var cand = json.candidates && json.candidates[0];
-    if (!cand || !cand.content) return { error: model + ': 빈 응답' + (cand && cand.finishReason ? ' (' + cand.finishReason + ')' : '') };
+    if (!cand || !cand.content) return { error: model + ': empty response' + (cand && cand.finishReason ? ' (' + cand.finishReason + ')' : '') };
     var text = (cand.content.parts || []).map(function(p) { return p.thought ? '' : (p.text || ''); }).join('');
     return { text: text, grounding: cand.groundingMetadata || {}, finishReason: cand.finishReason };
   } catch(e) { return { error: model + ': ' + e.message }; }
@@ -2470,10 +2470,10 @@ function buildReasoningPrompt(q, facts) {
     '5. Recommend which case to use in the quotation, weighing under- vs over-quoting with the per-unit factor (e.g. "if we quote B and it turns out A, we lose about NZD x per pack").',
     '6. Questions to ask the customer that decide the case (e.g. brand-name or clinical claims; daily dose vs clinical dose — compute the ratio from mg per capsule).',
     '7. What to request from our procurement team for each case (name suppliers/distributors when known).',
-    'Write every text field in Korean, concise, with concrete numbers. Never invent sources or numbers — write "확인 필요" when unknown.',
+    'Write every text field in Korean, concise, with concrete numbers. Never invent sources or numbers — write "Needs checking" when unknown.',
     '',
     'OUTPUT: JSON only, exactly this shape:',
-    '{"summary":"한 줄 요약","branded":"yes|no|ambiguous","brand_candidates":[""],' +
+    '{"summary":"One-line summary","branded":"yes|no|ambiguous","brand_candidates":[""],' +
     '"cases":[{"key":"A","label":"","type":"branded|generic","currency":"USD|NZD","unit":"' + unit + '","low":0,"mid":0,"high":0,"incoterms":"FOB|EXW|CIF|DAP|DDP","moq":"","confidence":"low|medium|high","confidence_note":"","basis":[""],"grade_note":""}],' +
     '"recommended":"A","recommendation":"","db_evidence":"","client_questions":[{"q":"","why":""}],"procurement_requests":[""]}',
   ].filter(function(x) { return x !== ''; }).join('\n');
@@ -2496,7 +2496,7 @@ function normalizeEstimate(r, q) {
       confidence_note: String(c.confidence_note || ''), basis: arr(c.basis), grade_note: String(c.grade_note || ''),
     };
   }).filter(Boolean).slice(0, 3);
-  if (!cases.length) return { error: 'AI가 유효한 가격 범위를 내지 못했습니다.' };
+  if (!cases.length) return { error: 'The AI did not return a valid price range.' };
   var rec = String(r.recommended || '');
   if (!cases.some(function(c) { return c.key === rec; })) rec = cases[0].key;
   return {
@@ -2528,7 +2528,7 @@ function saveStoredEstimate(q, out) {
     out.savedBy = user;
     out.product = q.productName || '';
     var json = JSON.stringify(out);
-    if (json.length > 48000) { var slim = JSON.parse(json); slim.facts = { notes: '(용량 초과로 리서치 원자료 생략)' }; json = JSON.stringify(slim); }
+    if (json.length > 48000) { var slim = JSON.parse(json); slim.facts = { notes: '(research source text left out, too large)' }; json = JSON.stringify(slim); }
     sheet.appendRow([estimateKey(q.kind, q.code, q.name), out.savedAt, user, q.kind || 'raw', q.code || '', q.name || '', out.product, json]);
   } catch(e) { Logger.log('[EST_STORE] ' + e.message); }
 }
@@ -2563,7 +2563,7 @@ function getStoredEstimates(items) {
       if (est) { delete est.facts; out[it.key] = est; }
     });
     return { results: out };
-  } catch(e) { return { error: '저장된 추정 조회 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Saved estimate error: ' + e.message }; }
 }
 
 function restoreEstimateFromLog(ss, q, key) {
@@ -2584,7 +2584,7 @@ function restoreEstimateFromLog(ss, q, key) {
     if (!cases.length) continue;
     var result = normalizeEstimate({ cases: cases, recommended: iR !== -1 ? row[iR] : '' }, q);
     if (result.error) continue;
-    result.summary = '요약 로그에서 복원한 결과 — 근거·출처·확인 질문은 남아 있지 않습니다.';
+    result.summary = 'Restored from the summary log — basis, sources and questions are not kept.';
     return { ok: true, stored: true, restoredFromLog: true, result: result, facts: {}, sources: [],
              model: iM !== -1 ? String(row[iM] || '') : '', savedAt: toYmdHm(row[iT]), savedBy: iU !== -1 ? String(row[iU] || '') : '', product: iP !== -1 ? String(row[iP] || '') : '' };
   }
@@ -2634,7 +2634,7 @@ function getProcurementStatus(items) {
       if (best) out[it.key] = { progress: best.o.progress, date: best.o.date, requestedBy: best.o.requestedBy, hasPrice: hasPrice };
     });
     return { meta: { updatedAt: meta.updatedAt }, status: out };
-  } catch(e) { return { error: '구매 요청 상태 조회 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Procurement request status error: ' + e.message }; }
 }
 
 // ================================================================
@@ -2653,8 +2653,8 @@ function getGmData(year) {
       sales: props.getProperty('GM_SALES_UPDATED') || null
     };
 
-    if (!costSheet)  return { error: 'GM_CostMaster 시트가 없습니다. 데이터를 먼저 업로드하세요.' };
-    if (!salesSheet) return { error: 'GM_Sales 시트가 없습니다. 데이터를 먼저 업로드하세요.' };
+    if (!costSheet)  return { error: 'No GM_CostMaster sheet. Upload the data first.' };
+    if (!salesSheet) return { error: 'No GM_Sales sheet. Upload the data first.' };
 
     // ── Cost Master 파싱
     // costByOf: OF코드 → 레코드 (완제품 원가)
@@ -2751,7 +2751,7 @@ function getGmData(year) {
       p.gm_percent = p.total_revenue > 0 ? p.gm_nzd / p.total_revenue : 0;
       products.push(p);
 
-      var cn = p.client_name || '(미분류)';
+      var cn = p.client_name || '(uncategorised)';
       if (!clientMap[cn]) clientMap[cn] = { client_name: cn, product_count: 0, total_revenue: 0, total_cost: 0 };
       clientMap[cn].product_count++;
       clientMap[cn].total_revenue += p.total_revenue;
@@ -2785,7 +2785,7 @@ function getGmData(year) {
       },
     };
   } catch(e) {
-    return { error: 'GM 데이터 오류: ' + e.message };
+    return { error: 'GM data error: ' + e.message };
   }
 }
 
@@ -2806,7 +2806,7 @@ function importGmCostMaster(rows) {
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm")
     );
     return { ok: true, count: rows.length };
-  } catch(e) { return { error: '업로드 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Upload error: ' + e.message }; }
 }
 
 function importGmSales(rows) {
@@ -2826,5 +2826,5 @@ function importGmSales(rows) {
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm")
     );
     return { ok: true, count: rows.length };
-  } catch(e) { return { error: '업로드 오류: ' + e.message }; }
+  } catch(e) { return { error: 'Upload error: ' + e.message }; }
 }

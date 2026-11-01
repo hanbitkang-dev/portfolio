@@ -180,15 +180,15 @@ textarea.input{resize:vertical;min-height:96px;line-height:1.55;}
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
-        <span>저장된 견적</span>
+        <span>Saved quotes</span>
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9a3 3 0 100 6 3 3 0 000-6z"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-2.9 1.2V21a2 2 0 11-4 0v-.1A1.7 1.7 0 006.7 19l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00-1.2-2.9H3a2 2 0 110-4h.1A1.7 1.7 0 005 6.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H10a1.7 1.7 0 001-1.6V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.6 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V10a1.7 1.7 0 001.6 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
-        <span>설정</span>
+        <span>Settings</span>
       </a>
       <a class="nav-item" href="../pricing/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h7M15 18h5M14 4v4M6 10v4M11 16v4"/></svg>
-        <span>Processing 설정</span>
+        <span>Processing settings</span>
       </a>
     </nav>
 
@@ -200,11 +200,11 @@ textarea.input{resize:vertical;min-height:96px;line-height:1.55;}
       </a>
     </nav>
 
-    <div class="nav-section">도움말</div>
+    <div class="nav-section">Help</div>
     <nav class="nav">
       <a class="nav-item" href="../pricing/guide.html" data-sales-page="guide">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>사용 가이드</span>
+        <span>User guide</span>
       </a>
     </nav>
     
@@ -240,9 +240,9 @@ textarea.input{resize:vertical;min-height:96px;line-height:1.55;}
 
         <div class="grid-3" style="margin-bottom:16px;">
           <div class="field">
-            <label>제형 (Dosage Form)<span style="color:var(--drop);margin-left:3px;">*</span></label>
+            <label>Dosage form<span style="color:var(--drop);margin-left:3px;">*</span></label>
             <select id="formType" class="input">
-              <option value="">선택하세요</option>
+              <option value="">Choose</option>
               <option value="hard capsule">Hard Capsule</option>
               <option value="soft capsule">Soft Capsule</option>
               <option value="tablet">Tablet</option>
@@ -254,47 +254,47 @@ textarea.input{resize:vertical;min-height:96px;line-height:1.55;}
             </select>
           </div>
           <div class="field">
-            <label>타겟 고객</label>
-            <input type="text" id="targetCustomer" class="input" placeholder="예: 60대 남성, 임산부, 운동선수">
+            <label>Target consumer</label>
+            <input type="text" id="targetCustomer" class="input" placeholder="e.g. men in their 60s, pregnant women, athletes">
           </div>
           <div class="field">
-            <label>예산 수준</label>
+            <label>Budget level</label>
             <select id="budget" class="input">
-              <option value="">선택하세요</option>
-              <option value="economy">Economy (저가)</option>
-              <option value="standard">Standard (중가)</option>
-              <option value="premium">Premium (고가)</option>
+              <option value="">Choose</option>
+              <option value="economy">Economy (low)</option>
+              <option value="standard">Standard (mid)</option>
+              <option value="premium">Premium (high)</option>
             </select>
           </div>
         </div>
 
         <div class="grid-2" style="margin-bottom:16px;">
           <div class="field">
-            <label>타겟 효능 / 건강 목적<span style="color:var(--drop);margin-left:3px;">*</span></label>
-            <input type="text" id="targetBenefit" class="input" placeholder="예: 관절 건강, 면역력, 피부 개선">
+            <label>Target benefit / health goal<span style="color:var(--drop);margin-left:3px;">*</span></label>
+            <input type="text" id="targetBenefit" class="input" placeholder="e.g. joint health, immunity, better skin">
           </div>
           <div class="field">
-            <label>원산지 선호</label>
-            <input type="text" id="origin" class="input" placeholder="예: 뉴질랜드산 선호, 한국산 가능">
+            <label>Origin preference</label>
+            <input type="text" id="origin" class="input" placeholder="e.g. prefer NZ-made, Korean-made OK">
           </div>
         </div>
 
         <div class="field" style="margin-bottom:20px;">
-          <label>추가 요구사항 / 특이사항</label>
-          <textarea id="extraNotes" class="input" placeholder="예: 비건 인증 필요, 글루텐 프리, 특정 원료 제외 요청 등"></textarea>
+          <label>Other requirements / notes</label>
+          <textarea id="extraNotes" class="input" placeholder="e.g. vegan certification, gluten free, exclude a specific ingredient"></textarea>
         </div>
 
         <button class="btn btn-ai btn-block" onclick="runRecommend()" id="recommendBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></svg>
-          AI 원료 &amp; 부자재 추천 받기
+          Get AI ingredient &amp; packaging suggestions
         </button>
       </div>
 
       <!-- Loading -->
       <div id="loadingBox" class="loading">
         <div class="spinner ai"></div>
-        <p>AI가 원료 &amp; 부자재 DB를 분석 중이에요...</p>
-        <p class="sub">잠시만 기다려 주세요 (10~20초 소요)</p>
+        <p>AI is analysing the ingredient &amp; packaging DB...</p>
+        <p class="sub">Please wait (10–20 s)</p>
       </div>
 
       <!-- Error -->
@@ -356,7 +356,7 @@ function runRecommend() {
   var extraNotes     = document.getElementById('extraNotes').value.trim();
 
   if (!formType || !targetBenefit) {
-    alert('제형과 타겟 효능은 필수 입력이에요!');
+    alert('Dosage form and target benefit are required!');
     return;
   }
 
@@ -379,7 +379,7 @@ function runRecommend() {
     .withFailureHandler(function(err) {
       document.getElementById('loadingBox').style.display = 'none';
       document.getElementById('recommendBtn').disabled    = false;
-      showError('오류: ' + err.message);
+      showError('Error: ' + err.message);
     })
     .getAIRecommendation(requirements);
 }
